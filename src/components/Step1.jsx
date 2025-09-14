@@ -1,4 +1,4 @@
-import { use, useState } from "react";
+import { useState } from "react";
 
 export function Step1({
   handleNextStep,
@@ -9,7 +9,6 @@ export function Step1({
 }) {
   const [selectedLetter, setSelectedLetter] = useState("");
   const [filteredCountries, setFilteredCountries] = useState([]);
-  const [numberApplicant, setNumberApplicant] = useState(1);
 
   const listLetter = [
     ...new Set(data.map((country) => country.code.charAt(0).toUpperCase())),
@@ -46,7 +45,7 @@ export function Step1({
     }
   };
 
-  const handleSubmit = () => {};
+  // const handleSubmit = () => {};
 
   return (
     <div className="sm:flex sm:justify-between">
@@ -163,62 +162,22 @@ export function Step1({
                 >
                   Number of Visas
                 </label>
-                <div class="relative flex items-center mb-2">
-                  <div class="relative flex items-center w-full">
-                    <button
-                      onClick={() => setNumberApplicant((pre) => pre - 1)}
-                      type="button"
-                      id="decrement-button"
-                      class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
-                    >
-                      <svg
-                        class="w-3 h-3 text-gray-900 dark:text-white"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 18 2"
-                      >
-                        <path
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M1 1h16"
-                        />
-                      </svg>
-                    </button>
-                    <input
-                      type="text"
+                <div className="relative flex items-center mb-2">
+                  <div className="relative flex items-center w-full">
+                    <select
+                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       id="visaNumber"
                       name="visaNumber"
                       value={formData.applicants.length}
                       onChange={handleNumApplicantsChange}
-                      class="bg-gray-50 h-11 text-center text-gray-900 text-sm border outline-none block w-full py-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white"
                       required
-                    />
-                    <button
-                      onClick={() => setNumberApplicant((pre) => pre + 1)}
-                      type="button"
-                      id="increment-button"
-                      data-input-counter-increment="quantity-input"
-                      class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
                     >
-                      <svg
-                        class="w-3 h-3 text-gray-900 dark:text-white"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 18 18"
-                      >
-                        <path
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M9 1v16M1 9h16"
-                        />
-                      </svg>
-                    </button>
+                      {Array.from({ length: 10 }, (_, i) => (
+                        <option key={i + 1} value={i + 1}>
+                          {i + 1} Application
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </div>
               </div>
@@ -256,8 +215,8 @@ export function Step1({
                 </label>
                 <select
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  id="purposeOfVisit"
-                  name="purposeOfVisit"
+                  id="purpose"
+                  name="purpose"
                   value={formData.step1.purpose || ""}
                   onChange={handleStep1Change}
                   required
