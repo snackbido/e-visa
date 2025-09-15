@@ -61,7 +61,7 @@ export function Footer() {
                 to="#"
                 className="hover:text-indigo-400 transition-colors duration-200"
               >
-                Contact Us
+                Notice at Collection
               </Link>
             </li>
             <li>

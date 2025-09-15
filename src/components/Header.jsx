@@ -1,20 +1,22 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-        <Link to="#" className="text-xl sm:text-2xl font-bold text-indigo-600">
+        <Link to="/" className="text-xl sm:text-2xl font-bold text-indigo-600">
           E-Visa
         </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden lg:flex space-x-8 items-center">
           <Link
-            to="#"
+            to="/"
             className="text-gray-600 hover:text-indigo-600 transition-colors duration-200 font-medium"
           >
             Home
@@ -26,19 +28,19 @@ export function Header() {
             Apply Visa
           </Link>
           <Link
-            to="#"
+            to="/blog"
             className="text-gray-600 hover:text-indigo-600 transition-colors duration-200 font-medium"
           >
             Blog
           </Link>
           <Link
-            to="#"
+            to="#about"
             className="text-gray-600 hover:text-indigo-600 transition-colors duration-200 font-medium"
           >
             About Us
           </Link>
           <Link
-            to="#"
+            to="#contact"
             className="text-gray-600 hover:text-indigo-600 transition-colors duration-200 font-medium"
           >
             Contact
@@ -47,14 +49,18 @@ export function Header() {
 
         {/* Desktop CTA Buttons */}
         <div className="hidden md:flex items-center space-x-4">
+          {!user ? (
+            <Link
+              to="/login"
+              className="text-gray-600 hover:text-indigo-600 font-medium hidden lg:block"
+            >
+              Log In
+            </Link>
+          ) : (
+            <div></div>
+          )}
           <Link
-            to="#"
-            className="text-gray-600 hover:text-indigo-600 font-medium hidden lg:block"
-          >
-            Log In
-          </Link>
-          <Link
-            to="#"
+            to="/apply-visa"
             className="px-4 py-2 sm:px-5 sm:py-2.5 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 transition-colors duration-200 shadow-md text-sm sm:text-base"
           >
             Apply Now
