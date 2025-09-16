@@ -2,7 +2,7 @@ import { ROLES } from '@visa/user/entity/user.entity';
 import {
   IsEmail,
   IsEnum,
-  IsNotEmpty,
+  IsOptional,
   IsString,
   Matches,
   MinLength,
@@ -10,14 +10,13 @@ import {
 
 export class AuthCredential {
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   first_name: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   last_name: string;
 
-  @IsString()
   @IsEmail()
   email: string;
 
@@ -29,12 +28,15 @@ export class AuthCredential {
   password: string;
 
   @IsString()
+  @IsOptional()
   phone_number: string;
 
   @IsString()
+  @IsOptional()
   nationality: string;
 
   @IsString()
   @IsEnum(ROLES)
+  @IsOptional()
   role: string;
 }

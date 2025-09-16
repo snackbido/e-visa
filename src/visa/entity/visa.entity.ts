@@ -59,8 +59,11 @@ export class Visa {
   purpose_of_visit: string;
 
   @ManyToOne(() => User, (user) => user.visa, { cascade: true })
-  @JoinColumn({ name: 'visa_id' })
+  @JoinColumn({ name: 'user_id' })
   user: User;
+
+  @Column()
+  user_id: string;
 
   @CreateDateColumn()
   created_at: Date;

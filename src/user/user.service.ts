@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import {
   BadRequestException,
   Injectable,
@@ -65,7 +62,7 @@ export class UserService {
 
     await this.userRepository.save(user);
 
-    return 'User created successfully';
+    return 'Register successfully';
   }
 
   async updateUser(id: string, userDto: updateDto): Promise<string> {

@@ -1,7 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 /* eslint-disable @typescript-eslint/no-floating-promises */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import {
   BadRequestException,
   Injectable,
@@ -19,6 +17,7 @@ import { EmailService } from '@visa/utils/email.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from '@visa/repository/user.repository';
 import { User } from '@visa/user/entity/user.entity';
+import { LoginDto } from '@visa/auth/dto/login.dto';
 
 @Injectable()
 export class AuthService {
@@ -35,13 +34,15 @@ export class AuthService {
     return user;
   }
 
-  async login({ email, password }: AuthCredential): Promise<{ user; token }> {
+  async login({ email, password }: LoginDto): Promise<{ user; token }> {
     const user = await this.userRepository.findOneBy({ email });
 
     if (!user) throw new NotFoundException('Incorrect Email');
 
     if (!bcrypt.compareSync(password, user.password))
       throw new BadRequestException('Incorrect password');
+
+    user.password = '';
 
     const payload: JwtPayload = { id: user.id, role: user.role };
     const token = this.jwtService.sign(payload);

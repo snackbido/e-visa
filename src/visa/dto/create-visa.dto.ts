@@ -49,4 +49,7 @@ export class CreateVisaDto {
 
   @IsString()
   processing_time: string;
+
+  @IsString()
+  user_id: string;
 }

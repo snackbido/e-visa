@@ -6,6 +6,8 @@ import { DatabaseConfigModule } from '@visa/config/db/database.module';
 import { UserModule } from '@visa/user/user.module';
 import { AuthModule } from '@visa/auth/auth.module';
 import { EmailModule } from '@visa/utils/email.module';
+import { VisaModule } from '@visa/visa/visa.module';
+import { PaymentModule } from './payment/payment.module';
 
 @Module({
   imports: [
@@ -14,6 +16,8 @@ import { EmailModule } from '@visa/utils/email.module';
     UserModule,
     EmailModule,
     AuthModule,
+    VisaModule,
+    PaymentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

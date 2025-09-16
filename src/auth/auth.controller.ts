@@ -11,6 +11,7 @@ import { AuthService } from '@visa/auth/auth.service';
 import { AuthCredential } from '@visa/auth/dto/authCredential.dto';
 import { ResetPasswordDto } from '@visa/auth/dto/resetPassword.dto';
 import { ForgotPasswordDto } from '@visa/auth/dto/forgotPassword.dto';
+import { LoginDto } from '@visa/auth/dto/login.dto';
 
 @Controller('/api/auth')
 export class AuthController {
@@ -20,7 +21,7 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async login(
     @Body()
-    authCredential: AuthCredential,
+    authCredential: LoginDto,
   ): Promise<{ user; token }> {
     return await this.authService.login(authCredential);
   }
