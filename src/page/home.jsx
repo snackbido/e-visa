@@ -62,7 +62,7 @@ const Home = () => {
               </p>
               <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 px-4 sm:px-0">
                 <Link
-                  to="#"
+                  to="/apply-visa"
                   className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-indigo-600 text-white font-bold rounded-full hover:bg-indigo-700 transition-colors duration-200 shadow-lg transform hover:scale-105 text-center"
                 >
                   Start Application

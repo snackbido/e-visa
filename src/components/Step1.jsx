@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
 export function Step1({
   handleNextStep,
@@ -45,16 +46,26 @@ export function Step1({
     }
   };
 
-  // const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (
+      !formData.nationality ||
+      !formData.visaTime ||
+      !formData.visaType ||
+      !formData.purpose
+    ) {
+      toast.error("Please fill full fields");
+      return;
+    }
+    // handleNextStep();
+  };
 
   return (
     <div className="sm:flex sm:justify-between">
       <form
         className="bg-white p-8 sm:border-r border-gray-300 w-full sm:p-4 lg:pr-10 mb-8 sm:mb-0"
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleNextStep();
-        }}
+        onSubmit={handleSubmit}
       >
         <h1 className="text-3xl font-bold text-center text-gray-900 mb-2">
           E-Visa Application
@@ -229,6 +240,12 @@ export function Step1({
             </div>
           </div>
         </div>
+        <button
+          type="submit"
+          className="w-1/2 px-6 sm:mt-4 py-3 sm:px-4 sm:py-2 sm:w-full lg:px-6 lg:py-3 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 transition-colors duration-200"
+        >
+          APPLY NOW
+        </button>
       </form>
       <div className="w-full sm:w-1/4 lg:w-1/3 p-6 sm:mt-0 bg-white rounded-3xl flex-shrink-0 flex flex-col items-center justify-center text-center">
         <h3 className="text-xl font-bold mb-4">Check your fees</h3>
@@ -236,14 +253,8 @@ export function Step1({
           ${totalFee}
         </div>
         <hr className="w-24 h-1 bg-gray-300 rounded-full mb-6" />
-        <button
-          type="submit"
-          className="w-1/2 px-6 py-3 sm:px-4 sm:py-2 sm:w-full lg:px-6 lg:py-3 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 transition-colors duration-200"
-          onClick={handleNextStep}
-        >
-          APPLY NOW
-        </button>
       </div>
+      <ToastContainer />
     </div>
   );
 }

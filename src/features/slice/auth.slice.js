@@ -15,7 +15,11 @@ export const register = createAsyncThunk(
   "auth/register",
   async (userData, thunkAPI) => {
     try {
-      return await authService.register(userData);
+      const data = await authService.register(userData);
+      if (data.status === "false") {
+        return thunkAPI.rejectWithValue(data.stack.response.message[0]);
+      }
+      return data;
     } catch (error) {
       const message =
         (error.response &&
@@ -34,9 +38,12 @@ export const login = createAsyncThunk(
   async (userData, thunkAPI) => {
     try {
       const response = await authService.login(userData);
-      // Lưu token và người dùng vào localStorage
-      localStorage.setItem("user", JSON.stringify(response.user));
-      localStorage.setItem("token", response.token);
+      if (response.status === "success") {
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        localStorage.setItem("token", response.data.token);
+      } else {
+        return thunkAPI.rejectWithValue(response.stack.response.message);
+      }
       return response;
     } catch (error) {
       const message =
@@ -86,21 +93,18 @@ const authSlice = createSlice({
       .addCase(register.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.message = action.payload.message || "Đăng ký thành công!";
+        state.message = action.payload.data || "Register successfully";
       })
       .addCase(register.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(login.pending, (state) => {
-        state.isLoading = true;
-      })
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.user = action.payload.user;
-        state.token = action.payload.token;
+        state.user = action.payload.data.user;
+        state.token = action.payload.data.token;
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;

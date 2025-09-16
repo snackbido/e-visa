@@ -8,6 +8,7 @@ import { Blog } from "./page/blog";
 import PrivateRoute from "./components/PrivateRoute";
 import { Provider } from "react-redux";
 import { store } from "./features/store/store";
+import { Profile } from "./page/profile";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/blog" element={<Blog />} />
         <Route path="" element={<PrivateRoute />}>
           <Route path="/apply-visa" element={<ApplyVisa />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
       </Routes>
     </Provider>

@@ -27,11 +27,14 @@ export function ApplyVisa() {
         passportImage: null,
         arrivalDate: "",
         arrivalBorder: "",
-        email: "",
-        phoneNumber: "",
-        fullName: "",
       },
     ],
+    info: {
+      email: "",
+      first_name: "",
+      last_name: "",
+      phone_number: "",
+    },
   });
 
   const handleCountries = () => {

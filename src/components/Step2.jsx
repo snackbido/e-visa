@@ -150,6 +150,18 @@ export function Step2({
     }));
   };
 
+  const handleInfoChange = (e) => {
+    const { name, value } = e.target;
+    console.log(e.target.name);
+    let newInfo = { ...formData.info };
+    newInfo[name] = value;
+    setFormData((pre) => ({
+      ...pre,
+      info: newInfo,
+    }));
+    console.log(formData.info);
+  };
+
   const [selectedCountry, setSelectedCountry] = useState({
     code: "US",
     dialCode: "+1",
@@ -396,21 +408,23 @@ export function Step2({
 
       <div className="p-6 sm:p-8 border border-gray-200 rounded-xl mb-8">
         <h2 className="text-xl font-bold mb-4">Contact Detail</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div className="col-span-1">
             <label
               className="block text-gray-700 font-medium mb-2"
               htmlFor="email"
             >
               Email address
+              <span className="text-red-600 ml-1">*</span>
             </label>
+
             <input
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
               type="email"
               id="email"
               name="email"
-              value={formData.applicants[0].email || ""}
-              onChange={(e) => handleApplicantChange(0, e)}
+              value={formData.info.email || ""}
+              onChange={(e) => handleInfoChange(e)}
               required
             />
           </div>
@@ -418,9 +432,10 @@ export function Step2({
             <div className="relative">
               <label
                 className="block text-gray-700 font-medium mb-2"
-                htmlFor="contactPhone"
+                htmlFor="phone_number"
               >
                 Phone Number
+                <span className="text-red-600 ml-1">*</span>
               </label>
               <div className="flex rounded-lg border focus-within:ring-2 focus-within:ring-indigo-500 relative">
                 <button
@@ -458,8 +473,10 @@ export function Step2({
                 <input
                   className="w-full px-4 py-2 rounded-r-lg focus:outline-none"
                   type="tel"
-                  id="contactPhone"
-                  name="contactPhone"
+                  id="phone_number"
+                  name="phone_number"
+                  value={formData.info.phone_number || ""}
+                  onChange={(e) => handleInfoChange(e)}
                   required
                 />
               </div>
@@ -502,17 +519,36 @@ export function Step2({
           <div className="col-span-1">
             <label
               className="block text-gray-700 font-medium mb-2"
-              htmlFor="fullName"
+              htmlFor="first_name"
             >
-              Full name
+              First Name
+              <span className="text-red-600 ml-1">*</span>
             </label>
             <input
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              type="tel"
-              id="fullName"
-              name="fullName"
-              value={formData.applicants[0].fullName || ""}
-              onChange={(e) => handleApplicantChange(0, e)}
+              type="text"
+              id="first_name"
+              name="first_name"
+              value={formData.info.first_name || ""}
+              onChange={(e) => handleInfoChange(e)}
+              required
+            />
+          </div>
+          <div className="col-span-1">
+            <label
+              className="block text-gray-700 font-medium mb-2"
+              htmlFor="last_name"
+            >
+              Last Name
+              <span className="text-red-600 ml-1">*</span>
+            </label>
+            <input
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              type="text"
+              id="last_name"
+              name="last_name"
+              value={formData.info.last_name || ""}
+              onChange={(e) => handleInfoChange(e)}
               required
             />
           </div>

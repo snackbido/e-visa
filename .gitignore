@@ -26,3 +26,4 @@ data.json
 fe
 
 .gitignore
+.env

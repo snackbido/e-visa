@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { register, reset } from "../features/slice/auth.slice";
+import { ValidationItem } from "../components/Validate";
 
 export function Register() {
   const [formData, setFormData] = useState({
@@ -12,6 +13,14 @@ export function Register() {
     password: "",
     confirmPassword: "",
   });
+
+  const [validation, setValidation] = useState({
+    length: false,
+    lowercase: false,
+    uppercase: false,
+    digitOrSpecial: false,
+  });
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -26,20 +35,42 @@ export function Register() {
       );
   };
 
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d|.*[\W_]).*$/;
+
+  const validators = {
+    lowercase: /[a-z]/,
+    uppercase: /[A-Z]/,
+    digitOrSpecial: /[\d\W_]/,
+  };
+
   useEffect(() => {
     if (isError) {
       toast.error(message);
     }
     // Nếu đăng ký thành công
     if (isSuccess) {
-      toast.success(message || "Đăng ký thành công! Vui lòng đăng nhập.");
-      navigate("/login");
+      toast.success(message || "Register successful, Please login");
+      setTimeout(() => {
+        navigate("/login");
+      }, 3000);
     }
     dispatch(reset());
   }, [isError, isSuccess, message, navigate, dispatch]);
 
   const handleFormData = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (e.target.name === "password") {
+      const newPassword = e.target.value;
+      const newValidation = {
+        length: newPassword.length >= 8,
+        lowercase: validators.lowercase.test(newPassword),
+        uppercase: validators.uppercase.test(newPassword),
+        digitOrSpecial: validators.digitOrSpecial.test(newPassword),
+      };
+
+      setValidation(newValidation);
+      setIsPasswordValid(passwordRegex.test(newPassword));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -56,8 +87,8 @@ export function Register() {
       return;
     }
 
-    if (formData.password.length < 5) {
-      toast.error("Password must have greater than 5 character ");
+    if (!isPasswordValid) {
+      toast.error("Invalid password");
       return;
     }
 
@@ -150,6 +181,24 @@ export function Register() {
                   id="password"
                   name="password"
                 />
+                <ul className="space-y-2 font-medium">
+                  <ValidationItem
+                    isValid={formData.password.length >= 8}
+                    text="At least 8 characters long"
+                  />
+                  <ValidationItem
+                    isValid={validation.lowercase}
+                    text="At least one lowercase letter"
+                  />
+                  <ValidationItem
+                    isValid={validation.uppercase}
+                    text="At least one uppercase letter"
+                  />
+                  <ValidationItem
+                    isValid={validation.digitOrSpecial}
+                    text="At least one number or special character"
+                  />
+                </ul>
               </div>
               <div className="mt-4">
                 <div className="flex justify-between">

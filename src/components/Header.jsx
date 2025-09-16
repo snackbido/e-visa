@@ -1,10 +1,10 @@
+import { LogOut, User } from "lucide-react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { user } = useSelector((state) => state.auth);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
@@ -57,7 +57,27 @@ export function Header() {
               Log In
             </Link>
           ) : (
-            <div></div>
+            <div className="mx-auto flex justify-end">
+              {/* User Greeting and Hover Dropdown */}
+              <div className="relative group">
+                <button className="text-gray-700 dark:text-gray-300 text-sm md:text-base font-medium px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer">
+                  Hello, {user.email}
+                </button>
+
+                {/* Dropdown Menu */}
+                <div className="absolute right-0 top-10 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300">
+                  <Link
+                    to={"/profile"}
+                    className="flex items-center w-full px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-t-lg transition-colors"
+                  >
+                    <User className="w-4 h-4 mr-2" /> Profile
+                  </Link>
+                  <button className="flex items-center w-full px-4 py-2 text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-b-lg transition-colors">
+                    <LogOut className="w-4 h-4 mr-2" /> Logout
+                  </button>
+                </div>
+              </div>
+            </div>
           )}
           <Link
             to="/apply-visa"
