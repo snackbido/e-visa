@@ -42,12 +42,10 @@ export class AuthService {
     if (!bcrypt.compareSync(password, user.password))
       throw new BadRequestException('Incorrect password');
 
-    user.password = '';
-
     const payload: JwtPayload = { id: user.id, role: user.role };
     const token = this.jwtService.sign(payload);
 
-    return { user, token };
+    return { user: user.id, token };
   }
 
   async register(authCredential: AuthCredential): Promise<string> {

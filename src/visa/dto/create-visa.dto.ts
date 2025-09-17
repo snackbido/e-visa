@@ -1,15 +1,17 @@
 import {
-  IsDateString,
+  IsArray,
   IsEmail,
   IsNumber,
-  IsObject,
   IsOptional,
   IsString,
 } from 'class-validator';
 
 export class CreateVisaDto {
   @IsString()
-  full_name: string;
+  first_name: string;
+
+  @IsString()
+  last_name: string;
 
   @IsEmail()
   email: string;
@@ -17,18 +19,20 @@ export class CreateVisaDto {
   @IsString()
   phone_number: string;
 
-  @IsDateString()
+  @IsString()
   date_of_arrival: string;
 
   @IsOptional()
   arrival_border: string;
 
-  @IsObject()
+  @IsArray()
   applicant: {
     [key: string]: {
       passport_name: string;
       passport_number: string;
       gender: string;
+      avatar: string;
+      passport_image: string;
     };
   };
 

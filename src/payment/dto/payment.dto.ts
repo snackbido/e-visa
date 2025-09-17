@@ -1,4 +1,4 @@
-import { IsEnum, IsNumber, IsString } from 'class-validator';
+import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 import { Payment, STATUS } from '@visa/payment/entity/payment.entity';
 
 export class PaymentDto {
@@ -9,5 +9,6 @@ export class PaymentDto {
   user_id: string;
 
   @IsEnum(Payment)
+  @IsOptional()
   status: STATUS;
 }

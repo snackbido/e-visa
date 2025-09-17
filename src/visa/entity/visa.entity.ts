@@ -15,7 +15,10 @@ export class Visa {
   id: string;
 
   @Column()
-  full_name: string;
+  first_name: string;
+
+  @Column()
+  last_name: string;
 
   @Column()
   email: string;

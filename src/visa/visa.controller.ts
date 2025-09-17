@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { VisaService } from './visa.service';
 import { Visa } from './entity/visa.entity';
 import { CreateVisaDto } from './dto/create-visa.dto';
@@ -21,7 +21,7 @@ export class VisaController {
 
   @Post()
   async createVisa(
-    visaDto: CreateVisaDto,
+    @Body() visaDto: CreateVisaDto,
     @GetUser() user: User,
   ): Promise<string> {
     return await this.visaService.create(visaDto, user);
