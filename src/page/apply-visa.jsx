@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
-import { Footer } from "../components/Footer";
-import { Header } from "../components/Header";
 import { Step1 } from "../components/Step1";
 import { Step2 } from "../components/Step2";
 import { Step3 } from "../components/Step3";
 import countries from "../data.json";
 
-export function ApplyVisa() {
+export function ApplyVisa({ user }) {
   const [currentStep, setCurrentStep] = useState(1);
   const [totalFee, setTotalFee] = useState(0);
   const [formData, setFormData] = useState({
@@ -20,13 +18,13 @@ export function ApplyVisa() {
     applicants: [
       {
         id: 1,
-        passportName: "",
-        passportNumber: "",
+        passport_name: "",
+        passport_number: "",
         gender: "",
         avatar: null,
-        passportImage: null,
-        arrivalDate: "",
-        arrivalBorder: "",
+        passport_image: null,
+        previewAvatar: null,
+        previewPassport: null,
       },
     ],
     info: {
@@ -34,6 +32,8 @@ export function ApplyVisa() {
       first_name: "",
       last_name: "",
       phone_number: "",
+      arrival_date: "",
+      arrival_border: "",
     },
   });
 
@@ -96,7 +96,6 @@ export function ApplyVisa() {
 
   return (
     <>
-      <Header />
       <div className="relative">
         <div className="max-w-7xl w-full mx-auto rounded-2xl p-6 sm:p-10">
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
@@ -210,10 +209,16 @@ export function ApplyVisa() {
           )}
 
           {/* Step 3: Payment */}
-          {currentStep === 3 && <Step3 handlePrevStep={handlePrevStep} />}
+          {currentStep === 3 && (
+            <Step3
+              handlePrevStep={handlePrevStep}
+              formData={formData}
+              totalFee={totalFee}
+              user={user}
+            />
+          )}
         </div>
       </div>
-      <Footer />
     </>
   );
 }

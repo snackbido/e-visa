@@ -1,6 +1,4 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Footer } from "../components/Footer";
-import { Header } from "../components/Header";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
@@ -127,7 +125,6 @@ export function Login() {
 
   return (
     <>
-      <Header />
       <div className="py-16">
         <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
           <div className="hidden lg:block rounded-lg lg:w-1/2 bg-cover bg-[url(https://thumbs.dreamstime.com/b/visa-passport-to-approved-stamped-document-top-view-immigration-approve-129787032.jpg)]"></div>
@@ -235,7 +232,6 @@ export function Login() {
           </div>
         </div>
       </div>
-      <Footer />
       <ToastContainer />
     </>
   );

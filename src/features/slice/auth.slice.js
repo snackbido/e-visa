@@ -1,10 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "../services/auth.service";
 
+const user = localStorage.getItem("user");
+const token = localStorage.getItem("Authorization");
 // Trạng thái ban đầu
 const initialState = {
-  user: null, // Thông tin người dùng
-  token: null, // Token xác thực
+  user: user ? user : null, // Thông tin người dùng
+  token: token ? token : null, // Token xác thực
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -39,8 +41,8 @@ export const login = createAsyncThunk(
     try {
       const response = await authService.login(userData);
       if (response.status === "success") {
-        localStorage.setItem("user", JSON.stringify(response.data.user));
-        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("user", response.data.user);
+        localStorage.setItem("Authorization", response.data.token);
       } else {
         return thunkAPI.rejectWithValue(response.stack.response.message);
       }
@@ -61,7 +63,7 @@ export const login = createAsyncThunk(
 export const logout = createAsyncThunk("auth/logout", async () => {
   await authService.logout();
   localStorage.removeItem("user");
-  localStorage.removeItem("token");
+  localStorage.removeItem("Authorization");
 });
 
 // Tạo slice
@@ -78,7 +80,7 @@ const authSlice = createSlice({
     // Khôi phục trạng thái từ localStorage khi khởi động
     restoreAuth: (state) => {
       const user = JSON.parse(localStorage.getItem("user"));
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("Authorization");
       if (user && token) {
         state.user = user;
         state.token = token;

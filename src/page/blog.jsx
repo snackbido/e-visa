@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
 
 export function Blog() {
   const blogCategories = [
@@ -54,7 +52,6 @@ export function Blog() {
   );
   return (
     <>
-      <Header />
       <div className="min-h-screen bg-gray-100 p-8">
         <header className="py-12 bg-[url('https://placehold.co/1920x400/b3c4f7/ffffff/png?text=Blog+Background')] bg-cover bg-center text-white text-center rounded-xl shadow-lg mb-8">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Blog</h1>
@@ -145,7 +142,6 @@ export function Blog() {
           </div>
         </main>
       </div>
-      <Footer />
     </>
   );
 }

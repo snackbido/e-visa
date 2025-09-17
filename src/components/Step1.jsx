@@ -48,17 +48,17 @@ export function Step1({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    console.log(formData);
     if (
-      !formData.nationality ||
-      !formData.visaTime ||
-      !formData.visaType ||
-      !formData.purpose
+      !formData.step1.nationality ||
+      !formData.step1.visaTime ||
+      !formData.step1.visaType ||
+      !formData.step1.purpose
     ) {
       toast.error("Please fill full fields");
       return;
     }
-    // handleNextStep();
+    handleNextStep();
   };
 
   return (
@@ -112,7 +112,7 @@ export function Step1({
                   >
                     {selectedLetter && <option value="">Please select</option>}
                     {filteredCountries.map((e) => (
-                      <option key={e.code} className="w-1/2" value={e.code}>
+                      <option key={e.code} className="w-1/2" value={e.name}>
                         {e.name}
                       </option>
                     ))}
@@ -242,7 +242,7 @@ export function Step1({
         </div>
         <button
           type="submit"
-          className="w-1/2 px-6 sm:mt-4 py-3 sm:px-4 sm:py-2 sm:w-full lg:px-6 lg:py-3 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 transition-colors duration-200"
+          className="w-full mt-4 px-6 py-3 sm:px-4 sm:py-2 sm:w-full lg:px-6 lg:py-3 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 transition-colors duration-200"
         >
           APPLY NOW
         </button>

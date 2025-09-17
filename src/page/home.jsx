@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
 import { Blog } from "../components/Blog";
 
 const Home = () => {
@@ -46,10 +44,7 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800 font-inter">
-      {/* Header Section */}
-      <Header />
       <main>
-        {/* Hero Section */}
         <section className="py-12 sm:py-16 lg:py-24 bg-[url(https://images.pexels.com/photos/1831271/pexels-photo-1831271.jpeg)] bg-center">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="max-w-4xl mx-auto">
@@ -68,7 +63,7 @@ const Home = () => {
                   Start Application
                 </Link>
                 <Link
-                  to="#"
+                  to="/blog"
                   className="w-full sm:w-auto px-6 sm:px-8 py-3 text-indigo-600 font-bold border-2 border-indigo-600 rounded-full hover:bg-indigo-50 transition-colors duration-200 transform hover:scale-105 text-center"
                 >
                   Learn More
@@ -360,7 +355,7 @@ const Home = () => {
               hassle-free visa application now and get ready for your adventure.
             </p>
             <Link
-              to="#"
+              to="/apply-visa"
               className="inline-block px-6 sm:px-8 py-3 bg-white text-indigo-600 font-bold rounded-full hover:bg-gray-100 transition-colors duration-200 shadow-lg transform hover:scale-105"
             >
               Apply for Your E-Visa
@@ -368,9 +363,6 @@ const Home = () => {
           </div>
         </section>
       </main>
-
-      {/* Footer Section */}
-      <Footer />
     </div>
   );
 };

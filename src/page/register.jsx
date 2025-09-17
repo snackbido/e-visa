@@ -1,6 +1,4 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Footer } from "../components/Footer";
-import { Header } from "../components/Header";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
@@ -101,7 +99,6 @@ export function Register() {
   };
   return (
     <>
-      <Header />
       <div className="py-16">
         <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
           <div className="w-full p-8 lg:w-1/2">
@@ -239,7 +236,6 @@ export function Register() {
           <div className="hidden lg:block rounded-lg lg:w-1/2 bg-cover bg-[url(https://i.abcnewsfe.com/a/142a631c-0076-484a-8761-3cb4ff109ea4/passport-1-rf-gty-bb-230331_1680282593067_hpMain_1x1.jpg?w=608)]"></div>
         </div>
       </div>
-      <Footer />
       <ToastContainer />
     </>
   );

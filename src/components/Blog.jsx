@@ -25,7 +25,7 @@ export function Blog() {
 
   return (
     <section className="py-12 sm:py-16 lg:py-24 bg-gray-100">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-8 lg:px-8">
         <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">
             Our Latest Blog Posts
@@ -79,9 +79,9 @@ export function Blog() {
             ].map((post, index) => (
               <div
                 key={index}
-                className="min-w-[calc(100%-2rem)] w-[calc(100%-2rem)] sm:min-w-[320px] sm:w-[320px] md:min-w-[350px] md:w-[350px] bg-white rounded-2xl shadow-lg snap-center transform hover:scale-105 transition-transform duration-300 flex-shrink-0 mx-4 sm:mx-0"
+                className="min-w-[calc(100%-2rem)] w-[calc(100%-2rem)] md:min-w-[350px] md:w-[350px] bg-white rounded-2xl shadow-lg snap-center transform hover:scale-105 transition-transform duration-300 flex-shrink-0 mx-4 sm:mx-0"
               >
-                <div className="bg-gray-200 rounded-t-2xl w-full h-48 sm:h-40 flex items-center justify-center">
+                <div className="bg-gray-200 rounded-t-2xl  h-48 sm:h-40 flex items-center justify-center">
                   <svg
                     className="w-16 h-16 sm:w-16 sm:h-16 text-gray-400"
                     fill="currentColor"

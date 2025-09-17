@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
 export function Step2({
   formData,
@@ -139,7 +140,13 @@ export function Step2({
   const handleApplicantChange = (index, e) => {
     const newApplicants = [...formData.applicants];
     const { name, value, files } = e.target;
-    if (files) {
+    if (files && files.length > 0) {
+      if (name === "avatar") {
+        newApplicants[index].previewAvatar = URL.createObjectURL(files[0]);
+      }
+      if (name === "passportImage") {
+        newApplicants[index].previewPassport = URL.createObjectURL(files[0]);
+      }
       newApplicants[index][name] = files[0];
     } else {
       newApplicants[index][name] = value;
@@ -152,14 +159,12 @@ export function Step2({
 
   const handleInfoChange = (e) => {
     const { name, value } = e.target;
-    console.log(e.target.name);
     let newInfo = { ...formData.info };
     newInfo[name] = value;
     setFormData((pre) => ({
       ...pre,
       info: newInfo,
     }));
-    console.log(formData.info);
   };
 
   const [selectedCountry, setSelectedCountry] = useState({
@@ -176,6 +181,65 @@ export function Step2({
   const filteredCountries = data.filter((country) =>
     country.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleNext = async (e) => {
+    e.preventDefault();
+    if (
+      !formData.info.arrival_date ||
+      !formData.info.email ||
+      !formData.info.phone_number ||
+      !formData.info.first_name ||
+      !formData.info.last_name
+    ) {
+      toast.error("Please fill full fields");
+      return;
+    }
+
+    for (let i in formData.applicants) {
+      if (
+        !formData.applicants[i].passportName ||
+        !formData.applicants[i].passportNumber ||
+        !formData.applicants[i].gender ||
+        !formData.applicants[i].avatar ||
+        !formData.applicants[i].passportImage
+      ) {
+        toast.error("Please fill the information of visa");
+        return;
+      }
+    }
+
+    // const body = {
+    //   nationality: formData.step1.nationality,
+    //   time_of_visa: formData.step1.visaTime,
+    //   type_of_visa: formData.step1.visaType,
+    //   applicant: formData.applicants,
+    //   processing_time: formData.step1.processingTime,
+    //   purpose_of_visit: formData.step1.purpose,
+    //   user_id: user.id,
+    //   date_of_arrival: formData.info.date_of_arrival,
+    //   arrival_border: formData.info.arrival_border,
+    //   email: formData.info.email,
+    //   phone_number: selectedCountry.dialCode + " " + formData.info.phone_number,
+    //   first_name: formData.info.first_name,
+    //   last_name: formData.info.last_name,
+    // };
+
+    setFormData((pre) => ({
+      ...pre,
+      info: {
+        arrival_date: formData.info.arrival_date,
+        arrival_border: formData.info.arrival_border,
+        phone_number:
+          selectedCountry.dialCode + " " + formData.info.phone_number,
+        email: formData.info.email,
+        first_name: formData.info.first_name,
+        last_name: formData.info.last_name,
+      },
+    }));
+
+    // console.log(formData);
+    handleNextStep();
+  };
   return (
     <div>
       <div className="p-6 sm:p-8 border border-gray-200 rounded-xl mb-8">
@@ -184,7 +248,7 @@ export function Step2({
           <div>
             <label
               className="block text-gray-700 font-medium mb-2"
-              htmlFor="arrivalDate"
+              htmlFor="arrival_date"
             >
               Date of arrival
               <span className="text-red-600 ml-1">*</span>
@@ -192,23 +256,27 @@ export function Step2({
             <input
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
               type="date"
-              id="arrivalDate"
-              name="arrivalDate"
-              value={formData.applicants[0].arrivalDate || ""}
-              onChange={(e) => handleApplicantChange(0, e)}
+              id="arrival_date"
+              name="arrival_date"
+              value={formData.info.arrival_date || ""}
+              onChange={(e) => handleInfoChange(e)}
               required
             />
           </div>
           <div>
             <label
               className="block text-gray-700 font-medium mb-2"
-              htmlFor="arrivalBorder"
+              htmlFor="arrival_border"
             >
               Arrival border
             </label>
             <select
+              id="arrival_border"
               name="arrival_border"
+              value={formData.info.arrival_border || ""}
+              onChange={(e) => handleInfoChange(e)}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              required
             >
               <option value="">Please select</option>
               {entryPoints.map((e) => (
@@ -267,7 +335,7 @@ export function Step2({
                       type="text"
                       id={`passportFullName-${index}`}
                       name="passportName"
-                      value={applicant.passportName}
+                      value={applicant.passportName || ""}
                       onChange={(e) => handleApplicantChange(index, e)}
                       required
                     />
@@ -285,7 +353,7 @@ export function Step2({
                       type="text"
                       id={`passportNumber-${index}`}
                       name="passportNumber"
-                      value={applicant.passportNumber}
+                      value={applicant.passportNumber || ""}
                       onChange={(e) => handleApplicantChange(index, e)}
                       required
                     />
@@ -318,77 +386,100 @@ export function Step2({
                     <p className="text-gray-700 font-medium mb-2">
                       Portrait photo
                     </p>
-                    <div className="w-full aspect-portrait border-2 border-dashed border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center text-center space-y-2">
-                      <div className="w-24 h-24 mb-2 flex items-center justify-center rounded-full bg-gray-200">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          className="w-12 h-12 text-gray-500"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      </div>
-                      <label
-                        htmlFor={`avatar-${index}`}
-                        className="cursor-pointer text-indigo-600 font-semibold hover:underline"
-                      >
-                        Select File to Upload
-                      </label>
-                      <input
-                        type="file"
-                        id={`avatar-${index}`}
-                        name="avatar"
-                        className="sr-only"
-                        onChange={(e) => handleApplicantChange(index, e)}
-                        required
-                      />
-                      <p className="text-xs text-gray-500">
-                        (.jpg, .jpeg, .png)
-                      </p>
-                    </div>
+                    <label
+                      htmlFor={`avatar-${index}`} // 💡 Link to the input's ID
+                      className="w-full aspect-portrait border-2 border-dashed border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center text-center space-y-2 cursor-pointer" // 💡 Add cursor-pointer to show it's clickable
+                    >
+                      {applicant.previewAvatar ? (
+                        <img
+                          src={applicant.previewAvatar}
+                          alt="Portrait preview"
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <>
+                          <div className="w-24 h-24 mb-2 flex items-center justify-center rounded-full bg-gray-200">
+                            {/* SVG for portrait icon */}
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="currentColor"
+                              className="w-12 h-12 text-gray-500"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </div>
+                          <div className="text-indigo-600 font-semibold hover:underline">
+                            Select File to Upload
+                          </div>
+                          <p className="text-xs text-gray-500">
+                            (.jpg, .jpeg, .png)
+                          </p>
+                        </>
+                      )}
+                    </label>
+                    <input
+                      type="file"
+                      id={`avatar-${index}`} // 💡 ID matches the label's htmlFor
+                      name="avatar"
+                      className="sr-only"
+                      onChange={(e) => handleApplicantChange(index, e)}
+                      required
+                    />
                   </div>
+
                   <div className="flex flex-col items-center">
                     <p className="text-gray-700 font-medium mb-2">
                       Passport data page
                     </p>
-                    <div className="w-full aspect-video border-2 border-dashed border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center text-center space-y-2">
-                      <div className="w-24 h-24 mb-2 flex items-center justify-center rounded-lg bg-gray-200">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          className="w-12 h-12 text-gray-500"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5a.75.75 0 0 0 .75-.75v-1.94l-2.42-1.391a1.5 1.5 0 0 0-1.218 0l-.612.355a1.5 1.5 0 0 1-1.218 0l-.612-.355a1.5 1.5 0 0 0-1.218 0L9.75 15.39l-1.656-.954a1.5 1.5 0 0 0-1.218 0l-3.323 1.918Zm16.5-9.613a.75.75 0 0 0-.91-.148L13.5 9.497l-3-1.732a.75.75 0 0 0-.91.148L4.5 12.613V6a.75.75 0 0 1 .75-.75h14.25a.75.75 0 0 1 .75.75v3.454Z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      </div>
-                      <label
-                        htmlFor={`passportImage-${index}`}
-                        className="cursor-pointer text-indigo-600 font-semibold hover:underline"
-                      >
-                        Select File to Upload
-                      </label>
-                      <input
-                        type="file"
-                        id={`passportImage-${index}`}
-                        name="passportImage"
-                        className="sr-only"
-                        onChange={(e) => handleApplicantChange(index, e)}
-                        required
-                      />
-                      <p className="text-xs text-gray-500">
-                        (.jpg, .jpeg, .png)
-                      </p>
-                    </div>
+                    <label
+                      htmlFor={`passportImage-${index}`}
+                      className="w-full aspect-portrait border-2 border-dashed border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center text-center space-y-2 cursor-pointer" // 💡 Add cursor-pointer to show it's clickable
+                    >
+                      {applicant.previewPassport ? (
+                        <img
+                          src={applicant.previewPassport}
+                          alt="Portrait preview"
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <>
+                          <div className="w-24 h-24 mb-2 flex items-center justify-center rounded-full bg-gray-200">
+                            {/* SVG for portrait icon */}
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="currentColor"
+                              className="w-12 h-12 text-gray-500"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5a.75.75 0 0 0 .75-.75v-1.94l-2.42-1.391a1.5 1.5 0 0 0-1.218 0l-.612.355a1.5 1.5 0 0 1-1.218 0l-.612-.355a1.5 1.5 0 0 0-1.218 0L9.75 15.39l-1.656-.954a1.5 1.5 0 0 0-1.218 0l-3.323 1.918Zm16.5-9.613a.75.75 0 0 0-.91-.148L13.5 9.497l-3-1.732a.75.75 0 0 0-.91.148L4.5 12.613V6a.75.75 0 0 1 .75-.75h14.25a.75.75 0 0 1 .75.75v3.454Z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </div>
+                          <div className="text-indigo-600 font-semibold hover:underline">
+                            Select File to Upload
+                          </div>
+                          <p className="text-xs text-gray-500">
+                            (.jpg, .jpeg, .png)
+                          </p>
+                        </>
+                      )}
+                    </label>
+                    <input
+                      type="file"
+                      id={`passportImage-${index}`}
+                      name="passportImage"
+                      className="sr-only"
+                      onChange={(e) => handleApplicantChange(index, e)}
+                      required
+                    />
                   </div>
                 </div>
               </div>
@@ -576,12 +667,13 @@ export function Step2({
           <button
             type="submit"
             className="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 transition-colors duration-200"
-            onClick={handleNextStep}
+            onClick={handleNext}
           >
             Next Step
           </button>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

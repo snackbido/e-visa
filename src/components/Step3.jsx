@@ -1,13 +1,47 @@
 import { useState } from "react";
+import axios from "../axios/axios";
 
-export function Step3({ handlePrevStep }) {
+export function Step3({ handlePrevStep, formData, totalFee, user }) {
   const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false);
-  const handlePaymentSubmit = (e) => {
+
+  const body = {
+    nationality: formData.step1.nationality,
+    time_of_visa: formData.step1.visaTime,
+    type_of_visa: formData.step1.visaType,
+    number_of_visa: formData.applicants.length,
+    applicant: formData.applicants,
+    processing_time: formData.step1.processingTime,
+    purpose_of_visit: formData.step1.purpose,
+    user_id: user.id,
+    date_of_arrival: formData.info.arrival_date,
+    arrival_border: formData.info.arrival_border,
+    email: formData.info.email,
+    phone_number: formData.info.phone_number,
+    first_name: formData.info.first_name,
+    last_name: formData.info.last_name,
+  };
+
+  const handleCreateVisa = async () => {
+    const { data } = await axios.post("/visa", body);
+    return data;
+  };
+  console.log(formData.info.email);
+  const handlePaymentSubmit = async (e) => {
     e.preventDefault();
     // Simulate payment processing
-    setTimeout(() => {
-      setIsPaymentSuccessful(true);
-    }, 1500);
+    const res = await axios.post("/payment", {
+      user_id: user.id,
+      amount: totalFee * 1,
+    });
+
+    if (res.data.status === "success") {
+      const { status } = await handleCreateVisa();
+      if (status === "success") {
+        setTimeout(() => {
+          setIsPaymentSuccessful(true);
+        }, 1500);
+      }
+    }
   };
   return (
     <div className="mx-auto">

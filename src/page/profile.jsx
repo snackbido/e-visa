@@ -8,8 +8,6 @@ import {
   Edit,
   Home,
 } from "lucide-react";
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 
 const visaData = {
@@ -359,7 +357,6 @@ export const Profile = () => {
 
   return (
     <>
-      <Header />
       <div className=" bg-gray-100 dark:bg-gray-900 p-4 sm:p-8 flex flex-col items-center">
         <div className="w-full max-w-6xl p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md space-y-8 md:space-y-0 md:flex md:space-x-8">
           {/* Navigation Sidebar */}
@@ -559,7 +556,6 @@ export const Profile = () => {
           </section>
         </div>
       </div>
-      <Footer />
     </>
   );
 };
