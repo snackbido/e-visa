@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   CheckCircle,
   XCircle,
@@ -9,47 +9,9 @@ import {
   Home,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import axios from "../axios/axios";
 
-const visaData = {
-  isValid: true,
-  visaType: "Tourist",
-  country: "United Kingdom",
-  expirationDate: "2025-12-31",
-};
-
-const customerInfoData = {
-  name: "John Doe",
-  email: "john.doe@example.com",
-  passportNumber: "A12345678",
-  dateOfBirth: "1990-05-15",
-  address: "123 Main St, Anytown, USA",
-};
-
-const evisaHistoryData = [
-  {
-    id: 1,
-    type: "Tourist",
-    country: "France",
-    issueDate: "2024-03-10",
-    status: "Approved",
-  },
-  {
-    id: 2,
-    type: "Business",
-    country: "Germany",
-    issueDate: "2023-09-22",
-    status: "Expired",
-  },
-  {
-    id: 3,
-    type: "Student",
-    country: "Canada",
-    issueDate: "2022-01-05",
-    status: "Expired",
-  },
-];
-
-export const Profile = () => {
+export const Profile = ({ user }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeSection, setActiveSection] = useState("information");
@@ -71,13 +33,15 @@ export const Profile = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        // Using a setTimeout to mimic network latency
-        await new Promise((resolve) => setTimeout(resolve, 1500));
-        setProfileData({
-          visa: visaData,
-          customer: customerInfoData,
-          history: evisaHistoryData,
-        });
+        const { data } = await axios.get(`/visa/history/${user.id}`);
+        if (data.status === "success") {
+          await new Promise((resolve) => setTimeout(resolve, 1500));
+          setProfileData({
+            visa: data.data[0],
+            history: data.data,
+          });
+        }
+
         setError(null);
       } catch (err) {
         setError("Failed to fetch profile data. Please try again.");
@@ -88,12 +52,14 @@ export const Profile = () => {
     };
 
     fetchData();
-  }, []);
+  }, [user]);
 
   const getStatusIcon = (status) => {
     switch (status) {
       case "Approved":
         return <CheckCircle className="text-green-500 w-5 h-5" />;
+      case "Waiting Approve":
+        return <Info className="text-yellow-500 w-5 h-5" />;
       case "Expired":
         return <XCircle className="text-red-500 w-5 h-5" />;
       default:
@@ -154,7 +120,7 @@ export const Profile = () => {
       );
     }
 
-    const { visa, customer, history } = profileData;
+    const { visa, history } = profileData;
 
     switch (activeSection) {
       case "visa":
@@ -162,28 +128,65 @@ export const Profile = () => {
           <section className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow-inner">
             <h2 className="flex items-center text-xl font-semibold text-gray-900 dark:text-white mb-4">
               <CheckCircle className="text-indigo-500 mr-2" />
-              Visa Status
+              Visa Information
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700 dark:text-gray-300">
               <div className="flex items-center">
                 <span className="font-medium mr-2">Status:</span>
                 <span
                   className={`font-bold ${
-                    visa.isValid ? "text-green-600" : "text-red-600"
+                    visa.status === "Approved"
+                      ? "text-green-600"
+                      : visa.status === "Waiting Approve"
+                      ? "text-yellow-400"
+                      : "text-red-600"
                   }`}
                 >
-                  {visa.isValid ? "Valid" : "Invalid"}
+                  {visa.status}
                 </span>
               </div>
               <div>
-                <span className="font-medium">Type:</span> {visa.visaType}
+                <span className="font-medium">Full Name:</span>{" "}
+                {visa.last_name + " " + visa.first_name}
               </div>
               <div>
-                <span className="font-medium">Country:</span> {visa.country}
+                <span className="font-medium">Email:</span> {visa.email}
+              </div>
+              <div>
+                <span className="font-medium">Phone Number:</span>{" "}
+                {visa.phone_number}
+              </div>
+              <div>
+                <span className="font-medium">Nationality:</span>{" "}
+                {visa.nationality}
+              </div>
+              <div>
+                <span className="font-medium">Visa Time:</span>{" "}
+                {visa.time_of_visa}
+              </div>
+              <div>
+                <span className="font-medium">Visa Type:</span>{" "}
+                {visa.type_of_visa}
+              </div>
+              <div>
+                <span className="font-medium">Processing Time:</span>{" "}
+                {visa.processing_time}
+              </div>
+              <div>
+                <span className="font-medium">Purpose of Visit:</span>{" "}
+                {visa.purpose_of_visit}
+              </div>
+              <div>
+                <span className="font-medium">Arrival Date:</span>{" "}
+                {visa.date_of_arrival}
               </div>
               <div>
                 <span className="font-medium">Expiration:</span>{" "}
                 {visa.expirationDate}
+              </div>
+              <div>
+                <span className="font-medium">Applicants:</span>{" "}
+                {visa.applicant.length}
               </div>
             </div>
           </section>
@@ -197,15 +200,22 @@ export const Profile = () => {
             </h2>
             <ul className="space-y-2 text-gray-700 dark:text-gray-300">
               <li>
-                <span className="font-medium">Passport Number:</span>{" "}
-                {customer.passportNumber}
+                <span className="font-medium">Email:</span> {user.email}
               </li>
               <li>
-                <span className="font-medium">Date of Birth:</span>{" "}
-                {customer.dateOfBirth}
+                <span className="font-medium">First Name:</span>{" "}
+                {user.first_name}
               </li>
               <li>
-                <span className="font-medium">Address:</span> {customer.address}
+                <span className="font-medium">Last Name:</span> {user.last_name}
+              </li>
+              <li>
+                <span className="font-medium">Phone Number:</span>{" "}
+                {user.phone_number || "No information"}
+              </li>
+              <li>
+                <span className="font-medium">Nationality:</span>{" "}
+                {user.nationality || "No information"}
               </li>
             </ul>
           </section>

@@ -14,8 +14,10 @@ const login = async (userData) => {
 };
 
 // Đăng xuất người dùng
-const logout = async () => {
+const logout = async (body) => {
   // Nếu cần, bạn có thể gọi API logout ở đây
+  const response = await axios.post(API_URL + "logout", body);
+  return response.data;
 };
 
 const authService = {

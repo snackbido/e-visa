@@ -15,6 +15,8 @@ export function Step1({
     ...new Set(data.map((country) => country.code.charAt(0).toUpperCase())),
   ].sort();
 
+  console.log(formData);
+
   const handleFilteredCountries = (e) => {
     const filteredCountries = data.filter(
       (country) => country.name.charAt(0).toUpperCase() === e

@@ -8,7 +8,9 @@ import { toast } from "react-toastify";
 export function Header({ user, currentUser }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dispatch = useDispatch();
-  const { isError, isSuccess, message } = useSelector((state) => state.auth);
+  const { isError, isSuccess, message, token } = useSelector(
+    (state) => state.auth
+  );
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,7 +29,7 @@ export function Header({ user, currentUser }) {
   const handleLogout = (e) => {
     e.preventDefault();
 
-    dispatch(logout());
+    dispatch(logout(token));
   };
 
   return (

@@ -117,11 +117,11 @@ export function Step2({
         ...prev.applicants,
         {
           id: prev.applicants.length + 1,
-          passportName: "",
-          passportNumber: "",
+          passport_name: "",
+          passport_number: "",
           gender: "",
           avatar: null,
-          passportImage: null,
+          passport_image: null,
         },
       ],
     }));
@@ -140,11 +140,12 @@ export function Step2({
   const handleApplicantChange = (index, e) => {
     const newApplicants = [...formData.applicants];
     const { name, value, files } = e.target;
+
     if (files && files.length > 0) {
       if (name === "avatar") {
         newApplicants[index].previewAvatar = URL.createObjectURL(files[0]);
       }
-      if (name === "passportImage") {
+      if (name === "passport_image") {
         newApplicants[index].previewPassport = URL.createObjectURL(files[0]);
       }
       newApplicants[index][name] = files[0];
@@ -194,20 +195,20 @@ export function Step2({
       toast.error("Please fill full fields");
       return;
     }
+    console.log(formData);
 
     for (let i in formData.applicants) {
       if (
-        !formData.applicants[i].passportName ||
-        !formData.applicants[i].passportNumber ||
+        !formData.applicants[i].passport_name ||
+        !formData.applicants[i].passport_number ||
         !formData.applicants[i].gender ||
         !formData.applicants[i].avatar ||
-        !formData.applicants[i].passportImage
+        !formData.applicants[i].passport_image
       ) {
         toast.error("Please fill the information of visa");
         return;
       }
     }
-
     // const body = {
     //   nationality: formData.step1.nationality,
     //   time_of_visa: formData.step1.visaTime,
@@ -334,8 +335,8 @@ export function Step2({
                       className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       type="text"
                       id={`passportFullName-${index}`}
-                      name="passportName"
-                      value={applicant.passportName || ""}
+                      name="passport_name"
+                      value={applicant.passport_name || ""}
                       onChange={(e) => handleApplicantChange(index, e)}
                       required
                     />
@@ -352,8 +353,8 @@ export function Step2({
                       className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       type="text"
                       id={`passportNumber-${index}`}
-                      name="passportNumber"
-                      value={applicant.passportNumber || ""}
+                      name="passport_number"
+                      value={applicant.passport_number || ""}
                       onChange={(e) => handleApplicantChange(index, e)}
                       required
                     />
@@ -475,7 +476,7 @@ export function Step2({
                     <input
                       type="file"
                       id={`passportImage-${index}`}
-                      name="passportImage"
+                      name="passport_image"
                       className="sr-only"
                       onChange={(e) => handleApplicantChange(index, e)}
                       required

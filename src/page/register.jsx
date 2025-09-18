@@ -44,6 +44,7 @@ export function Register() {
   useEffect(() => {
     if (isError) {
       toast.error(message);
+      return;
     }
     // Nếu đăng ký thành công
     if (isSuccess) {
@@ -145,6 +146,40 @@ export function Register() {
               <span className="border-b w-1/5 lg:w-1/4"></span>
             </div>
             <form action="" onSubmit={handleSubmit}>
+              <div className="grid grid-cols-2 gap-4 mt-4">
+                <div className="col-span-1">
+                  <label
+                    htmlFor="first_name"
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                  >
+                    First Name
+                  </label>
+                  <input
+                    value={formData.email}
+                    onChange={(e) => handleFormData(e)}
+                    className="text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                    type="text"
+                    id="first_name"
+                    name="first_name"
+                  />
+                </div>
+                <div className="col-span-1">
+                  <label
+                    htmlFor="email"
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                  >
+                    Email Address
+                  </label>
+                  <input
+                    value={formData.email}
+                    onChange={(e) => handleFormData(e)}
+                    className="text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                    type="email"
+                    id="email"
+                    name="email"
+                  />
+                </div>
+              </div>
               <div className="mt-4">
                 <label
                   htmlFor="email"

@@ -60,11 +60,28 @@ export const login = createAsyncThunk(
 );
 
 // Async thunk để xử lý đăng xuất
-export const logout = createAsyncThunk("auth/logout", async () => {
-  await authService.logout();
-  localStorage.removeItem("user");
-  localStorage.removeItem("Authorization");
-});
+export const logout = createAsyncThunk(
+  "auth/logout",
+  async (data, thunkAPI) => {
+    try {
+      const response = await authService.logout(data);
+      if (response.status === "success") {
+        localStorage.removeItem("user");
+        localStorage.removeItem("Authorization");
+      } else {
+        return thunkAPI.rejectWithValue(response.stack.response.message);
+      }
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 // Tạo slice
 const authSlice = createSlice({
