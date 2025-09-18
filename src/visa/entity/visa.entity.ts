@@ -9,6 +9,12 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+export enum VISA_STATUS {
+  WAIT = 'Waiting Approve',
+  APPROVE = 'Approved',
+  REJECT = 'Rejected',
+}
+
 @Entity()
 export class Visa {
   @PrimaryGeneratedColumn('uuid')
@@ -60,6 +66,9 @@ export class Visa {
 
   @Column()
   purpose_of_visit: string;
+
+  @Column({ type: 'enum', enum: VISA_STATUS, default: VISA_STATUS.WAIT })
+  status: VISA_STATUS;
 
   @ManyToOne(() => User, (user) => user.visa, { cascade: true })
   @JoinColumn({ name: 'user_id' })

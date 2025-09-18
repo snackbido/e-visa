@@ -1,17 +1,20 @@
 import {
   Body,
   Controller,
+  Headers,
   HttpCode,
   HttpStatus,
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthService } from '@visa/auth/auth.service';
 import { AuthCredential } from '@visa/auth/dto/authCredential.dto';
 import { ResetPasswordDto } from '@visa/auth/dto/resetPassword.dto';
 import { ForgotPasswordDto } from '@visa/auth/dto/forgotPassword.dto';
 import { LoginDto } from '@visa/auth/dto/login.dto';
+import { JwtAuthGuard } from './auth.guard';
 
 @Controller('/api/auth')
 export class AuthController {
@@ -48,5 +51,12 @@ export class AuthController {
     @Body() resetPasswordDto: ResetPasswordDto,
   ): Promise<string> {
     return await this.authService.resetPassword(token, resetPasswordDto);
+  }
+
+  @Post('/logout')
+  @UseGuards(JwtAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  async logout(@Headers('authorization') token: string) {
+    return await this.authService.logout(token);
   }
 }

@@ -8,13 +8,19 @@ import { EmailService } from './email.service';
     MailerModule.forRootAsync({
       useFactory: async () => ({
         transport: {
-          service: 'gmail',
-          host: 'smtp.gmail.com',
-          port: 465,
-          secure: false, // Adjust based on your email service
+          // service: 'gmail',
+          // host: 'smtp.gmail.com',
+          // port: 465,
+          // secure: false, // Adjust based on your email service
+          // auth: {
+          //   user: 'hatran12387@gmail.com',
+          //   pass: 'euxqtfyndxfdtmmx',
+          // },
+          host: 'sandbox.smtp.mailtrap.io',
+          port: 2525,
           auth: {
-            user: 'hatran12387@gmail.com',
-            pass: 'euxqtfyndxfdtmmx',
+            user: 'a3bcdcfec65900',
+            pass: 'eca599876f7825',
           },
         },
       }),

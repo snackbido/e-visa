@@ -18,6 +18,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from '@visa/repository/user.repository';
 import { User } from '@visa/user/entity/user.entity';
 import { LoginDto } from '@visa/auth/dto/login.dto';
+import { RedisService } from '@visa/utils/cached/redis.service';
+import { JwtDecode } from './config/jwt.decode';
 
 @Injectable()
 export class AuthService {
@@ -25,6 +27,7 @@ export class AuthService {
     @InjectRepository(UserRepository) private userRepository: UserRepository,
     private userService: UserService,
     private jwtService: JwtService,
+    private redisService: RedisService,
     private emailService: EmailService,
   ) {}
 
@@ -42,9 +45,12 @@ export class AuthService {
     if (!bcrypt.compareSync(password, user.password))
       throw new BadRequestException('Incorrect password');
 
-    const payload: JwtPayload = { id: user.id, role: user.role };
+    const payload: JwtPayload = {
+      id: user.id,
+      email: user.email,
+      role: user.role,
+    };
     const token = this.jwtService.sign(payload);
-
     return { user: user.id, token };
   }
 
@@ -57,7 +63,11 @@ export class AuthService {
 
     if (!user) throw new NotFoundException('Email does not exist');
 
-    const payload: JwtPayload = { id: user.id, role: user.role };
+    const payload: JwtPayload = {
+      id: user.id,
+      email: user.email,
+      role: user.role,
+    };
     const token = this.jwtService.sign(payload, {
       secret: 'jwt-secret',
       expiresIn: '15m',
@@ -150,5 +160,20 @@ export class AuthService {
     );
 
     return 'Your password changed successfully';
+  }
+
+  async logout(headers: string): Promise<string> {
+    const token = headers.split(' ')[1];
+    const decode = (await this.jwtService.decode(token)) as JwtDecode;
+    if (!decode || typeof decode !== 'object') {
+      throw new BadRequestException('Invalid token');
+    }
+    const nowInSeconds = Math.floor(Date.now() / 1000);
+    const tll = decode.exp - nowInSeconds;
+
+    if (tll > 0) {
+      await this.redisService.blacklistToken(token, tll);
+    }
+    return 'You are logged out';
   }
 }

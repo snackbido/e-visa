@@ -17,6 +17,14 @@ export class VisaService {
     return await this.visaRepository.find();
   }
 
+  async getHistoryVisa(user_id: string): Promise<Visa[]> {
+    const visas = await this.visaRepository.find({
+      where: { user_id },
+      order: { created_at: 'DESC' },
+    });
+    return visas;
+  }
+
   async getVisa(id: string): Promise<Visa> {
     const visa = await this.visaRepository.findOneBy({ id });
 

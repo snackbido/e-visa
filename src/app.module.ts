@@ -7,7 +7,8 @@ import { UserModule } from '@visa/user/user.module';
 import { AuthModule } from '@visa/auth/auth.module';
 import { EmailModule } from '@visa/utils/email.module';
 import { VisaModule } from '@visa/visa/visa.module';
-import { PaymentModule } from './payment/payment.module';
+import { PaymentModule } from '@visa/payment/payment.module';
+import { RedisCachedModule } from '@visa/utils/cached/redis.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { PaymentModule } from './payment/payment.module';
     AuthModule,
     VisaModule,
     PaymentModule,
+    RedisCachedModule,
   ],
   controllers: [AppController],
   providers: [AppService],

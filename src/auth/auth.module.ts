@@ -9,11 +9,15 @@ import { DatabaseConfigModule } from '@visa/config/db/database.module';
 import { UserService } from '@visa/user/user.service';
 import { UserRepository } from '@visa/repository/user.repository';
 import { ConfigService } from '@nestjs/config';
+import { RedisService } from '@visa/utils/cached/redis.service';
+import { RedisCachedModule } from '@visa/utils/cached/redis.module';
+import { JwtAuthGuard } from './auth.guard';
 
 @Module({
   imports: [
     DatabaseConfigModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
+    RedisCachedModule,
     JwtModule.registerAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
@@ -25,10 +29,12 @@ import { ConfigService } from '@nestjs/config';
   controllers: [AuthController],
   providers: [
     AuthService,
+    RedisService,
     UserService,
     JwtStrategy,
     EmailService,
     UserRepository,
+    JwtAuthGuard,
   ],
   exports: [JwtStrategy, PassportModule],
 })
