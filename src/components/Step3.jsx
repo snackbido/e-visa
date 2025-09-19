@@ -21,21 +21,27 @@ export function Step3({ handlePrevStep, formData, totalFee, user }) {
     last_name: formData.info.last_name,
   };
 
-  const handleCreateVisa = async () => {
+  const handleCreateVisa = async (body) => {
     const { data } = await axios.post("/visa", body);
     return data;
   };
-  console.log(formData.info.email);
+
+  const handlePayment = async (body) => {
+    const { data } = await axios.post("/payment", body);
+    return data;
+  };
+
   const handlePaymentSubmit = async (e) => {
     e.preventDefault();
     // Simulate payment processing
-    const res = await axios.post("/payment", {
-      user_id: user.id,
-      amount: totalFee * 1,
-    });
+    const data = await handleCreateVisa(body);
 
-    if (res.data.status === "success") {
-      const { status } = await handleCreateVisa();
+    if (data.status === "success") {
+      const { status } = handlePayment({
+        visa_id: data.id,
+        user_id: data.user_id,
+        amount: totalFee,
+      });
       if (status === "success") {
         setTimeout(() => {
           setIsPaymentSuccessful(true);

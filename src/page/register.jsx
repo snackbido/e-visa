@@ -7,6 +7,8 @@ import { ValidationItem } from "../components/Validate";
 
 export function Register() {
   const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -76,7 +78,13 @@ export function Register() {
     e.preventDefault();
     const validEmail = validateEmail(formData.email);
 
-    if (!formData.email || !formData.password || !formData.confirmPassword) {
+    if (
+      !formData.first_name ||
+      !formData.last_name ||
+      !formData.email ||
+      !formData.password ||
+      !formData.confirmPassword
+    ) {
       toast.error("Please fill all field");
       return;
     }
@@ -155,7 +163,7 @@ export function Register() {
                     First Name
                   </label>
                   <input
-                    value={formData.email}
+                    value={formData.first_name}
                     onChange={(e) => handleFormData(e)}
                     className="text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
                     type="text"
@@ -165,18 +173,18 @@ export function Register() {
                 </div>
                 <div className="col-span-1">
                   <label
-                    htmlFor="email"
+                    htmlFor="last_name"
                     className="block text-gray-700 text-sm font-bold mb-2"
                   >
-                    Email Address
+                    Last Name
                   </label>
                   <input
-                    value={formData.email}
+                    value={formData.last_name}
                     onChange={(e) => handleFormData(e)}
                     className="text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                    type="email"
-                    id="email"
-                    name="email"
+                    type="text"
+                    id="last_name"
+                    name="last_name"
                   />
                 </div>
               </div>

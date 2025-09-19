@@ -195,7 +195,7 @@ export function Step2({
       toast.error("Please fill full fields");
       return;
     }
-    console.log(formData);
+
 
     for (let i in formData.applicants) {
       if (
