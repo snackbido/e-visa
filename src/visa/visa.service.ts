@@ -5,6 +5,7 @@ import { Visa } from '@visa/visa/entity/visa.entity';
 import { CreateVisaDto } from '@visa/visa/dto/create-visa.dto';
 import { EmailService } from '@visa/utils/email.service';
 import { User } from '@visa/user/entity/user.entity';
+import { UpdateVisaDto } from './dto/update-visa.dto';
 
 @Injectable()
 export class VisaService {
@@ -33,7 +34,7 @@ export class VisaService {
     return visa;
   }
 
-  async create(visaDto: CreateVisaDto, user: User): Promise<string> {
+  async create(visaDto: CreateVisaDto, user: User): Promise<Visa> {
     const {
       applicant,
       arrival_border,
@@ -140,6 +141,20 @@ export class VisaService {
       'Your Visa Applicant Status',
       html,
     );
-    return 'Your visa was created';
+    return visa;
+  }
+
+  async update(id: string, visaDto: UpdateVisaDto): Promise<string> {
+    const visa = await this.visaRepository.findOneBy({ id });
+    if (!visa) throw new NotFoundException('Cannot find visa');
+
+    await this.visaRepository.update(
+      {
+        id: visa.id,
+      },
+      { status: visaDto.status },
+    );
+
+    return 'Updated visa';
   }
 }
