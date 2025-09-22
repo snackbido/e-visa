@@ -21,6 +21,9 @@ export class Payment {
   user_id: string;
 
   @Column()
+  visa_id: string;
+
+  @Column()
   amount: number;
 
   @Column({ type: 'enum', enum: STATUS, default: STATUS.PENDING })

@@ -8,6 +8,9 @@ export class PaymentDto {
   @IsString()
   user_id: string;
 
+  @IsString()
+  visa_id: string;
+
   @IsEnum(Payment)
   @IsOptional()
   status: STATUS;
