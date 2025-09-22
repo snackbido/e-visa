@@ -1,9 +1,64 @@
-// react plugin for creating vector maps
 import { VectorMap } from "@react-jvectormap/core";
 import { worldMill } from "@react-jvectormap/world";
+import { useState, useEffect } from "react";
+import axios from "../../../axios/axios";
 
 // Define the component props
-const CountryMap = ({ mapColor }) => {
+const CountryMap = ({ mapColor, countries }) => {
+  const [markers, setMarkers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // This is the function that will handle all data fetching and processing
+    const fetchDataAndGenerateMarkers = async () => {
+      try {
+        // --- Step 1: Fetch and process your local data.json file ---
+        const countryLookup = countries.reduce((acc, country) => {
+          // Check if latlng data exists and it's a valid array
+          if (country.latlng && country.latlng.length === 2) {
+            acc[country.name] = country.latlng;
+          }
+          return acc;
+        }, {});
+
+        // --- Step 2: Fetch data from your backend ---
+        const { data } = await axios.get("/visa");
+
+        // --- Step 3: Combine data and generate the markers array ---
+        const newMarkers = data.data
+          .map((user) => {
+            const countryName = user.nationality;
+            const latLng = countryLookup[countryName];
+            if (latLng) {
+              return {
+                latLng: latLng,
+                name: countryName,
+                style: {
+                  fill: "#465FFF",
+                  borderWidth: 1,
+                  borderColor: "white",
+                  stroke: "#383f47",
+                },
+              };
+            }
+            return null;
+          })
+          .filter(Boolean); // Filter out any null values
+
+        setMarkers(newMarkers);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+      }
+    };
+
+    fetchDataAndGenerateMarkers();
+  }, [countries]); // The empty dependency array ensures this runs only once on mount
+
+  if (isLoading) {
+    return <div>Loading map data...</div>;
+  }
+
   return (
     <VectorMap
       map={worldMill}
@@ -11,42 +66,11 @@ const CountryMap = ({ mapColor }) => {
       markerStyle={{
         initial: {
           fill: "#465FFF",
-          r: 4, // Custom radius for markers
-        }, // Type assertion to bypass strict CSS property checks
+          r: 4,
+        },
       }}
       markersSelectable={true}
-      markers={[
-        {
-          latLng: [37.2580397, -104.657039],
-          name: "United States",
-          style: {
-            fill: "#465FFF",
-            borderWidth: 1,
-            borderColor: "white",
-            stroke: "#383f47",
-          },
-        },
-        {
-          latLng: [20.7504374, 73.7276105],
-          name: "India",
-          style: { fill: "#465FFF", borderWidth: 1, borderColor: "white" },
-        },
-        {
-          latLng: [53.613, -11.6368],
-          name: "United Kingdom",
-          style: { fill: "#465FFF", borderWidth: 1, borderColor: "white" },
-        },
-        {
-          latLng: [-25.0304388, 115.2092761],
-          name: "Sweden",
-          style: {
-            fill: "#465FFF",
-            borderWidth: 1,
-            borderColor: "white",
-            strokeOpacity: 0,
-          },
-        },
-      ]}
+      markers={markers} // Use the dynamically generated markers state
       zoomOnScroll={false}
       zoomMax={12}
       zoomMin={1}

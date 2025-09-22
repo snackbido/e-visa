@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -5,8 +6,63 @@ import {
   TableHeader,
   TableRow,
 } from "../../ui/table";
+import countries from "../../../../data.json";
+import UpdateUserModal from "../../../components/user/UpdateUser";
+import axios from "../../../../axios/axios";
+import { toast } from "react-toastify";
+import ApplicantDetailModal from "../../applicant/Applicant";
 
 export default function BasicTableOne({ type, data, setInfo }) {
+  const [flag, setFlag] = useState([]);
+  const [isOpen, setIsOpen] = useState(false); // State để kiểm soát modal UpdateUser
+  const [selectedUser, setSelectedUser] = useState(null); // State để lưu thông tin người dùng được chọn
+
+  // States cho ApplicantDetailModal
+  const [isApplicantModalOpen, setIsApplicantModalOpen] = useState(false);
+  const [selectedApplicants, setSelectedApplicants] = useState([]);
+
+  useEffect(() => {
+    const newFlagLookup = countries.reduce((acc, country) => {
+      if (country.name && country.flags) {
+        acc[country.name] = country.flags.svg; // Using SVG for better quality
+      }
+      return acc;
+    }, {});
+    setFlag(newFlagLookup);
+  }, []);
+
+  const handleUpdateClick = (user) => {
+    setSelectedUser(user);
+    setIsOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpen(false);
+    setSelectedUser(null);
+  };
+
+  // Handlers cho ApplicantDetailModal
+  const handleApplicantClick = (applicants) => {
+    setSelectedApplicants(applicants);
+    setIsApplicantModalOpen(true);
+  };
+
+  const handleCloseApplicantModal = () => {
+    setIsApplicantModalOpen(false);
+    setSelectedApplicants([]);
+  };
+
+  const handleUpdate = async () => {
+    const { data } = await axios.patch(
+      `/user/${selectedUser.id}`,
+      selectedUser
+    );
+
+    if (data.status === "success") {
+      toast.success(data.data);
+    }
+  };
+
   const status = ["Approved", "Waiting Approve", "Rejected"];
   return (
     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
@@ -89,6 +145,12 @@ export default function BasicTableOne({ type, data, setInfo }) {
                 >
                   Status
                 </TableCell>
+                <TableCell
+                  isHeader
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                >
+                  Actions
+                </TableCell>
               </TableRow>
             </TableHeader>
           ) : (
@@ -160,33 +222,17 @@ export default function BasicTableOne({ type, data, setInfo }) {
                     {data.email}
                   </TableCell>
                   <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                    <div className="flex -space-x-2">
-                      {/* {order.team.images.map((teamImage, index) => (
-                      <div
-                        key={index}
-                        className="w-6 h-6 overflow-hidden border-2 border-white rounded-full dark:border-gray-900"
-                      >
-                        <img
-                          width={24}
-                          height={24}
-                          src={teamImage}
-                          alt={`Team member ${index + 1}`}
-                          className="w-full size-6"
-                        />
-                      </div>
-                    ))} */}
-                      {data.phone_number}
-                    </div>
+                    <div className="flex -space-x-2">{data.phone_number}</div>
                   </TableCell>
                   <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                    <div className="flex items-center">
+                    <div className="flex items-center justify-around">
                       <span>{data.nationality}</span>
                       <div className="w-6 h-6 overflow-hidden border-2 border-white rounded-full dark:border-gray-900">
                         <img
                           width={24}
                           height={24}
-                          // src={teamImage}
                           alt=""
+                          src={flag[data.nationality]}
                           className="w-full size-6"
                         />
                       </div>
@@ -202,7 +248,7 @@ export default function BasicTableOne({ type, data, setInfo }) {
                     {data.processing_time}
                   </TableCell>
                   <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                    {data.processing_time}
+                    {data.purpose_of_visit}
                   </TableCell>
                   <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
                     {data.date_of_arrival}
@@ -211,7 +257,9 @@ export default function BasicTableOne({ type, data, setInfo }) {
                     {data.arrival_border}
                   </TableCell>
                   <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                    {data.applicant.length}
+                    <span className="text-gray-700 dark:text-gray-300 font-medium">
+                      {data.applicant.length}
+                    </span>
                   </TableCell>
                   <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
                     <select
@@ -240,6 +288,14 @@ export default function BasicTableOne({ type, data, setInfo }) {
                           </option>
                         ))}
                     </select>
+                  </TableCell>
+                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
+                    <button
+                      className="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white text-xs rounded-lg transition-colors duration-200 font-medium"
+                      onClick={() => handleApplicantClick(data.applicant)}
+                    >
+                      View More
+                    </button>
                   </TableCell>
                 </TableRow>
               ))}
@@ -279,7 +335,7 @@ export default function BasicTableOne({ type, data, setInfo }) {
                         <img
                           width={24}
                           height={24}
-                          // src={teamImage}
+                          src={flag[data.nationality]}
                           alt=""
                           className="w-full size-6"
                         />
@@ -290,8 +346,11 @@ export default function BasicTableOne({ type, data, setInfo }) {
                     {data.role}
                   </TableCell>
                   <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                    <div>
-                      <button className="p-2 bg-blue-500 mr-2 text-white rounded-lg">
+                    <div className="flex">
+                      <button
+                        className="p-2 bg-blue-500 mr-2 text-white rounded-lg"
+                        onClick={() => handleUpdateClick(data)}
+                      >
                         Update
                       </button>
                       <button className="p-2 bg-green-500 text-white rounded-lg">
@@ -304,6 +363,23 @@ export default function BasicTableOne({ type, data, setInfo }) {
             </TableBody>
           )}
         </Table>
+
+        {/* Modal cho UpdateUser */}
+        {type !== "visa" && (
+          <UpdateUserModal
+            isOpen={isOpen}
+            onClose={handleCloseModal}
+            userData={selectedUser}
+            onUpdate={handleUpdate}
+          />
+        )}
+
+        {/* Modal cho ApplicantDetail */}
+        <ApplicantDetailModal
+          isOpen={isApplicantModalOpen}
+          onClose={handleCloseApplicantModal}
+          applicants={selectedApplicants}
+        />
       </div>
     </div>
   );

@@ -12,7 +12,6 @@ import { useSelector } from "react-redux";
 import axios from "./axios/axios";
 import Home from "./page/home";
 import AppLayout from "./admin/layout/AppLayout";
-import UserProfiles from "./admin/pages/UserProfiles";
 import Blank from "./admin/pages/Blank";
 import NotFound from "./admin/pages/OtherPage/NotFound";
 import SignIn from "./admin/pages/AuthPages/SignIn";
@@ -37,7 +36,7 @@ export function PublicRoutes() {
 
   return (
     <>
-      {currentUser.role === "user" && (
+      {(!user || currentUser.role === "user") && (
         <>
           <Header user={user} currentUser={currentUser} />
           <Routes>
@@ -52,6 +51,7 @@ export function PublicRoutes() {
               />
               <Route path="/profile" element={<Profile user={currentUser} />} />
             </Route>
+            {/* <Route path="*" element={<NotFound />} /> */}
           </Routes>
           <Footer />
         </>
@@ -61,16 +61,17 @@ export function PublicRoutes() {
         <Routes>
           {/* Dashboard Layout */}
           <Route element={<AppLayout />}>
+            {/* <Route path="" element={<PrivateRoute user={user} />}> */}
             <Route index path="/admin" element={<HomeDashboard />} />
 
             {/* Others Page */}
-            <Route path="/admin/profile" element={<UserProfiles />} />
             <Route path="/admin/blank" element={<Blank />} />
 
             {/* Tables */}
             <Route path="/admin/visa-management" element={<Visa />} />
             <Route path="/admin/user-management" element={<User />} />
           </Route>
+          {/* </Route> */}
 
           {/* Auth Layout */}
           <Route path="/admin/signin" element={<SignIn />} />

@@ -1,11 +1,32 @@
 import EcommerceMetrics from "../../components/ecommerce/EcommerceMetrics";
 import MonthlySalesChart from "../../components/ecommerce/MonthlySalesChart";
-import MonthlyTarget from "../../components/ecommerce/MonthlyTarget";
 import RecentOrders from "../../components/ecommerce/RecentOrders";
 import DemographicCard from "../../components/ecommerce/DemographicCard";
 import PageMeta from "../../components/common/PageMeta";
+import { useEffect, useState } from "react";
+import axios from "../../../axios/axios";
+import countries from "../../../data.json";
 
 export default function HomeDashboard() {
+  const [visa, setVisa] = useState([]);
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    const getVisas = async () => {
+      const { data } = await axios.get("/visa");
+      if (data.status === "success") {
+        setVisa(data.data);
+      }
+    };
+    const getUsers = async () => {
+      const { data } = await axios.get("/user");
+      if (data.status === "success") {
+        setUser(data.data);
+      }
+    };
+    getVisas();
+    getUsers();
+  }, []);
   return (
     <>
       <PageMeta
@@ -14,21 +35,17 @@ export default function HomeDashboard() {
       />
       <div className="grid grid-cols-12 gap-4 md:gap-6">
         <div className="col-span-12 space-y-6 xl:col-span-7">
-          <EcommerceMetrics />
+          <EcommerceMetrics visa={visa} user={user} />
 
-          <MonthlySalesChart />
+          <MonthlySalesChart data={visa} />
         </div>
 
         <div className="col-span-12 xl:col-span-5">
-          <MonthlyTarget />
-        </div>
-
-        <div className="col-span-12 xl:col-span-5">
-          <DemographicCard />
+          <DemographicCard data={visa} countries={countries} />
         </div>
 
         <div className="col-span-12 xl:col-span-7">
-          <RecentOrders />
+          <RecentOrders data={visa} countries={countries} />
         </div>
       </div>
     </>

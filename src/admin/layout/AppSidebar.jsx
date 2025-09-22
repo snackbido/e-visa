@@ -8,7 +8,6 @@ import {
   HorizontaLDots,
   PlugInIcon,
   TableIcon,
-  UserCircleIcon,
 } from "../icons/index.js";
 import { useSidebar } from "../context/SidebarContext";
 
@@ -17,11 +16,6 @@ const navItems = [
     icon: <GridIcon />,
     name: "Dashboard",
     path: "/admin",
-  },
-  {
-    icon: <UserCircleIcon />,
-    name: "User Profile",
-    path: "/admin/profile",
   },
   {
     name: "Management",
