@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { Dropdown } from "../ui/dropdown/Dropdown";
-import { Link } from "react-router";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import axios from "../../../axios/axios";
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 export default function UserDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useSelector((state) => state.auth) || "";
   const [currentUser, setCurrentUser] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getUser = async () => {
@@ -19,6 +21,16 @@ export default function UserDropdown() {
     getUser();
   }, [user]);
 
+  const handleLogout = async () => {
+    const { data } = await axios.get("/auth/logout");
+    if (data.status === "success") {
+      toast.success(data.data);
+      setTimeout(() => {
+        navigate("/admin/signin");
+      }, 2000);
+    }
+  };
+
   function toggleDropdown() {
     setIsOpen(!isOpen);
   }
@@ -26,6 +38,7 @@ export default function UserDropdown() {
   function closeDropdown() {
     setIsOpen(false);
   }
+
   return (
     <div className="relative">
       <button
@@ -33,7 +46,7 @@ export default function UserDropdown() {
         className="flex items-center text-gray-700 dropdown-toggle dark:text-gray-400"
       >
         <span className="block mr-1 font-medium text-theme-sm">
-          {currentUser.email}
+          {currentUser.first_name}
         </span>
         <svg
           className={`stroke-gray-500 dark:stroke-gray-400 transition-transform duration-200 ${
@@ -62,14 +75,14 @@ export default function UserDropdown() {
       >
         <div>
           <span className="block font-medium text-gray-700 text-theme-sm dark:text-gray-400">
-            Musharof Chowdhury
+            {currentUser.last_name + " " + currentUser.first_name}
           </span>
           <span className="mt-0.5 block text-theme-xs text-gray-500 dark:text-gray-400">
-            randomuser@pimjo.com
+            {currentUser.email}
           </span>
         </div>
-        <Link
-          to="/signin"
+        <button
+          onClick={handleLogout}
           className="flex items-center gap-3 px-3 py-2 mt-3 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
         >
           <svg
@@ -88,7 +101,7 @@ export default function UserDropdown() {
             />
           </svg>
           Sign out
-        </Link>
+        </button>
       </Dropdown>
     </div>
   );

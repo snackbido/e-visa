@@ -64,13 +64,14 @@ export const logout = createAsyncThunk(
   "auth/logout",
   async (data, thunkAPI) => {
     try {
-      const response = await authService.logout(data);
+      const response = await authService.logout();
       if (response.status === "success") {
         localStorage.removeItem("user");
         localStorage.removeItem("Authorization");
       } else {
         return thunkAPI.rejectWithValue(response.stack.response.message);
       }
+      return response;
     } catch (error) {
       const message =
         (error.response &&

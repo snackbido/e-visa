@@ -1,26 +1,26 @@
 import { Route, Routes } from "react-router-dom";
-import { Header } from "./components/Header";
 import { Login } from "./page/login";
 import { Register } from "./page/register";
 import { Blog } from "./components/Blog";
 import PrivateRoute from "./components/PrivateRoute";
 import { ApplyVisa } from "./page/apply-visa";
 import { Profile } from "./page/profile";
-import { Footer } from "./components/Footer";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "./axios/axios";
 import Home from "./page/home";
 import AppLayout from "./admin/layout/AppLayout";
-import Blank from "./admin/pages/Blank";
 import NotFound from "./admin/pages/OtherPage/NotFound";
 import SignIn from "./admin/pages/AuthPages/SignIn";
 import SignUp from "./admin/pages/AuthPages/SignUp";
 import HomeDashboard from "./admin/pages/Dashboard/Home";
 import { Visa } from "./admin/pages/Visas/Visa";
 import { User } from "./admin/pages/Users/User";
+import { PublicLayout } from "./layout/PublicLayout";
+import { AdminLayout } from "./layout/AdminLayout";
+import { AdminRoutes } from "./layout/AdminRoutes";
 
-export function PublicRoutes() {
+export function AppRoutes() {
   const { user } = useSelector((state) => state.auth) || "";
   const [currentUser, setCurrentUser] = useState({});
 
@@ -31,56 +31,51 @@ export function PublicRoutes() {
         setCurrentUser(data.data);
       }
     };
-    getUser();
+    if (user) {
+      getUser();
+    }
   }, [user]);
 
+  const handleLogout = () => {};
+
   return (
-    <>
-      {(!user || currentUser.role === "user") && (
-        <>
-          <Header user={user} currentUser={currentUser} />
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="" element={<PrivateRoute user={user} />}>
-              <Route
-                path="/apply-visa"
-                element={<ApplyVisa user={currentUser} />}
-              />
-              <Route path="/profile" element={<Profile user={currentUser} />} />
-            </Route>
-            {/* <Route path="*" element={<NotFound />} /> */}
-          </Routes>
-          <Footer />
-        </>
-      )}
-      {/* <ScrollToTop /> */}
-      {currentUser.role === "admin" && (
-        <Routes>
-          {/* Dashboard Layout */}
+    <Routes>
+      {/* Route dành cho người dùng thông thường và khách */}
+      <Route
+        path="/"
+        element={
+          <PublicLayout currentUser={currentUser} handleLogout={handleLogout} />
+        }
+      >
+        <Route index element={<Home />} />
+        <Route path="blog" element={<Blog />} />
+        <Route path="login" element={<Login currentUser={currentUser} />} />
+        <Route path="register" element={<Register />} />
+
+        {/* Các route yêu cầu người dùng đã đăng nhập */}
+        <Route element={<PrivateRoute currentUser={currentUser} />}>
+          <Route path="apply-visa" element={<ApplyVisa />} />
+          <Route path="profile" element={<Profile />} />
+        </Route>
+      </Route>
+
+      {/* Route dành cho Admin */}
+      <Route path="/admin" element={<AdminLayout currentUser={currentUser} />}>
+        <Route path="signin" element={<SignIn />} />
+        <Route path="signup" element={<SignUp />} />
+
+        {/* Các route yêu cầu quyền quản trị viên */}
+        <Route element={<AdminRoutes currentUser={currentUser} />}>
           <Route element={<AppLayout />}>
-            {/* <Route path="" element={<PrivateRoute user={user} />}> */}
-            <Route index path="/admin" element={<HomeDashboard />} />
-
-            {/* Others Page */}
-            <Route path="/admin/blank" element={<Blank />} />
-
-            {/* Tables */}
-            <Route path="/admin/visa-management" element={<Visa />} />
-            <Route path="/admin/user-management" element={<User />} />
+            <Route index element={<HomeDashboard />} />
+            <Route path="visa-management" element={<Visa />} />
+            <Route path="user-management" element={<User />} />
           </Route>
-          {/* </Route> */}
+        </Route>
+      </Route>
 
-          {/* Auth Layout */}
-          <Route path="/admin/signin" element={<SignIn />} />
-          <Route path="/admin/signup" element={<SignUp />} />
-
-          {/* Fallback Route */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      )}
-    </>
+      {/* Route chung cho các trang không tồn tại */}
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }

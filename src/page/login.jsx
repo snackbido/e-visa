@@ -4,7 +4,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { login, reset } from "../features/slice/auth.slice";
 
-export function Login() {
+export function Login({ currentUser }) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -88,12 +88,16 @@ export function Login() {
         setTimeout(() => {
           setSuccess(false);
         }, 2000);
-        navigate("/");
+        if (currentUser && currentUser.role === "user") {
+          navigate("/");
+        } else {
+          navigate("/admin");
+        }
       }, 3000);
     }
     // Đặt lại trạng thái sau khi hoàn thành
     dispatch(reset());
-  }, [user, isError, isSuccess, message, navigate, dispatch]);
+  }, [user, isError, isSuccess, message, navigate, dispatch, currentUser]);
 
   const validateEmail = (email) => {
     return String(email)
