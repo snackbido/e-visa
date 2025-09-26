@@ -2,6 +2,7 @@ import {
   IsEmail,
   IsEnum,
   IsNotEmpty,
+  IsOptional,
   IsString,
   Matches,
   MinLength,
@@ -29,6 +30,7 @@ export class UserDto {
   password: string;
 
   @IsString()
+  @IsOptional()
   phone_number: string;
 
   @IsString()
