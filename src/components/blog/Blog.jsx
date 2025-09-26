@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 
-export function Blog() {
+export function BlogCard() {
   const carouselRef = useRef(null);
 
   const scrollCarousel = (direction) => {

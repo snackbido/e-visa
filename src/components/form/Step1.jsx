@@ -134,10 +134,18 @@ export function Step1({
                   required
                 >
                   <option value="">Select time</option>
-                  <option value="1single">1 Month Single Entry</option>
-                  <option value="3single">3 Month Single Entry</option>
-                  <option value="1multiple">1 Month Multiple Entry</option>
-                  <option value="3multiple">3 Month Multiple Entry</option>
+                  <option value="1 month single entry">
+                    1 Month Single Entry
+                  </option>
+                  <option value="3 month single entry">
+                    3 Month Single Entry
+                  </option>
+                  <option value="1 month multiple entry">
+                    1 Month Multiple Entry
+                  </option>
+                  <option value="3 month multiple entry">
+                    3 Month Multiple Entry
+                  </option>
                 </select>
               </div>
               <div className="col-span-1">
@@ -156,13 +164,15 @@ export function Step1({
                   required
                 >
                   <option value="">Select type</option>
-                  <option value="VN">
+                  <option value="Vietnam visa(for going by air, land, ship)">
                     Vietnam visa(for going by air, land, ship)
                   </option>
-                  <option value="VNHCM">
+                  <option value="Vietnam visa run from Ho Chi Minh">
                     Vietnam visa run from Ho Chi Minh
                   </option>
-                  <option value="VNDN">Vietnam visa run from Da Nang</option>
+                  <option value="Vietnam visa run from Da Nang">
+                    Vietnam visa run from Da Nang
+                  </option>
                 </select>
               </div>
               <div className="col-span-1 relative">
@@ -207,11 +217,11 @@ export function Step1({
                   required
                 >
                   <option value="">Select time</option>
-                  <option value="3days">Urgent 3 working days</option>
-                  <option value="2days">Urgent 2 working days</option>
-                  <option value="1days">Urgent 1 working days</option>
-                  <option value="4hours">Super Urgent 4 working hours</option>
-                  <option value="15minutes">
+                  <option value="3 days">Urgent 3 working days</option>
+                  <option value="2 days">Urgent 2 working days</option>
+                  <option value="1 days">Urgent 1 working days</option>
+                  <option value="4 hours">Super Urgent 4 working hours</option>
+                  <option value="15 minutes">
                     Last minute service within 15 minutes
                   </option>
                 </select>
@@ -232,8 +242,8 @@ export function Step1({
                   required
                 >
                   <option value="">Select purpose</option>
-                  <option value="tourist">Tourist</option>
-                  <option value="business">Business</option>
+                  <option value="Tourist">Tourist</option>
+                  <option value="Business">Business</option>
                 </select>
               </div>
             </div>

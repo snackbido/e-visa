@@ -90,7 +90,7 @@ export default function SignInForm() {
               <div className="space-y-6">
                 <div>
                   <Label htmlFor="email">
-                    Email <span className="text-error-500">*</span>{" "}
+                    Email <span className="text-red-500">*</span>{" "}
                   </Label>
                   <Input
                     name="email"
@@ -102,7 +102,7 @@ export default function SignInForm() {
                 </div>
                 <div>
                   <Label htmlFor="password">
-                    Password <span className="text-error-500">*</span>{" "}
+                    Password <span className="text-red-500">*</span>{" "}
                   </Label>
                   <div className="relative">
                     <Input
@@ -129,7 +129,7 @@ export default function SignInForm() {
                   <div className="flex items-center gap-3"></div>
                   <Link
                     to="/reset-password"
-                    className="text-sm text-brand-500 hover:text-brand-600 dark:text-brand-400"
+                    className="text-sm text-indigo-500 hover:text-indigo-600 dark:text-indigo-400"
                   >
                     Forgot password?
                   </Link>
@@ -150,7 +150,7 @@ export default function SignInForm() {
                 Don&apos;t have an account? {""}
                 <Link
                   to="/admin/signup"
-                  className="text-brand-500 hover:text-brand-600 dark:text-brand-400"
+                  className="text-indigo-500 hover:text-indigo-600 dark:text-indigo-400"
                 >
                   Sign Up
                 </Link>

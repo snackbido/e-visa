@@ -19,12 +19,22 @@ export default function SignUpForm() {
   });
   const navigate = useNavigate();
 
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
   const handleChangeData = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const validEmail = validateEmail(formData.email);
 
     if (
       !formData.email ||
@@ -34,6 +44,10 @@ export default function SignUpForm() {
     ) {
       toast.error("Please fill all fields");
       return;
+    }
+
+    if (!validEmail) {
+      return toast.error("Invalid email");
     }
 
     if (!isChecked) {
@@ -108,24 +122,25 @@ export default function SignUpForm() {
                 <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                   {/* <!-- First Name --> */}
                   <div className="sm:col-span-1">
-                    <Label htmlFor={"first_name"}>
-                      First Name<span className="text-error-500">*</span>
+                    <Label htmlFor="first_name">
+                      First Name<span className="text-red-500">*</span>
                     </Label>
                     <Input
                       value={formData.first_name || ""}
+                      onChange={(e) => handleChangeData(e)}
                       type="text"
-                      id={"first_name"}
-                      name={"first_name"}
+                      id="first_name"
+                      name="first_name"
                       placeholder="Enter your first name"
                     />
                   </div>
                   {/* <!-- Last Name --> */}
                   <div className="sm:col-span-1">
                     <Label htmlFor="last_name">
-                      Last Name<span className="text-error-500">*</span>
+                      Last Name<span className="text-red-500">*</span>
                     </Label>
                     <Input
-                      onChange={handleChangeData}
+                      onChange={(e) => handleChangeData(e)}
                       value={formData.last_name || ""}
                       type="text"
                       id="last_name"
@@ -137,10 +152,10 @@ export default function SignUpForm() {
                 {/* <!-- Email --> */}
                 <div>
                   <Label htmlFor="email">
-                    Email<span className="text-error-500">*</span>
+                    Email<span className="text-red-500">*</span>
                   </Label>
                   <Input
-                    onChange={handleChangeData}
+                    onChange={(e) => handleChangeData(e)}
                     value={formData.email || ""}
                     type="email"
                     id="email"
@@ -151,11 +166,11 @@ export default function SignUpForm() {
                 {/* <!-- Password --> */}
                 <div>
                   <Label htmlFor="password">
-                    Password<span className="text-error-500">*</span>
+                    Password<span className="text-red-500">*</span>
                   </Label>
                   <div className="relative">
                     <Input
-                      onChange={handleChangeData}
+                      onChange={(e) => handleChangeData(e)}
                       value={formData.password || ""}
                       placeholder="Enter your password"
                       name="password"
@@ -206,7 +221,7 @@ export default function SignUpForm() {
                 Already have an account? {""}
                 <Link
                   to="/admin/signin"
-                  className="text-brand-500 hover:text-brand-600 dark:text-brand-400"
+                  className="text-indigo-500 hover:text-indigo-600 dark:text-indigo-400"
                 >
                   Sign In
                 </Link>

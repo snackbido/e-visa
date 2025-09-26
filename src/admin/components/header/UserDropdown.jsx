@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Dropdown } from "../ui/dropdown/Dropdown";
 import { useNavigate } from "react-router";
 import axios from "../../../axios/axios";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { useSelector } from "react-redux";
 
 export default function UserDropdown() {
@@ -22,9 +22,11 @@ export default function UserDropdown() {
   }, [user]);
 
   const handleLogout = async () => {
-    const { data } = await axios.get("/auth/logout");
+    const { data } = await axios.post("/auth/logout");
     if (data.status === "success") {
-      toast.success(data.data);
+      toast.success("Logged out");
+      localStorage.removeItem("user");
+      localStorage.removeItem("Authorization");
       setTimeout(() => {
         navigate("/admin/signin");
       }, 2000);
@@ -103,6 +105,7 @@ export default function UserDropdown() {
           Sign out
         </button>
       </Dropdown>
+      <ToastContainer />
     </div>
   );
 }

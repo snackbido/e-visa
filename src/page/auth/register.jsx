@@ -2,8 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { register, reset } from "../features/slice/auth.slice";
-import { ValidationItem } from "../components/Validate";
+import { register, reset } from "../../features/slice/auth.slice";
+import { ValidationItem } from "../../components/Validate";
 
 export function Register() {
   const [formData, setFormData] = useState({
@@ -221,7 +221,7 @@ export function Register() {
                   id="password"
                   name="password"
                 />
-                <ul className="space-y-2 font-medium">
+                <ul className="space-y-2 font-medium text-xs italic mt-2">
                   <ValidationItem
                     isValid={formData.password.length >= 8}
                     text="At least 8 characters long"

@@ -1,15 +1,9 @@
 import { useState, useEffect } from "react";
-import {
-  CheckCircle,
-  XCircle,
-  Info,
-  FileText,
-  Lock,
-  Edit,
-  Home,
-} from "lucide-react";
+import { CheckCircle, XCircle, Info, FileText, Lock, Home } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import axios from "../axios/axios";
+import { UpdateInformation } from "../components/form/UpdateInformation";
+import { ChangePassword } from "../components/form/ChangePassword";
 
 export const Profile = ({ user }) => {
   const [loading, setLoading] = useState(true);
@@ -21,12 +15,6 @@ export const Profile = ({ user }) => {
     history: null,
   });
   const navigate = useNavigate();
-
-  // State for the password change form
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmNewPassword, setConfirmNewPassword] = useState("");
-  const [message, setMessage] = useState("");
 
   useEffect(() => {
     // Simulate fetching data from an API
@@ -67,31 +55,6 @@ export const Profile = ({ user }) => {
     }
   };
 
-  const handlePasswordChange = (e) => {
-    e.preventDefault();
-    setMessage("");
-
-    if (newPassword !== confirmNewPassword) {
-      setMessage("New passwords do not match.");
-      return;
-    }
-
-    if (newPassword.length < 6) {
-      setMessage("New password must be at least 6 characters long.");
-      return;
-    }
-
-    // Simulate API call for password change
-    setTimeout(() => {
-      // In a real app, you would send data to a backend
-      console.log("Password change initiated for user.");
-      setMessage("Password changed successfully!");
-      setCurrentPassword("");
-      setNewPassword("");
-      setConfirmNewPassword("");
-    }, 1000);
-  };
-
   const renderContent = () => {
     if (loading) {
       return (
@@ -130,65 +93,73 @@ export const Profile = ({ user }) => {
               <CheckCircle className="text-indigo-500 mr-2" />
               Visa Information
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700 dark:text-gray-300">
-              <div className="flex items-center">
-                <span className="font-medium mr-2">Status:</span>
-                <span
-                  className={`font-bold ${
-                    visa.status === "Approved"
-                      ? "text-green-600"
-                      : visa.status === "Waiting Approve"
-                      ? "text-yellow-400"
-                      : "text-red-600"
-                  }`}
-                >
-                  {visa.status}
-                </span>
+            {visa ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700 dark:text-gray-300">
+                <div className="flex items-center">
+                  <span className="font-medium mr-2">Status:</span>
+                  <span
+                    className={`font-bold ${
+                      visa?.status === "Approved"
+                        ? "text-green-600"
+                        : visa?.status === "Waiting Approve"
+                        ? "text-yellow-400"
+                        : "text-red-600"
+                    }`}
+                  >
+                    {visa.status}
+                  </span>
+                </div>
+                <div>
+                  <span className="font-medium">Full Name:</span>{" "}
+                  {visa.last_name + " " + visa.first_name}
+                </div>
+                <div>
+                  <span className="font-medium">Email:</span> {visa.email}
+                </div>
+                <div>
+                  <span className="font-medium">Phone Number:</span>{" "}
+                  {visa.phone_number}
+                </div>
+                <div>
+                  <span className="font-medium">Nationality:</span>{" "}
+                  {visa.nationality}
+                </div>
+                <div>
+                  <span className="font-medium">Visa Time:</span>{" "}
+                  {visa.time_of_visa}
+                </div>
+                <div>
+                  <span className="font-medium">Visa Type:</span>{" "}
+                  {visa.type_of_visa}
+                </div>
+                <div>
+                  <span className="font-medium">Processing Time:</span>{" "}
+                  {visa.processing_time}
+                </div>
+                <div>
+                  <span className="font-medium">Purpose of Visit:</span>{" "}
+                  {visa.purpose_of_visit}
+                </div>
+                <div>
+                  <span className="font-medium">Arrival Date:</span>{" "}
+                  {visa.date_of_arrival}
+                </div>
+                <div>
+                  <span className="font-medium">Expiration:</span>{" "}
+                  {visa.expirationDate}
+                </div>
+                <div>
+                  <span className="font-medium">Applicants:</span>{" "}
+                  {visa.applicant.length}
+                </div>
               </div>
-              <div>
-                <span className="font-medium">Full Name:</span>{" "}
-                {visa.last_name + " " + visa.first_name}
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700 dark:text-gray-300">
+                <h2 className="text-gray-500 font-bold text-lg">
+                  You don't have any visa
+                </h2>
               </div>
-              <div>
-                <span className="font-medium">Email:</span> {visa.email}
-              </div>
-              <div>
-                <span className="font-medium">Phone Number:</span>{" "}
-                {visa.phone_number}
-              </div>
-              <div>
-                <span className="font-medium">Nationality:</span>{" "}
-                {visa.nationality}
-              </div>
-              <div>
-                <span className="font-medium">Visa Time:</span>{" "}
-                {visa.time_of_visa}
-              </div>
-              <div>
-                <span className="font-medium">Visa Type:</span>{" "}
-                {visa.type_of_visa}
-              </div>
-              <div>
-                <span className="font-medium">Processing Time:</span>{" "}
-                {visa.processing_time}
-              </div>
-              <div>
-                <span className="font-medium">Purpose of Visit:</span>{" "}
-                {visa.purpose_of_visit}
-              </div>
-              <div>
-                <span className="font-medium">Arrival Date:</span>{" "}
-                {visa.date_of_arrival}
-              </div>
-              <div>
-                <span className="font-medium">Expiration:</span>{" "}
-                {visa.expirationDate}
-              </div>
-              <div>
-                <span className="font-medium">Applicants:</span>{" "}
-                {visa.applicant.length}
-              </div>
-            </div>
+            )}
           </section>
         );
       case "information":
@@ -262,10 +233,10 @@ export const Profile = ({ user }) => {
                         {item.id}
                       </td>
                       <td className="px-4 py-2 text-gray-700 dark:text-gray-300">
-                        {item.type}
+                        {item.type_of_visa}
                       </td>
                       <td className="px-4 py-2 text-gray-700 dark:text-gray-300">
-                        {item.country}
+                        {item.nationality}
                       </td>
                       <td className="px-4 py-2 text-gray-700 dark:text-gray-300">
                         {item.issueDate}
@@ -282,84 +253,7 @@ export const Profile = ({ user }) => {
           </section>
         );
       case "changePassword":
-        return (
-          <section className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow-inner">
-            <h2 className="flex items-center text-xl font-semibold text-gray-900 dark:text-white mb-4">
-              <Lock className="text-indigo-500 mr-2" />
-              Change Password
-            </h2>
-            <form
-              onSubmit={handlePasswordChange}
-              className="space-y-4 text-gray-700 dark:text-gray-300"
-            >
-              <div>
-                <label
-                  className="block text-sm font-medium mb-1"
-                  htmlFor="currentPassword"
-                >
-                  Current Password
-                </label>
-                <input
-                  type="password"
-                  id="currentPassword"
-                  value={currentPassword}
-                  onChange={(e) => setCurrentPassword(e.target.value)}
-                  className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring focus:ring-indigo-500"
-                  required
-                />
-              </div>
-              <div>
-                <label
-                  className="block text-sm font-medium mb-1"
-                  htmlFor="newPassword"
-                >
-                  New Password
-                </label>
-                <input
-                  type="password"
-                  id="newPassword"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring focus:ring-indigo-500"
-                  required
-                />
-              </div>
-              <div>
-                <label
-                  className="block text-sm font-medium mb-1"
-                  htmlFor="confirmNewPassword"
-                >
-                  Confirm New Password
-                </label>
-                <input
-                  type="password"
-                  id="confirmNewPassword"
-                  value={confirmNewPassword}
-                  onChange={(e) => setConfirmNewPassword(e.target.value)}
-                  className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring focus:ring-indigo-500"
-                  required
-                />
-              </div>
-              {message && (
-                <p
-                  className={`text-sm font-medium ${
-                    message.includes("successfully")
-                      ? "text-green-600"
-                      : "text-red-600"
-                  }`}
-                >
-                  {message}
-                </p>
-              )}
-              <button
-                type="submit"
-                className="w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-700 transition-colors focus:outline-none focus:ring focus:ring-indigo-500"
-              >
-                Change Password
-              </button>
-            </form>
-          </section>
-        );
+        return <ChangePassword />;
       default:
         return null;
     }
@@ -436,136 +330,7 @@ export const Profile = ({ user }) => {
         </div>
       </div>
 
-      <div className=" bg-gray-100 dark:bg-gray-900 p-4 sm:p-8 flex flex-col items-center">
-        <div className="w-full max-w-6xl p-6 bg-white dark:bg-gray-800 rounded-lg shadow-xl space-y-8 md:space-y-0 md:space-x-8">
-          <section className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow-inner">
-            <h2 className="flex items-center text-xl font-semibold text-gray-900 dark:text-white mb-4">
-              <Edit className="text-indigo-500 mr-2" />
-              Update Information
-            </h2>
-            <form
-              //   onSubmit={handleUpdateInformation}
-              className="grid grid-cols-2 text-gray-700 dark:text-gray-300"
-            >
-              <div className="col-span-1 mr-2">
-                <label
-                  className="block text-sm font-medium mb-1"
-                  htmlFor="first_name"
-                >
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  id="first_name"
-                  name="first_name"
-                  //   value={updateFormData.name}
-                  //   onChange={handleUpdateChange}
-                  className="w-full px-2 py-1 sm:px-3 sm:py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring focus:ring-indigo-500"
-                  required
-                />
-              </div>
-              <div className="col-span-1">
-                <label
-                  className="block text-sm font-medium mb-1"
-                  htmlFor="last_name"
-                >
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  id="last_name"
-                  name="last_name"
-                  //   value={updateFormData.name}
-                  //   onChange={handleUpdateChange}
-                  className="w-full px-2 py-1 sm:px-3 sm:py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring focus:ring-indigo-500"
-                  required
-                />
-              </div>
-              <div className="col-span-2 my-2">
-                <label
-                  className="block text-sm font-medium mb-1"
-                  htmlFor="email"
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  //   value={updateFormData.email}
-                  //   onChange={handleUpdateChange}
-                  className="w-full px-2 py-1 sm:px-3 sm:py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring focus:ring-indigo-500"
-                  required
-                />
-              </div>
-              <div className="col-span-1 mr-2">
-                <label
-                  className="block text-sm font-medium mb-1"
-                  htmlFor="passportNumber"
-                >
-                  Passport Number
-                </label>
-                <input
-                  type="text"
-                  id="passportNumber"
-                  name="passportNumber"
-                  //   value={updateFormData.passportNumber}
-                  //   onChange={handleUpdateChange}
-                  className="w-full px-2 py-1 sm:px-3 sm:py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring focus:ring-indigo-500"
-                />
-              </div>
-              <div>
-                <label
-                  className="block text-sm font-medium mb-1"
-                  htmlFor="dateOfBirth"
-                >
-                  Date of Birth
-                </label>
-                <input
-                  type="date"
-                  id="dateOfBirth"
-                  name="dateOfBirth"
-                  //   value={updateFormData.dateOfBirth}
-                  //   onChange={handleUpdateChange}
-                  className="w-full px-2 py-1 sm:px-3 sm:py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring focus:ring-indigo-500"
-                />
-              </div>
-              <div className="col-span-2">
-                <label
-                  className="block text-sm font-medium mb-1"
-                  htmlFor="address"
-                >
-                  Address
-                </label>
-                <textarea
-                  id="address"
-                  name="address"
-                  //   value={updateFormData.address}
-                  //   onChange={handleUpdateChange}
-                  className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring focus:ring-indigo-500"
-                ></textarea>
-              </div>
-              {/* {updateMessage && (
-                <p
-                  className={`text-sm font-medium ${
-                    updateMessage.includes("successfully")
-                      ? "text-green-600"
-                      : "text-red-600"
-                  }`}
-                >
-                  {updateMessage}
-                </p>
-              )} */}
-              <button
-                type="submit"
-                className="w-full bg-indigo-600 col-span-2 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-700 transition-colors focus:outline-none focus:ring focus:ring-indigo-500"
-              >
-                Save Changes
-              </button>
-            </form>
-          </section>
-        </div>
-      </div>
+      <UpdateInformation currentUser={user} />
     </>
   );
 };

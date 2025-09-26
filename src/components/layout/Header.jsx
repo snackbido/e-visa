@@ -2,12 +2,14 @@ import { LogOut, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { logout } from "../features/slice/auth.slice";
+import { logout } from "../../features/slice/auth.slice";
 import { toast } from "react-toastify";
 
-export function Header({ user, currentUser }) {
+export function Header({ currentUser }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { isError, isSuccess, message } = useSelector((state) => state.auth);
+  const { isError, isSuccess, message, user } = useSelector(
+    (state) => state.auth
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -32,7 +34,7 @@ export function Header({ user, currentUser }) {
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
-      <nav className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <nav className="container mx-auto px-4 sm:px-6 lg:px-8 lg:pl-28 flex items-center justify-between h-16">
         <Link to="/" className="text-xl sm:text-2xl font-bold text-indigo-600">
           E-Visa
         </Link>
@@ -63,12 +65,6 @@ export function Header({ user, currentUser }) {
           >
             About Us
           </Link>
-          <Link
-            to="#contact"
-            className="text-gray-600 hover:text-indigo-600 transition-colors duration-200 font-medium"
-          >
-            Contact
-          </Link>
         </div>
 
         {/* Desktop CTA Buttons */}
@@ -85,7 +81,7 @@ export function Header({ user, currentUser }) {
               {/* User Greeting and Hover Dropdown */}
               <div className="relative group">
                 <button className="text-gray-700 dark:text-gray-300 text-sm lg:text-base md:text-sm font-medium px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer">
-                  Hello, {currentUser.email}
+                  Hello, {currentUser?.first_name}
                 </button>
 
                 {/* Dropdown Menu */}
@@ -120,7 +116,7 @@ export function Header({ user, currentUser }) {
             {user && (
               <div className="relative group">
                 <button className="text-gray-700 dark:text-gray-300 text-sm md:text-base font-medium px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer">
-                  Hello, {currentUser.email}
+                  Hello, {currentUser?.first_name}
                 </button>
 
                 {/* Dropdown Menu */}

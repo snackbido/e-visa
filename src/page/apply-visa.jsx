@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Step1 } from "../components/Step1";
-import { Step2 } from "../components/Step2";
-import { Step3 } from "../components/Step3";
+import { Step1 } from "../components/form/Step1";
+import { Step2 } from "../components/form/Step2";
+import { Step3 } from "../components/form/Step3";
 import countries from "../data.json";
 
 export function ApplyVisa({ user }) {

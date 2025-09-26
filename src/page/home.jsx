@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Blog } from "../components/Blog";
+import { BlogCard } from "../components/blog/Blog";
 
 const Home = () => {
   const [openFAQId, setOpenFAQId] = useState(null);
@@ -271,7 +271,7 @@ const Home = () => {
         </section>
 
         {/* Blog Section with Carousel */}
-        <Blog />
+        <BlogCard />
 
         <section className="py-16 sm:py-24 bg-white">
           <div className="container mx-auto px-8 sm:px-6 lg:px-8">

@@ -1,6 +1,5 @@
 import GridShape from "../../components/common/GridShape";
 import { Link } from "react-router";
-import ThemeTogglerTwo from "../../components/common/ThemeTogglerTwo";
 
 export default function AuthLayout({ children }) {
   return (
@@ -20,9 +19,6 @@ export default function AuthLayout({ children }) {
               </Link>
             </div>
           </div>
-        </div>
-        <div className="fixed z-50 hidden bottom-6 right-6 sm:block">
-          <ThemeTogglerTwo />
         </div>
       </div>
     </div>
