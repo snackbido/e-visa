@@ -4,9 +4,9 @@ import {
   Headers,
   HttpCode,
   HttpStatus,
-  Param,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from '@visa/auth/auth.service';
@@ -14,7 +14,7 @@ import { AuthCredential } from '@visa/auth/dto/authCredential.dto';
 import { ResetPasswordDto } from '@visa/auth/dto/resetPassword.dto';
 import { ForgotPasswordDto } from '@visa/auth/dto/forgotPassword.dto';
 import { LoginDto } from '@visa/auth/dto/login.dto';
-import { JwtAuthGuard } from './auth.guard';
+import { JwtAuthGuard } from '@visa/auth/auth.guard';
 
 @Controller('/api/auth')
 export class AuthController {
@@ -44,10 +44,10 @@ export class AuthController {
     return await this.authService.forgotPassword(email);
   }
 
-  @Put('/reset-password/:token')
+  @Put('/reset-password/')
   @HttpCode(HttpStatus.OK)
   async resetPassword(
-    @Param('token') token: string,
+    @Query('token') token: string,
     @Body() resetPasswordDto: ResetPasswordDto,
   ): Promise<string> {
     return await this.authService.resetPassword(token, resetPasswordDto);

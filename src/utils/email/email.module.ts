@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/require-await */
 import { MailerModule } from '@nestjs-modules/mailer';
 import { Module } from '@nestjs/common';
-import { EmailService } from './email.service';
+import { EmailService } from '@visa/utils/email/email.service';
 
 @Module({
   imports: [

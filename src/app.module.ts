@@ -5,7 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { DatabaseConfigModule } from '@visa/config/db/database.module';
 import { UserModule } from '@visa/user/user.module';
 import { AuthModule } from '@visa/auth/auth.module';
-import { EmailModule } from '@visa/utils/email.module';
+import { EmailModule } from '@visa/utils/email/email.module';
 import { VisaModule } from '@visa/visa/visa.module';
 import { PaymentModule } from '@visa/payment/payment.module';
 import { RedisCachedModule } from '@visa/utils/cached/redis.module';

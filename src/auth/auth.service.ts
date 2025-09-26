@@ -13,13 +13,14 @@ import * as bcrypt from 'bcrypt';
 import { UserService } from '@visa/user/user.service';
 import { ResetPasswordDto } from '@visa/auth/dto/resetPassword.dto';
 import { ForgotPasswordDto } from '@visa/auth/dto/forgotPassword.dto';
-import { EmailService } from '@visa/utils/email.service';
+import { EmailService } from '@visa/utils/email/email.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from '@visa/repository/user.repository';
 import { User } from '@visa/user/entity/user.entity';
 import { LoginDto } from '@visa/auth/dto/login.dto';
 import { RedisService } from '@visa/utils/cached/redis.service';
-import { JwtDecode } from './config/jwt.decode';
+import { JwtDecode } from '@visa/auth/config/jwt.decode';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
@@ -29,6 +30,7 @@ export class AuthService {
     private jwtService: JwtService,
     private redisService: RedisService,
     private emailService: EmailService,
+    private configService: ConfigService,
   ) {}
 
   async validate({ id }: JwtPayload): Promise<User> {
@@ -62,18 +64,18 @@ export class AuthService {
     const user = await this.userRepository.findOneBy({ email });
 
     if (!user) throw new NotFoundException('Email does not exist');
-
+    const secret = this.configService.get<string>('SECRET_KEY');
     const payload: JwtPayload = {
       id: user.id,
       email: user.email,
       role: user.role,
     };
     const token = this.jwtService.sign(payload, {
-      secret: 'jwt-secret',
+      secret,
       expiresIn: '15m',
     });
 
-    const url = `${process.env.CLIENT_URL}/user/reset-password/${token}`;
+    const url = `${process.env.CLIENT_URL}/reset-password/?token=${token}`;
     const html = `<table cellspacing="0" border="0" cellpadding="0" width="100%" bgcolor="#f2f3f8" style="@import url(https://fonts.googleapis.com/css?family=Rubik:300,400,500,700|Open+Sans:300,400,600,700); font-family: 'Open Sans', sans-serif;">
         <tr>
           <td>
@@ -139,9 +141,10 @@ export class AuthService {
     { password, passwordConfirm }: ResetPasswordDto,
   ): Promise<string> {
     if (!token) throw new UnauthorizedException();
+    const secret = this.configService.get<string>('SECRET_KEY');
 
     const payload = (await this.jwtService.verify(token, {
-      secret: 'jwt-secret',
+      secret,
     })) as JwtPayload;
 
     if (!payload) throw new BadRequestException('Invalid token');

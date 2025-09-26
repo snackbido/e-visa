@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -10,8 +11,6 @@ import {
 import { VisaService } from './visa.service';
 import { Visa } from './entity/visa.entity';
 import { CreateVisaDto } from './dto/create-visa.dto';
-import { GetUser } from '@visa/auth/get-user.decorator';
-import { User } from '@visa/user/entity/user.entity';
 import { JwtAuthGuard } from '@visa/auth/auth.guard';
 import { UpdateVisaDto } from './dto/update-visa.dto';
 
@@ -36,15 +35,17 @@ export class VisaController {
   }
 
   @Post()
-  async createVisa(
-    @Body() visaDto: CreateVisaDto,
-    @GetUser() user: User,
-  ): Promise<Visa> {
-    return await this.visaService.create(visaDto, user);
+  async createVisa(@Body() visaDto: CreateVisaDto): Promise<Visa> {
+    return await this.visaService.create(visaDto);
   }
 
   @Patch('/:id')
   async update(@Param('id') id: string, @Body() body: UpdateVisaDto) {
     return await this.visaService.update(id, body);
+  }
+
+  @Delete('/:id')
+  async delete(@Param('id') id: string) {
+    return await this.visaService.delete(id);
   }
 }

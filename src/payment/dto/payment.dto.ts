@@ -14,4 +14,7 @@ export class PaymentDto {
   @IsEnum(Payment)
   @IsOptional()
   status: STATUS;
+
+  @IsOptional()
+  card_number?: string;
 }
