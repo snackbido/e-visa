@@ -47,6 +47,8 @@ export class UserService {
       nationality,
     } = userDto;
 
+    console.log(userDto);
+
     if (existingUser) throw new BadRequestException('User already exists');
 
     const salt = bcrypt.genSaltSync(12);
