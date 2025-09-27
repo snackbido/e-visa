@@ -38,5 +38,5 @@ export class UserDto {
 
   @IsString()
   @IsEnum(ROLES)
-  role: string;
+  role: ROLES;
 }

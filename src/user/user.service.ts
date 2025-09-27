@@ -45,9 +45,8 @@ export class UserService {
       password,
       phone_number,
       nationality,
+      role,
     } = userDto;
-
-    console.log(userDto);
 
     if (existingUser) throw new BadRequestException('User already exists');
 
@@ -60,6 +59,7 @@ export class UserService {
       nationality,
       phone_number,
       password: bcrypt.hashSync(password, salt),
+      role: role, // Cast or convert to the correct enum type
     });
 
     await this.userRepository.save(user);
