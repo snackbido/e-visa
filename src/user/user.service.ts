@@ -85,14 +85,11 @@ export class UserService {
   }
 
   async deleteUser(id: string): Promise<string> {
-    const user = await this.userRepository.findOne({
-      where: { id: id },
-      relations: ['visa'],
-    });
+    const user = await this.userRepository.findOneBy({ id });
 
     if (!user) throw new NotFoundException('User does not exist');
 
-    await this.userRepository.delete(user);
+    await this.userRepository.delete(id);
     return 'User delete successfully';
   }
 
