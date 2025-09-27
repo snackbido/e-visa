@@ -279,7 +279,6 @@ export function Register() {
           <div className="hidden lg:block rounded-lg lg:w-1/2 bg-cover bg-[url(https://i.abcnewsfe.com/a/142a631c-0076-484a-8761-3cb4ff109ea4/passport-1-rf-gty-bb-230331_1680282593067_hpMain_1x1.jpg?w=608)]"></div>
         </div>
       </div>
-      <ToastContainer />
     </>
   );
 }
