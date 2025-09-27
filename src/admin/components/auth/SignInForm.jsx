@@ -27,6 +27,8 @@ export default function SignInForm() {
     const { data } = await axios.post("/auth/login", formData);
     if (data.status === "success") {
       toast.success("Success");
+      localStorage.setItem("Authorization", data.data.token);
+      localStorage.setItem("user", data.data.user);
       setTimeout(() => {
         navigate("/admin");
       }, 2000);
