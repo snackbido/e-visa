@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 
 export const AdminLayout = ({ currentUser }) => {
+  console.log(currentUser);
   // Nếu người dùng đã là admin, chuyển hướng đến dashboard.
   // Nếu không, cho phép họ thấy trang đăng nhập/đăng ký admin
   if (currentUser?.role === "admin") {
