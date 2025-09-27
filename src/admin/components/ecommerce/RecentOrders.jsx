@@ -26,7 +26,6 @@ export default function RecentOrders({ data, countries }) {
       }, {});
       setFlagLookup(newFlagLookup);
       const { data } = await axios.get("/payment");
-      console.log(data);
       if (data.status === "success") {
         setPayments(data.data);
         setIsLoading(false);
@@ -114,6 +113,7 @@ export default function RecentOrders({ data, countries }) {
                     </TableCell>
                     <TableCell className="py-3 text-gray-500 text-theme-sm dark:text-gray-400">
                       {payments.find((p) => p.visa_id === e.id).amount}$
+                      {console.log(payments)}
                     </TableCell>
                     <TableCell className="py-3 flex items-center text-gray-500 text-theme-sm dark:text-gray-400">
                       <div className="h-[45px] w-[45px] overflow-hidden rounded-lg">
