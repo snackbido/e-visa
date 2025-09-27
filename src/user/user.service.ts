@@ -68,7 +68,10 @@ export class UserService {
   }
 
   async updateUser(id: string, userDto: updateDto): Promise<string> {
-    const user = await this.userRepository.findOneBy({ id });
+    const user = await this.userRepository.findOne({
+      where: { id },
+      relations: ['visa'],
+    });
 
     if (!user) throw new NotFoundException('User does not exist');
     user.email = userDto.email;
@@ -82,7 +85,10 @@ export class UserService {
   }
 
   async deleteUser(id: string): Promise<string> {
-    const user = await this.userRepository.findOneBy({ id });
+    const user = await this.userRepository.findOne({
+      where: { id },
+      relations: ['visa'],
+    });
 
     if (!user) throw new NotFoundException('User does not exist');
 
