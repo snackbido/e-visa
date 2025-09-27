@@ -1,9 +1,45 @@
 import { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import countries from "../../../data.json";
 
 const UpdateUserModal = ({ isOpen, onClose, userData, onUpdate }) => {
-  // Sử dụng state để lưu trữ thông tin người dùng cần cập nhật
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone_number: "",
+    nationality: "",
+    role: "",
+  });
+
+  const validatePhone = (phone) => {
+    return String(phone).match(
+      /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/g
+    );
+  };
+
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
+  const handleCountries = () => {
+    const result = Object.values(countries)
+      .map((country) => {
+        return {
+          name: country.name,
+          code: country.alpha2Code,
+          dialCode: "+" + country.callingCodes[0],
+          flag: country.flag || "",
+        };
+      })
+      .sort((a, b) => a.name.localeCompare(b.name));
+    return result;
+  };
+  const data = handleCountries();
 
   // Cập nhật formData khi userData thay đổi
   useEffect(() => {
@@ -24,7 +60,35 @@ const UpdateUserModal = ({ isOpen, onClose, userData, onUpdate }) => {
   // Xử lý khi form được submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    onUpdate(formData);
+
+    const validEmail = validateEmail(formData.email);
+    const validPhone = validatePhone(formData.phone_number);
+
+    if (!validEmail) {
+      toast.error("Invalid email");
+      return;
+    }
+
+    if (!validPhone) {
+      toast.error("Invalid phone number");
+      return;
+    }
+
+    const body = {
+      first_name: formData.first_name,
+      last_name: formData.last_name,
+      email: formData.email,
+      phone_number:
+        formData.nationality.split(" ")[0] +
+        " " +
+        (formData.phone_number[0] === "+"
+          ? formData.phone_number.split(" ")[1]
+          : formData.phone_number),
+      nationality: formData.nationality.split(" ")[1],
+      role: formData.role,
+    };
+
+    onUpdate(body);
     onClose();
   };
 
@@ -123,6 +187,48 @@ const UpdateUserModal = ({ isOpen, onClose, userData, onUpdate }) => {
               onChange={handleChange}
               className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:text-white dark:border-gray-600"
             />
+          </div>
+          <div className="mb-6">
+            <label
+              className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+              htmlFor="nationality"
+            >
+              Nationality
+            </label>
+            <select
+              value={formData.nationality || ""}
+              className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:text-white dark:border-gray-600"
+              id="nationality"
+              name="nationality"
+            >
+              <option>{formData.nationality}</option>
+              {data.map((country) => (
+                <option
+                  key={country.code}
+                  value={country.dialCode + " " + country.name}
+                >
+                  {country.name} ({country.dialCode})
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="mb-6">
+            <label
+              className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+              htmlFor="role"
+            >
+              Role
+            </label>
+            <select
+              id="role"
+              name="role"
+              value={formData.role || ""}
+              onChange={handleChange}
+              className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:text-white dark:border-gray-600"
+            >
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
           </div>
           <div className="flex items-center justify-end">
             <button

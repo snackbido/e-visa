@@ -52,14 +52,24 @@ export default function BasicTableOne({ type, data, setInfo }) {
     setSelectedApplicants([]);
   };
 
-  const handleUpdate = async () => {
-    const { data } = await axios.patch(
-      `/user/${selectedUser.id}`,
-      selectedUser
-    );
+  const handleUpdate = async (body) => {
+    const { data } = await axios.patch(`/user/${selectedUser.id}`, body);
 
     if (data.status === "success") {
       toast.success(data.data);
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    const { data } = await axios.delete(`/user/${id}`);
+    if (data.status === "success") {
+      toast.success(data.data);
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
     }
   };
 
@@ -353,7 +363,10 @@ export default function BasicTableOne({ type, data, setInfo }) {
                       >
                         Update
                       </button>
-                      <button className="p-2 bg-green-500 text-white rounded-lg">
+                      <button
+                        className="p-2 bg-green-500 text-white rounded-lg"
+                        onclick={() => handleDelete(data.id)}
+                      >
                         Delete
                       </button>
                     </div>
