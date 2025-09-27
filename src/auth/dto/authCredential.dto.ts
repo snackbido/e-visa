@@ -1,7 +1,5 @@
-import { ROLES } from '@visa/user/entity/user.entity';
 import {
   IsEmail,
-  IsEnum,
   IsOptional,
   IsString,
   Matches,
@@ -34,7 +32,6 @@ export class AuthCredential {
   nationality: string;
 
   @IsString()
-  @IsEnum(ROLES)
   @IsOptional()
   role: string;
 }

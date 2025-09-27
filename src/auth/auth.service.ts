@@ -57,6 +57,7 @@ export class AuthService {
   }
 
   async register(authCredential: AuthCredential): Promise<string> {
+    console.log(authCredential);
     return await this.userService.createUser(authCredential);
   }
 
