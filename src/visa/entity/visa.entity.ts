@@ -70,7 +70,11 @@ export class Visa {
   @Column({ type: 'enum', enum: VISA_STATUS, default: VISA_STATUS.WAIT })
   status: VISA_STATUS;
 
-  @ManyToOne(() => User, (user) => user.visa, { cascade: true })
+  @ManyToOne(() => User, (user) => user.visa, {
+    cascade: true,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   @JoinColumn({ name: 'user_id' })
   user: User;
 
