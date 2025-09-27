@@ -64,6 +64,7 @@ export default function BasicTableOne({ type, data, setInfo }) {
   };
 
   const handleDelete = async (id) => {
+    console.log(id);
     const { data } = await axios.delete(`/user/${id}`);
     if (data.status === "success") {
       toast.success(data.data);
