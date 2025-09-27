@@ -30,7 +30,7 @@ export class User {
   @Column({ nullable: true, default: '' })
   phone_number: string;
 
-  @Column()
+  @Column({ nullable: true })
   nationality: string;
 
   @Column()
