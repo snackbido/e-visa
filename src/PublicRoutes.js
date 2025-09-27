@@ -27,19 +27,33 @@ import { ResetPassword } from "./page/auth/reset-password";
 export function AppRoutes() {
   const { user } = useSelector((state) => state.auth) || "";
   const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getUser = async () => {
-      const { data } = await axios.get(`/user/${user}`);
-      if (data.status === "success") {
-        setCurrentUser(data.data);
-      }
-    };
     if (user) {
-      getUser();
+      const getUser = async (id) => {
+        try {
+          const { data } = await axios.get(`/user/${id}`);
+          if (data.status === "success") {
+            setCurrentUser(data.data);
+          }
+        } catch (error) {
+          localStorage.removeItem("userId");
+          localStorage.removeItem("authToken");
+        } finally {
+          setLoading(false); // Kết thúc loading
+        }
+      };
+
+      getUser(user);
+    } else {
+      setLoading(false);
     }
   }, [user]);
 
+  if (loading) {
+    return <div>Đang tải...</div>;
+  }
   const handleLogout = () => {};
 
   return (
