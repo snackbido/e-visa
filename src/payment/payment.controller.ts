@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import {
@@ -39,12 +38,15 @@ export class PaymentController {
   }
 
   @Get('return')
-  handleReturn(@Query() query: any) {
+  handleReturn(@Query() query: Record<string, any>) {
     return this.paymentService.handleReturn(query);
   }
 
   @Post('ipn')
-  handleIpn(@Body() body: any, @Query() query: any) {
+  handleIpn(
+    @Body() body: Record<string, any>,
+    @Query() query: Record<string, any>,
+  ) {
     const params = { ...query, ...body };
 
     return this.paymentService.handleIpn(params);
