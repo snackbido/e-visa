@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import countries from "../../../data.json";
 
 const UpdateUserModal = ({ isOpen, onClose, userData, onUpdate }) => {
@@ -200,6 +200,7 @@ const UpdateUserModal = ({ isOpen, onClose, userData, onUpdate }) => {
               className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:text-white dark:border-gray-600"
               id="nationality"
               name="nationality"
+              onChange={handleChange}
             >
               <option>{formData.nationality}</option>
               {data.map((country) => (
@@ -247,7 +248,6 @@ const UpdateUserModal = ({ isOpen, onClose, userData, onUpdate }) => {
           </div>
         </form>
       </div>
-      <ToastContainer />
     </div>
   );
 };

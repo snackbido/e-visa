@@ -53,7 +53,7 @@ export default function BasicTableOne({ type, data, setInfo }) {
   };
 
   const handleUpdate = async (body) => {
-    const { data } = await axios.patch(`/user/${selectedUser.id}`, body);
+    const { data } = await axios.put(`/user/${selectedUser.id}`, body);
 
     if (data.status === "success") {
       toast.success(data.data);
@@ -366,7 +366,7 @@ export default function BasicTableOne({ type, data, setInfo }) {
                       </button>
                       <button
                         className="p-2 bg-green-500 text-white rounded-lg"
-                        onclick={() => handleDelete(data.id)}
+                        onClick={() => handleDelete(data.id)}
                       >
                         Delete
                       </button>
