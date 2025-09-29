@@ -8,8 +8,8 @@ import {
 
 export enum STATUS {
   PENDING = 'pending',
-  WAITING = 'waiting',
-  APPLIED = 'applied',
+  PAID = 'paid',
+  FAILED = 'failed',
 }
 
 @Entity()

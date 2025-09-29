@@ -106,9 +106,14 @@ export class PaymentService {
   }
 
   async createPayment(paymentDto: PaymentDto): Promise<string> {
-    const { amount, user_id, visa_id } = paymentDto;
+    const { amount, user_id, visa_id, status } = paymentDto;
 
-    const payment = this.paymentRepository.create({ amount, user_id, visa_id });
+    const payment = this.paymentRepository.create({
+      amount,
+      user_id,
+      visa_id,
+      status,
+    });
     const user = await this.userRepository.findOneBy({ id: user_id });
     if (!user) throw new BadRequestException('User not found');
     const newPayment = await this.paymentRepository.save(payment);

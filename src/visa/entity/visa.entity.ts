@@ -13,6 +13,7 @@ export enum VISA_STATUS {
   WAIT = 'Waiting Approve',
   APPROVE = 'Approved',
   REJECT = 'Rejected',
+  UNPAID = 'Unpaid',
 }
 
 @Entity()
