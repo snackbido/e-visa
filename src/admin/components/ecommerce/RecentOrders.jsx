@@ -33,6 +33,8 @@ export default function RecentOrders({ data, countries }) {
     };
     getPayments();
   }, [countries]);
+  console.log(data);
+  console.log(payments.find((e) => e.visa_id));
   return (
     <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white px-4 pb-3 pt-4 sm:px-6">
       {isLoading ? (

@@ -1,24 +1,24 @@
 import { useState } from "react";
 import axios from "../../axios/axios";
-import CurrencyAPI from "@everapi/currencyapi-js";
+// import CurrencyAPI from "@everapi/currencyapi-js";
 
 export function Step3({ handlePrevStep, formData, totalFee, user }) {
-  const currencyApi = new CurrencyAPI(
-    "cur_live_Lr7REa95LGvDBK9oc4ivpSBCPzyB4QXqTFuFfMMv"
-  );
-  const [vnd, setVND] = useState("0");
-  currencyApi
-    .latest({
-      base_currency: "USD",
-      currencies: "VND",
-    })
-    .then((response) => {
-      setVND(
-        new Intl.NumberFormat("vi-VN").format(
-          response.data.VND.value * totalFee
-        )
-      );
-    });
+  // const currencyApi = new CurrencyAPI(
+  //   "cur_live_Lr7REa95LGvDBK9oc4ivpSBCPzyB4QXqTFuFfMMv"
+  // );
+  // const [vnd, setVND] = useState("0");
+  // currencyApi
+  //   .latest({
+  //     base_currency: "USD",
+  //     currencies: "VND",
+  //   })
+  //   .then((response) => {
+  //     setVND(
+  //       new Intl.NumberFormat("vi-VN").format(
+  //         response.data.VND.value * totalFee
+  //       )
+  //     );
+  //   });
   const [isLoading, setIsLoading] = useState(false);
 
   // This is the data body that will be sent to your backend
@@ -43,7 +43,7 @@ export function Step3({ handlePrevStep, formData, totalFee, user }) {
       first_name: formData.info.first_name,
       last_name: formData.info.last_name,
       amount: totalFee,
-      status: "Unpaid"
+      status: "Unpaid",
     };
 
     try {
@@ -133,14 +133,14 @@ export function Step3({ handlePrevStep, formData, totalFee, user }) {
                       ${totalFee}
                     </dd>
                   </dl>
-                  <dl className="flex items-center justify-between border-gray-200">
+                  {/* <dl className="flex items-center justify-between border-gray-200">
                     <dt className="text-base font-bold text-gray-900">
                       In VND
                     </dt>
                     <dd className="text-base font-bold text-red-600">
                       {vnd} VND
                     </dd>
-                  </dl>
+                  </dl> */}
                 </div>
 
                 <div className="mt-6 flex items-center justify-center gap-8">

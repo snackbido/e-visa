@@ -21,6 +21,7 @@ const PaymentStatus = () => {
       }, 1000);
     };
     const transactionId = query.get("vpc_OrderInfo");
+    console.log(query.toString());
     const checkPaymentStatus = async () => {
       const { data } = await axios.get(`/payment/return?${query.toString()}`);
       if (data.status === "success") {
