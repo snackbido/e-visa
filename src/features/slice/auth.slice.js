@@ -40,12 +40,11 @@ export const login = createAsyncThunk(
   async (userData, thunkAPI) => {
     try {
       const response = await authService.login(userData);
-      console.log(response);
       if (response.status === "success") {
         localStorage.setItem("user", response.data.user);
         localStorage.setItem("Authorization", response.data.token);
       } else {
-        return thunkAPI.rejectWithValue(response.response.data.message);
+        return thunkAPI.rejectWithValue(response.message);
       }
       return response;
     } catch (error) {
