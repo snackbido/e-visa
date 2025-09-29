@@ -29,14 +29,22 @@ const PaymentStatus = () => {
           amount: Number(query.get("vpc_Amount")),
           user_id: user,
           card_number: query.get("vpc_CardNum"),
+          status: "paid",
         });
         handleStatus("success", "Your payment was successful!");
         setTimeout(() => {
           navigate("/profile");
         }, 3000);
       } else {
-        const { data } = await axios.delete(`/visa/${transactionId}`);
+        const { data } = await axios.post("/payment", {
+          status: "failed",
+          visa_id: transactionId,
+          amount: Number(query.get("vpc_Amount")),
+          user_id: user,
+          card_number: query.get("vpc_CardNum"),
+        });
         if (data.status === "success") {
+          await axios.patch(`/visa/${transactionId}`, { status: "Unpaid" });
           handleStatus("failed", "Your payment failed. Please try again.");
         }
       }

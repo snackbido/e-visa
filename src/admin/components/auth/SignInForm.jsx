@@ -33,11 +33,7 @@ export default function SignInForm({ currentUser }) {
         setTimeout(() => {
           setSuccess(false);
         }, 2000);
-        if (currentUser && currentUser.role === "user") {
-          navigate("/");
-        } else {
-          navigate("/admin");
-        }
+        navigate("/admin");
       }, 3000);
     }
     // Đặt lại trạng thái sau khi hoàn thành
