@@ -31,6 +31,9 @@ const PaymentStatus = () => {
           card_number: query.get("vpc_CardNum"),
           status: "paid",
         });
+        await axios.patch(`/visa/${transactionId}`, {
+          status: "Waiting Approve",
+        });
         handleStatus("success", "Your payment was successful!");
         setTimeout(() => {
           navigate("/profile");
