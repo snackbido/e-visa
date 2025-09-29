@@ -80,21 +80,21 @@ export function Header({ currentUser }) {
             <div className="mx-auto flex justify-end">
               {/* User Greeting and Hover Dropdown */}
               <div className="relative group">
-                <button className="text-gray-700 dark:text-gray-300 text-sm lg:text-base md:text-sm font-medium px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer">
+                <button className="text-gray-700 text-sm lg:text-base md:text-sm font-medium px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors cursor-pointer">
                   Hello, {currentUser?.first_name}
                 </button>
 
                 {/* Dropdown Menu */}
-                <div className="absolute right-0 top-10 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300">
+                <div className="absolute right-0 top-10 w-48 bg-white rounded-lg shadow-xl z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300">
                   <Link
                     to={"/profile"}
-                    className="flex items-center w-full px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-t-lg transition-colors"
+                    className="flex items-center w-full px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-t-lg transition-colors"
                   >
                     <User className="w-4 h-4 mr-2" /> Profile
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="flex items-center w-full px-4 py-2 text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-b-lg transition-colors"
+                    className="flex items-center w-full px-4 py-2 text-red-500 hover:bg-gray-100 rounded-b-lg transition-colors"
                   >
                     <LogOut className="w-4 h-4 mr-2" /> Logout
                   </button>
@@ -115,21 +115,21 @@ export function Header({ currentUser }) {
             {/* User Greeting and Hover Dropdown */}
             {user && (
               <div className="relative group">
-                <button className="text-gray-700 dark:text-gray-300 text-sm md:text-base font-medium px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer">
+                <button className="text-gray-700 text-sm md:text-base font-medium px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors cursor-pointer">
                   Hello, {currentUser?.first_name}
                 </button>
 
                 {/* Dropdown Menu */}
-                <div className="absolute right-0 top-10 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300">
+                <div className="absolute right-0 top-10 w-48 bg-white rounded-lg shadow-xl z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300">
                   <Link
                     to={"/profile"}
-                    className="flex items-center w-full px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-t-lg transition-colors"
+                    className="flex items-center w-full px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-t-lg transition-colors"
                   >
                     <User className="w-4 h-4 mr-2" /> Profile
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="flex items-center w-full px-4 py-2 text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-b-lg transition-colors"
+                    className="flex items-center w-full px-4 py-2 text-red-500 hover:bg-gray-100 rounded-b-lg transition-colors"
                   >
                     <LogOut className="w-4 h-4 mr-2" /> Logout
                   </button>

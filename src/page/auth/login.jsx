@@ -85,16 +85,12 @@ export function Login({ currentUser }) {
         setTimeout(() => {
           setSuccess(false);
         }, 2000);
-        if (currentUser && currentUser.role === "user") {
-          navigate("/");
-        } else {
-          navigate("/admin");
-        }
+        navigate("/");
       }, 3000);
     }
     // Đặt lại trạng thái sau khi hoàn thành
     dispatch(reset());
-  }, [user, isError, isSuccess, message, navigate, dispatch, currentUser]);
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   const validateEmail = (email) => {
     return String(email)
