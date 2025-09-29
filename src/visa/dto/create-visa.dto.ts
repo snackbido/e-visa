@@ -5,6 +5,7 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
+import { VISA_STATUS } from '../entity/visa.entity';
 
 export class CreateVisaDto {
   @IsString()
@@ -56,4 +57,7 @@ export class CreateVisaDto {
 
   @IsString()
   user_id: string;
+
+  @IsOptional()
+  status: VISA_STATUS;
 }

@@ -49,6 +49,7 @@ export class VisaService {
       time_of_visa,
       type_of_visa,
       user_id,
+      status,
     } = visaDto;
     const visa = this.visaRepository.create({
       applicant,
@@ -65,6 +66,7 @@ export class VisaService {
       time_of_visa,
       type_of_visa,
       user_id,
+      status,
     });
 
     await this.visaRepository.save(visa);
