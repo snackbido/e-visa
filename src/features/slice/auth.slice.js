@@ -44,7 +44,7 @@ export const login = createAsyncThunk(
         localStorage.setItem("user", response.data.user);
         localStorage.setItem("Authorization", response.data.token);
       } else {
-        return thunkAPI.rejectWithValue(response.stack.response.message);
+        return thunkAPI.rejectWithValue(response.data.message);
       }
       return response;
     } catch (error) {
