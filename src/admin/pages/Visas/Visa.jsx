@@ -2,7 +2,7 @@ import BasicTableOne from "../../components/tables/BasicTables/BasicTableOne";
 import ComponentCard from "../../components/common/ComponentCard";
 import { useEffect, useState } from "react";
 import axios from "../../../axios/axios";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 export function Visa() {
   const type = "visa";
@@ -43,7 +43,13 @@ export function Visa() {
     const csvBody = visas
       .map(
         (v) =>
-          `${v.first_name},${v.last_name},${v.phone_number},${v.email},${v.nationality},${v.time_of_visa},${v.type_of_visa.replaceAll(",", "-")},${v.processing_time},${v.purpose_of_visit},${v.date_of_arrival},${v.arrival_border},${v.applicant.length},${v.status}`
+          `${v.first_name},${v.last_name},${v.phone_number},${v.email},${
+            v.nationality
+          },${v.time_of_visa},${v.type_of_visa.replaceAll(",", "-")},${
+            v.processing_time
+          },${v.purpose_of_visit},${v.date_of_arrival},${v.arrival_border},${
+            v.applicant.length
+          },${v.status}`
       )
       .join("\n");
     const csvContent = csvHeader + csvBody;
@@ -68,7 +74,6 @@ export function Visa() {
       >
         <BasicTableOne type={type} data={visas} setInfo={setInfo} />
       </ComponentCard>
-      <ToastContainer />
     </>
   );
 }

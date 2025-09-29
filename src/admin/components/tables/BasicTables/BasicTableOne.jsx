@@ -74,7 +74,7 @@ export default function BasicTableOne({ type, data, setInfo }) {
     }
   };
 
-  const status = ["Approved", "Waiting Approve", "Rejected"];
+  const status = ["Approved", "Waiting Approve", "Rejected", "Unpaid"];
   return (
     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
       <div className="max-w-full overflow-x-auto">
@@ -282,11 +282,14 @@ export default function BasicTableOne({ type, data, setInfo }) {
                           id: data.id,
                         }))
                       }
+                      disabled={data.status === "Unpaid" ? true : false}
                       className={`${
                         data.status === "Approved"
                           ? "bg-green-500"
                           : data.status === "Waiting Approve"
                           ? "bg-yellow-400"
+                          : data.status === "Unpaid"
+                          ? "bg-gray-400"
                           : "bg-red-500"
                       } text-white rounded-lg p-1 font-bold`}
                     >

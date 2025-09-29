@@ -63,31 +63,31 @@ const ApplicantDetailModal = ({ isOpen, onClose, applicants }) => {
                         isHeader
                         className="px-5 py-3 font-medium text-gray-500 text-start text-sm dark:text-gray-400"
                       >
-                        Tên trên Passport
+                        Passport Name
                       </TableCell>
                       <TableCell
                         isHeader
                         className="px-5 py-3 font-medium text-gray-500 text-start text-sm dark:text-gray-400"
                       >
-                        Số hiệu Passport
+                        Passport Number
                       </TableCell>
                       <TableCell
                         isHeader
                         className="px-5 py-3 font-medium text-gray-500 text-start text-sm dark:text-gray-400"
                       >
-                        Giới tính
+                        Gender
                       </TableCell>
                       <TableCell
                         isHeader
                         className="px-5 py-3 font-medium text-gray-500 text-start text-sm dark:text-gray-400"
                       >
-                        Ảnh 3x4
+                        Portrait photo
                       </TableCell>
                       <TableCell
                         isHeader
                         className="px-5 py-3 font-medium text-gray-500 text-start text-sm dark:text-gray-400"
                       >
-                        Ảnh Passport
+                        Passport data page
                       </TableCell>
                     </TableRow>
                   </TableHeader>
@@ -176,7 +176,7 @@ const ApplicantDetailModal = ({ isOpen, onClose, applicants }) => {
           ) : (
             <div className="text-center py-8">
               <p className="text-gray-500 dark:text-gray-400">
-                Không có thông tin applicant
+                No Applicant information
               </p>
             </div>
           )}
@@ -188,7 +188,7 @@ const ApplicantDetailModal = ({ isOpen, onClose, applicants }) => {
             onClick={onClose}
             className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
           >
-            Đóng
+            Close
           </button>
         </div>
       </div>
