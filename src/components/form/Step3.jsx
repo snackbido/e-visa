@@ -42,7 +42,8 @@ export function Step3({ handlePrevStep, formData, totalFee, user }) {
       phone_number: formData.info.phone_number,
       first_name: formData.info.first_name,
       last_name: formData.info.last_name,
-      amount: totalFee, // Add amount to the body
+      amount: totalFee,
+      status: "Unpaid"
     };
 
     try {
