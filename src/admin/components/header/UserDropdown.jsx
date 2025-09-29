@@ -3,13 +3,38 @@ import { Dropdown } from "../ui/dropdown/Dropdown";
 import { useNavigate } from "react-router";
 import axios from "../../../axios/axios";
 import { toast, ToastContainer } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../../features/slice/auth.slice";
 
 export default function UserDropdown() {
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = useSelector((state) => state.auth) || "";
   const [currentUser, setCurrentUser] = useState({});
+
+  const { isError, isSuccess, message, user } = useSelector(
+    (state) => state.auth
+  );
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+      return;
+    }
+
+    if (!user) {
+      toast.success("Logged out");
+      setTimeout(() => {
+        navigate("/admin/signin");
+      }, 2000);
+    }
+  }, [message, isError, navigate, user, isSuccess]);
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+
+    dispatch(logout());
+  };
 
   useEffect(() => {
     const getUser = async () => {
@@ -18,20 +43,10 @@ export default function UserDropdown() {
         setCurrentUser(data.data);
       }
     };
-    getUser();
-  }, [user]);
-
-  const handleLogout = async () => {
-    const { data } = await axios.post("/auth/logout");
-    if (data.status === "success") {
-      toast.success("Logged out");
-      localStorage.removeItem("user");
-      localStorage.removeItem("Authorization");
-      setTimeout(() => {
-        navigate("/admin/signin");
-      }, 2000);
+    if (user) {
+      getUser();
     }
-  };
+  }, [user]);
 
   function toggleDropdown() {
     setIsOpen(!isOpen);
@@ -45,13 +60,13 @@ export default function UserDropdown() {
     <div className="relative">
       <button
         onClick={toggleDropdown}
-        className="flex items-center text-gray-700 dropdown-toggle dark:text-gray-400"
+        className="flex items-center text-gray-700 dropdown-toggle"
       >
         <span className="block mr-1 font-medium text-theme-sm">
           {currentUser.first_name}
         </span>
         <svg
-          className={`stroke-gray-500 dark:stroke-gray-400 transition-transform duration-200 ${
+          className={`stroke-gray-500 transition-transform duration-200 ${
             isOpen ? "rotate-180" : ""
           }`}
           width="18"
@@ -73,22 +88,22 @@ export default function UserDropdown() {
       <Dropdown
         isOpen={isOpen}
         onClose={closeDropdown}
-        className="absolute right-0 mt-[17px] flex w-[260px] flex-col rounded-2xl border border-gray-200 bg-white p-3 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark"
+        className="absolute right-0 mt-[17px] flex w-[260px] flex-col rounded-2xl border border-gray-200 bg-white p-3 shadow-theme-lg "
       >
         <div>
-          <span className="block font-medium text-gray-700 text-theme-sm dark:text-gray-400">
+          <span className="block font-medium text-gray-700 text-theme-sm ">
             {currentUser.last_name}
           </span>
-          <span className="mt-0.5 block text-theme-xs text-gray-500 dark:text-gray-400">
+          <span className="mt-0.5 block text-theme-xs text-gray-500 ">
             {currentUser.email}
           </span>
         </div>
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 px-3 py-2 mt-3 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
+          className="flex items-center gap-3 px-3 py-2 mt-3 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700"
         >
           <svg
-            className="fill-gray-500 group-hover:fill-gray-700 dark:group-hover:fill-gray-300"
+            className="fill-gray-500 group-hover:fill-gray-700"
             width="24"
             height="24"
             viewBox="0 0 24 24"

@@ -81,15 +81,12 @@ export function ChangePassword() {
     }
   };
   return (
-    <section className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow-inner">
-      <h2 className="flex items-center text-xl font-semibold text-gray-900 dark:text-white mb-4">
+    <section className="bg-gray-50 p-6 rounded-lg shadow-inner">
+      <h2 className="flex items-center text-xl font-semibold text-gray-900 mb-4">
         <Lock className="text-indigo-500 mr-2" />
         Change Password
       </h2>
-      <form
-        onSubmit={handlePasswordChange}
-        className="space-y-4 text-gray-700 dark:text-gray-300"
-      >
+      <form onSubmit={handlePasswordChange} className="space-y-4 text-gray-700">
         <div>
           <label
             className="block text-sm font-medium mb-1"
@@ -103,7 +100,7 @@ export function ChangePassword() {
             name="currentPassword"
             value={formData.currentPassword || ""}
             onChange={(e) => handleFormData(e)}
-            className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring focus:ring-indigo-500"
+            className="w-full px-3 py-2 rounded-md border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring focus:ring-indigo-500"
             required
           />
         </div>
@@ -120,7 +117,7 @@ export function ChangePassword() {
             name="newPassword"
             value={formData.newPassword}
             onChange={(e) => handleFormData(e)}
-            className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring focus:ring-indigo-500"
+            className="w-full px-3 py-2 rounded-md border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring focus:ring-indigo-500"
             required
           />
           <ul className="space-y-2 font-medium mt-2 text-xs italic">
@@ -155,7 +152,7 @@ export function ChangePassword() {
             id="confirmNewPassword"
             value={formData.confirmNewPassword}
             onChange={(e) => handleFormData(e)}
-            className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring focus:ring-indigo-500"
+            className="w-full px-3 py-2 rounded-md border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring focus:ring-indigo-500"
             required
           />
         </div>

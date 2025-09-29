@@ -1,38 +1,131 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { EyeCloseIcon, EyeIcon } from "../../icons/index.js";
 import Label from "../form/Label";
 import Input from "../form/Input";
 import Button from "../ui/button/Button";
 import { toast, ToastContainer } from "react-toastify";
-import axios from "../../../axios/axios";
+import { useDispatch, useSelector } from "react-redux";
+import { login, reset } from "../../../features/slice/auth.slice.js";
 
-export default function SignInForm() {
+export default function SignInForm({ currentUser }) {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [isLoading, setIsLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChangeData = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const { user, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+    if (isSuccess || user) {
+      setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(false);
+        setSuccess(true);
+        setTimeout(() => {
+          setSuccess(false);
+        }, 2000);
+        if (currentUser && currentUser.role === "user") {
+          navigate("/");
+        } else {
+          navigate("/admin");
+        }
+      }, 3000);
+    }
+    // Đặt lại trạng thái sau khi hoàn thành
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch, currentUser]);
+
+  let buttonText = "Login";
+  let buttonClasses = "bg-blue-600 hover:bg-blue-700";
+  let buttonContent = buttonText;
+
+  if (isLoading) {
+    buttonContent = (
+      <div className="flex items-center justify-center gap-2">
+        <svg
+          className="animate-spin h-5 w-5 text-white"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            className="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            strokeWidth="4"
+          ></circle>
+          <path
+            className="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          ></path>
+        </svg>
+        <span>Loading...</span>
+      </div>
+    );
+    buttonClasses = "bg-blue-400 cursor-not-allowed";
+  }
+  if (success) {
+    buttonContent = (
+      <div className="flex items-center justify-center gap-2">
+        <svg
+          className="h-5 w-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M9 12l2 2l4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+          ></path>
+        </svg>
+        <span>Done</span>
+      </div>
+    );
+    buttonClasses = "bg-green-500 hover:bg-green-600";
+  } else if (!formData.password) {
+    buttonClasses = "bg-indigo-700";
+  }
+
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateEmail(formData.email)) {
+      toast.error("Please enter a valid email");
+      return;
+    }
 
     if (!formData.email || !formData.password) {
       toast.error("Please fill all fields");
       return;
     }
 
-    const { data } = await axios.post("/auth/login", formData);
-    if (data.status === "success") {
-      toast.success("Success");
-      localStorage.setItem("Authorization", data.data.token);
-      localStorage.setItem("user", data.data.user);
-      setTimeout(() => {
-        navigate("/admin");
-      }, 2000);
-    }
+    dispatch(login(formData));
+    setTimeout(() => {
+      navigate("/admin");
+    }, 2000);
   };
 
   return (
@@ -138,10 +231,10 @@ export default function SignInForm() {
                 </div>
                 <div>
                   <Button
-                    className="w-full bg-indigo-500 hover:bg-indigo-600"
-                    size="sm"
+                    disabled={isLoading}
+                    className={`${buttonClasses} text-white font-bold py-2 px-4 w-full rounded hover:bg-indigo-600`}
                   >
-                    Sign in
+                    {buttonContent}
                   </Button>
                 </div>
               </div>

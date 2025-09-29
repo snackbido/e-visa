@@ -68,26 +68,26 @@ export function Step3({ handlePrevStep, formData, totalFee, user }) {
 
   return (
     <div className="mx-auto">
-      <section className="bg-white antialiased dark:bg-gray-900 md:pb-8">
+      <section className="bg-white antialiased md:pb-8">
         <div className="mx-auto max-w-screen-xl 2xl:px-0">
           <div className="mx-auto">
             <div className="mt-6 sm:mt-8 lg:flex lg:items-start lg:gap-12">
               <form
                 action="#"
-                className="w-full rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6 lg:max-w-xl lg:p-8"
+                className="w-full rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6 lg:max-w-xl lg:p-8"
               >
                 <h2 className="text-2xl font-semibold mb-6">
                   3. Payment Option
                 </h2>
                 <div className="mb-6">
-                  <p className="text-gray-600 dark:text-gray-400 mb-4">
+                  <p className="text-gray-600 mb-4">
                     Choose your preferred payment method below.
                   </p>
                   <button
                     type="button"
                     onClick={handlePaymentSubmit}
                     disabled={isLoading}
-                    className="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white bg-indigo-600 hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                    className="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white bg-indigo-600 hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300"
                   >
                     {isLoading ? "Processing..." : "Pay with OnePay"}
                   </button>
@@ -95,21 +95,21 @@ export function Step3({ handlePrevStep, formData, totalFee, user }) {
               </form>
 
               <div className="mt-6 grow sm:mt-8 lg:mt-0">
-                <div className="space-y-4 rounded-lg border border-gray-100 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800">
+                <div className="space-y-4 rounded-lg border border-gray-100 bg-gray-50 p-6">
                   <h2 className="text-2xl font-semibold mb-6">
                     Information visa
                   </h2>
                   <div className="space-y-2">
                     <dl className="flex items-center justify-between gap-4">
-                      <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
+                      <dt className="text-base font-normal text-gray-500">
                         Email
                       </dt>
-                      <dd className="text-base font-medium text-gray-900 dark:text-white">
+                      <dd className="text-base font-medium text-gray-900">
                         {user?.email}
                       </dd>
                     </dl>
                     <dl className="flex items-center justify-between gap-4">
-                      <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
+                      <dt className="text-base font-normal text-gray-500">
                         Full Name
                       </dt>
                       <dd className="text-base font-medium text-green-500">
@@ -117,28 +117,26 @@ export function Step3({ handlePrevStep, formData, totalFee, user }) {
                       </dd>
                     </dl>
                     <dl className="flex items-center justify-between gap-4">
-                      <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
+                      <dt className="text-base font-normal text-gray-500">
                         Fee
                       </dt>
-                      <dd className="text-base font-medium text-gray-900 dark:text-white">
+                      <dd className="text-base font-medium text-gray-900">
                         ${totalFee}
                       </dd>
                     </dl>
                   </div>
 
-                  <dl className="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
-                    <dt className="text-base font-bold text-gray-900 dark:text-white">
-                      Total
-                    </dt>
-                    <dd className="text-base font-bold text-gray-900 dark:text-white">
+                  <dl className="flex items-center justify-between gap-4 border-t border-gray-200 pt-2">
+                    <dt className="text-base font-bold text-gray-900">Total</dt>
+                    <dd className="text-base font-bold text-gray-900">
                       ${totalFee}
                     </dd>
                   </dl>
-                  <dl className="flex items-center justify-between border-gray-200 dark:border-gray-700">
-                    <dt className="text-base font-bold text-gray-900 dark:text-white">
+                  <dl className="flex items-center justify-between border-gray-200">
+                    <dt className="text-base font-bold text-gray-900">
                       In VND
                     </dt>
-                    <dd className="text-base font-bold text-red-600 dark:text-white">
+                    <dd className="text-base font-bold text-red-600">
                       {vnd} VND
                     </dd>
                   </dl>

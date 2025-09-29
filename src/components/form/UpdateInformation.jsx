@@ -125,10 +125,10 @@ export function UpdateInformation({ currentUser }) {
   };
 
   return (
-    <div className=" bg-gray-100 dark:bg-gray-900 p-4 sm:p-8 flex flex-col items-center">
-      <div className="w-full max-w-6xl p-6 bg-white dark:bg-gray-800 rounded-lg shadow-xl space-y-8 md:space-y-0 md:space-x-8">
-        <section className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow-inner">
-          <h2 className="flex items-center text-xl font-semibold text-gray-900 dark:text-white mb-4">
+    <div className=" bg-gray-100 p-4 sm:p-8 flex flex-col items-center">
+      <div className="w-full max-w-6xl p-6 bg-white rounded-lg shadow-xl space-y-8 md:space-y-0 md:space-x-8">
+        <section className="bg-gray-50 p-6 rounded-lg shadow-inner">
+          <h2 className="flex items-center text-xl font-semibold text-gray-900 mb-4">
             <Edit className="text-indigo-500 mr-2" />
             Update Information
           </h2>
@@ -136,15 +136,13 @@ export function UpdateInformation({ currentUser }) {
             <div className="flex items-center justify-center h-full">
               <div className="flex flex-col items-center">
                 <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-indigo-500"></div>
-                <p className="mt-4 text-lg text-gray-700 dark:text-gray-300">
-                  Loading...
-                </p>
+                <p className="mt-4 text-lg text-gray-700">Loading...</p>
               </div>
             </div>
           ) : (
             <form
               onSubmit={handleUpdateInformation}
-              className="grid grid-cols-2 text-gray-700 dark:text-gray-300"
+              className="grid grid-cols-2 text-gray-700"
             >
               <div className="col-span-1 mr-2">
                 <label
@@ -159,7 +157,7 @@ export function UpdateInformation({ currentUser }) {
                   name="first_name"
                   value={formData.first_name}
                   onChange={(e) => handleChangeFormData(e)}
-                  className="w-full px-2 py-1 sm:px-3 sm:py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring focus:ring-indigo-500"
+                  className="w-full px-2 py-1 sm:px-3 sm:py-2 rounded-md border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring focus:ring-indigo-500"
                   required
                 />
               </div>
@@ -176,7 +174,7 @@ export function UpdateInformation({ currentUser }) {
                   name="last_name"
                   value={formData.last_name}
                   onChange={(e) => handleChangeFormData(e)}
-                  className="w-full px-2 py-1 sm:px-3 sm:py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring focus:ring-indigo-500"
+                  className="w-full px-2 py-1 sm:px-3 sm:py-2 rounded-md border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring focus:ring-indigo-500"
                   required
                 />
               </div>
@@ -193,7 +191,7 @@ export function UpdateInformation({ currentUser }) {
                   name="email"
                   value={formData.email}
                   onChange={(e) => handleChangeFormData(e)}
-                  className="w-full px-2 py-1 sm:px-3 sm:py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring focus:ring-indigo-500"
+                  className="w-full px-2 py-1 sm:px-3 sm:py-2 rounded-md border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring focus:ring-indigo-500"
                   required
                 />
               </div>
@@ -210,7 +208,7 @@ export function UpdateInformation({ currentUser }) {
                   name="phone_number"
                   value={formData.phone_number}
                   onChange={(e) => handleChangeFormData(e)}
-                  className="w-full px-2 py-1 sm:px-3 sm:py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring focus:ring-indigo-500"
+                  className="w-full px-2 py-1 sm:px-3 sm:py-2 rounded-md border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring focus:ring-indigo-500"
                 />
                 <span className="text-red-500 italic text-sm">
                   Notice: Enter only your phone number, no need country code
@@ -229,7 +227,7 @@ export function UpdateInformation({ currentUser }) {
                   name="nationality"
                   value={formData.nationality}
                   onChange={(e) => handleChangeFormData(e)}
-                  className="w-full px-2 py-1 sm:px-3 sm:py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring focus:ring-indigo-500"
+                  className="w-full px-2 py-1 sm:px-3 sm:py-2 rounded-md border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring focus:ring-indigo-500"
                 >
                   <option value="">Select your nationality</option>
                   {data.map((country) => (

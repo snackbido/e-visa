@@ -41,7 +41,7 @@ export function AppRoutes() {
           localStorage.removeItem("userId");
           localStorage.removeItem("authToken");
         } finally {
-          setLoading(false); // Kết thúc loading
+          setLoading(false);
         }
       };
 
@@ -52,14 +52,13 @@ export function AppRoutes() {
   }, [user]);
 
   if (loading) {
-    return <div>Đang tải...</div>;
+    return <div>Loading...</div>;
   }
   const handleLogout = () => {};
 
   return (
     <>
       <Routes>
-        {/* Route dành cho người dùng thông thường và khách */}
         <Route path="reset-password" element={<ResetPassword />} />
         <Route
           path="/"
@@ -76,7 +75,6 @@ export function AppRoutes() {
           <Route path="register" element={<Register />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
 
-          {/* Các route yêu cầu người dùng đã đăng nhập */}
           <Route element={<PrivateRoute currentUser={currentUser} />}>
             <Route
               path="apply-visa"
@@ -87,15 +85,13 @@ export function AppRoutes() {
           </Route>
         </Route>
 
-        {/* Route dành cho Admin */}
         <Route
           path="/admin"
           element={<AdminLayout currentUser={currentUser} />}
         >
-          <Route path="signin" element={<SignIn />} />
+          <Route path="signin" element={<SignIn currentUser={currentUser} />} />
           <Route path="signup" element={<SignUp />} />
 
-          {/* Các route yêu cầu quyền quản trị viên */}
           <Route element={<AdminRoutes currentUser={currentUser} />}>
             <Route element={<AppLayout />}>
               <Route index element={<HomeDashboard />} />
@@ -105,7 +101,6 @@ export function AppRoutes() {
           </Route>
         </Route>
 
-        {/* Route chung cho các trang không tồn tại */}
         <Route path="*" element={<NotFound currentUser={currentUser} />} />
       </Routes>
       <ToastContainer />

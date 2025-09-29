@@ -76,138 +76,138 @@ export default function BasicTableOne({ type, data, setInfo }) {
 
   const status = ["Approved", "Waiting Approve", "Rejected"];
   return (
-    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
+    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
       <div className="max-w-full overflow-x-auto">
         <Table>
           {/* Table Header */}
           {type === "visa" ? (
-            <TableHeader className="border-b border-gray-100 dark:border-white/[0.05]">
+            <TableHeader className="border-b border-gray-100 ">
               <TableRow>
                 <TableCell
                   isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs"
                 >
                   Full Name
                 </TableCell>
                 <TableCell
                   isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs"
                 >
                   Email
                 </TableCell>
                 <TableCell
                   isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs"
                 >
                   Phone Number
                 </TableCell>
 
                 <TableCell
                   isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs"
                 >
                   Nationality
                 </TableCell>
                 <TableCell
                   isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs"
                 >
                   Time Of Visa
                 </TableCell>
                 <TableCell
                   isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs"
                 >
                   Type Of Visa
                 </TableCell>
                 <TableCell
                   isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs"
                 >
                   Processing Time
                 </TableCell>
                 <TableCell
                   isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs"
                 >
                   Purpose Of Visit
                 </TableCell>
                 <TableCell
                   isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs"
                 >
                   Arrival Date
                 </TableCell>
                 <TableCell
                   isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs"
                 >
                   Arrival Border
                 </TableCell>
                 <TableCell
                   isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs"
                 >
                   Applicants
                 </TableCell>
                 <TableCell
                   isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs"
                 >
                   Status
                 </TableCell>
                 <TableCell
                   isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs"
                 >
                   Actions
                 </TableCell>
               </TableRow>
             </TableHeader>
           ) : (
-            <TableHeader className="border-b border-gray-100 dark:border-white/[0.05]">
+            <TableHeader className="border-b border-gray-100">
               <TableRow>
                 <TableCell
                   isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs"
                 >
                   First Name
                 </TableCell>
                 <TableCell
                   isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs"
                 >
                   Last Name
                 </TableCell>
                 <TableCell
                   isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs"
                 >
                   Email
                 </TableCell>
                 <TableCell
                   isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs"
                 >
                   Phone Number
                 </TableCell>
 
                 <TableCell
                   isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs"
                 >
                   Nationality
                 </TableCell>
 
                 <TableCell
                   isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs"
                 >
                   Role
                 </TableCell>
                 <TableCell
                   isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs"
                 >
                   Actions
                 </TableCell>
@@ -217,28 +217,28 @@ export default function BasicTableOne({ type, data, setInfo }) {
 
           {/* Table Body */}
           {type === "visa" ? (
-            <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
+            <TableBody className="divide-y divide-gray-100">
               {data.map((data) => (
                 <TableRow key={data.id}>
                   <TableCell className="px-5 py-4 sm:px-6 text-start">
                     <div className="flex items-center gap-3">
                       <div>
-                        <span className="block font-medium text-gray-800 text-theme-sm dark:text-white/90">
+                        <span className="block font-medium text-gray-800 text-theme-sm">
                           {data.last_name + " " + data.first_name}
                         </span>
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                  <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm">
                     {data.email}
                   </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                  <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm">
                     <div className="flex -space-x-2">{data.phone_number}</div>
                   </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                  <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm">
                     <div className="flex items-center justify-around">
                       <span>{data.nationality}</span>
-                      <div className="w-6 h-6 overflow-hidden border-2 border-white rounded-full dark:border-gray-900">
+                      <div className="w-6 h-6 overflow-hidden border-2 border-white rounded-full">
                         <img
                           width={24}
                           height={24}
@@ -249,30 +249,30 @@ export default function BasicTableOne({ type, data, setInfo }) {
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
+                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm">
                     {data.time_of_visa}
                   </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
+                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm">
                     {data.type_of_visa}
                   </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
+                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm">
                     {data.processing_time}
                   </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
+                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm">
                     {data.purpose_of_visit}
                   </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
+                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm">
                     {data.date_of_arrival}
                   </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
+                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm">
                     {data.arrival_border}
                   </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                    <span className="text-gray-700 dark:text-gray-300 font-medium">
+                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm">
+                    <span className="text-gray-700 font-medium">
                       {data.applicant.length}
                     </span>
                   </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
+                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm">
                     <select
                       id="status"
                       name="status"
@@ -300,7 +300,7 @@ export default function BasicTableOne({ type, data, setInfo }) {
                         ))}
                     </select>
                   </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
+                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm">
                     <button
                       className="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white text-xs rounded-lg transition-colors duration-200 font-medium"
                       onClick={() => handleApplicantClick(data.applicant)}
@@ -312,13 +312,13 @@ export default function BasicTableOne({ type, data, setInfo }) {
               ))}
             </TableBody>
           ) : (
-            <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
+            <TableBody className="divide-y divide-gray-100">
               {data.map((data) => (
                 <TableRow key={data.id}>
                   <TableCell className="px-5 py-4 sm:px-6 text-start">
                     <div className="flex items-center gap-3">
                       <div>
-                        <span className="block font-medium text-gray-800 text-theme-sm dark:text-white/90">
+                        <span className="block font-medium text-gray-800 text-theme-sm">
                           {data.first_name}
                         </span>
                       </div>
@@ -327,36 +327,40 @@ export default function BasicTableOne({ type, data, setInfo }) {
                   <TableCell className="px-5 py-4 sm:px-6 text-start">
                     <div className="flex items-center gap-3">
                       <div>
-                        <span className="block font-medium text-gray-800 text-theme-sm dark:text-white/90">
+                        <span className="block font-medium text-gray-800 text-theme-sm">
                           {data.last_name}
                         </span>
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                  <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm">
                     {data.email}
                   </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                    <div className="flex -space-x-2">{data.phone_number}</div>
+                  <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm">
+                    <div className="flex -space-x-2">
+                      {data.phone_number || "No information"}
+                    </div>
                   </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                  <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm">
                     <div className="flex items-center">
-                      <span>{data.nationality}</span>
-                      <div className="w-6 h-6 overflow-hidden border-2 border-white rounded-full dark:border-gray-900">
-                        <img
-                          width={24}
-                          height={24}
-                          src={flag[data.nationality]}
-                          alt=""
-                          className="w-full size-6"
-                        />
+                      <span>{data.nationality || "No information"}</span>
+                      <div className="w-6 h-6 overflow-hidden border-2 border-white rounded-full">
+                        {data.nationality && (
+                          <img
+                            width={24}
+                            height={24}
+                            src={flag[data.nationality]}
+                            alt=""
+                            className="w-full size-6"
+                          />
+                        )}
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                  <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm">
                     {data.role}
                   </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
+                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm">
                     <div className="flex">
                       <button
                         className="p-2 bg-blue-500 mr-2 text-white rounded-lg"

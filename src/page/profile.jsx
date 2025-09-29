@@ -61,9 +61,7 @@ export const Profile = ({ user }) => {
         <div className="flex items-center justify-center h-full">
           <div className="flex flex-col items-center">
             <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-indigo-500"></div>
-            <p className="mt-4 text-lg text-gray-700 dark:text-gray-300">
-              Loading profile...
-            </p>
+            <p className="mt-4 text-lg text-gray-700">Loading profile...</p>
           </div>
         </div>
       );
@@ -88,13 +86,13 @@ export const Profile = ({ user }) => {
     switch (activeSection) {
       case "visa":
         return (
-          <section className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow-inner">
-            <h2 className="flex items-center text-xl font-semibold text-gray-900 dark:text-white mb-4">
+          <section className="bg-gray-50 p-6 rounded-lg shadow-inner">
+            <h2 className="flex items-center text-xl font-semibold text-gray-900 mb-4">
               <CheckCircle className="text-indigo-500 mr-2" />
               Visa Information
             </h2>
             {visa ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700 dark:text-gray-300">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
                 <div className="flex items-center">
                   <span className="font-medium mr-2">Status:</span>
                   <span
@@ -154,7 +152,7 @@ export const Profile = ({ user }) => {
                 </div>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700 dark:text-gray-300">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
                 <h2 className="text-gray-500 font-bold text-lg">
                   You don't have any visa
                 </h2>
@@ -164,12 +162,12 @@ export const Profile = ({ user }) => {
         );
       case "information":
         return (
-          <section className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow-inner">
-            <h2 className="flex items-center text-xl font-semibold text-gray-900 dark:text-white mb-4">
+          <section className="bg-gray-50 p-6 rounded-lg shadow-inner">
+            <h2 className="flex items-center text-xl font-semibold text-gray-900 mb-4">
               <Info className="text-indigo-500 mr-2" />
               Customer Information
             </h2>
-            <ul className="space-y-2 text-gray-700 dark:text-gray-300">
+            <ul className="space-y-2 text-gray-700">
               <li>
                 <span className="font-medium">Email:</span> {user.email}
               </li>
@@ -193,28 +191,28 @@ export const Profile = ({ user }) => {
         );
       case "history":
         return (
-          <section className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow-inner">
-            <h2 className="flex items-center text-xl font-semibold text-gray-900 dark:text-white mb-4">
+          <section className="bg-gray-50 p-6 rounded-lg shadow-inner">
+            <h2 className="flex items-center text-xl font-semibold text-gray-900 mb-4">
               <FileText className="text-indigo-500 mr-2" />
               E-Visa History
             </h2>
             <div className="overflow-x-auto">
               <table className="min-w-full table-auto">
                 <thead>
-                  <tr className="bg-gray-200 dark:bg-gray-600">
-                    <th className="px-4 py-2 text-left text-gray-600 dark:text-gray-200 font-medium">
+                  <tr className="bg-gray-200">
+                    <th className="px-4 py-2 text-left text-gray-600 font-medium">
                       ID
                     </th>
-                    <th className="px-4 py-2 text-left text-gray-600 dark:text-gray-200 font-medium">
+                    <th className="px-4 py-2 text-left text-gray-600 font-medium">
                       Type
                     </th>
-                    <th className="px-4 py-2 text-left text-gray-600 dark:text-gray-200 font-medium">
+                    <th className="px-4 py-2 text-left text-gray-600 font-medium">
                       Country
                     </th>
-                    <th className="px-4 py-2 text-left text-gray-600 dark:text-gray-200 font-medium">
+                    <th className="px-4 py-2 text-left text-gray-600 font-medium">
                       Issue Date
                     </th>
-                    <th className="px-4 py-2 text-left text-gray-600 dark:text-gray-200 font-medium">
+                    <th className="px-4 py-2 text-left text-gray-600 font-medium">
                       Status
                     </th>
                   </tr>
@@ -224,24 +222,20 @@ export const Profile = ({ user }) => {
                     <tr
                       key={item.id}
                       className={`${
-                        index % 2 === 0
-                          ? "bg-white dark:bg-gray-800"
-                          : "bg-gray-50 dark:bg-gray-700"
-                      } border-b dark:border-gray-600`}
+                        index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                      } border-b `}
                     >
-                      <td className="px-4 py-2 text-gray-700 dark:text-gray-300">
-                        {item.id}
-                      </td>
-                      <td className="px-4 py-2 text-gray-700 dark:text-gray-300">
+                      <td className="px-4 py-2 text-gray-700">{item.id}</td>
+                      <td className="px-4 py-2 text-gray-700">
                         {item.type_of_visa}
                       </td>
-                      <td className="px-4 py-2 text-gray-700 dark:text-gray-300">
+                      <td className="px-4 py-2 text-gray-700">
                         {item.nationality}
                       </td>
-                      <td className="px-4 py-2 text-gray-700 dark:text-gray-300">
+                      <td className="px-4 py-2 text-gray-700">
                         {item.issueDate}
                       </td>
-                      <td className="px-4 py-2 flex items-center text-gray-700 dark:text-gray-300">
+                      <td className="px-4 py-2 flex items-center text-gray-700">
                         {getStatusIcon(item.status)}
                         <span className="ml-2">{item.status}</span>
                       </td>
@@ -261,19 +255,17 @@ export const Profile = ({ user }) => {
 
   return (
     <>
-      <div className=" bg-gray-100 dark:bg-gray-900 p-4 sm:p-8 flex flex-col items-center">
-        <div className="w-full max-w-6xl p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md space-y-8 md:space-y-0 md:flex md:space-x-8">
+      <div className=" bg-gray-100 p-4 sm:p-8 flex flex-col items-center">
+        <div className="w-full max-w-6xl p-6 bg-white rounded-lg shadow-md space-y-8 md:space-y-0 md:flex md:space-x-8">
           {/* Navigation Sidebar */}
           <div className="w-full md:w-1/4 flex flex-col space-y-4">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-              My Profile
-            </h2>
+            <h2 className="text-xl font-bold text-gray-900 mb-2">My Profile</h2>
             <button
               onClick={() => setActiveSection("information")}
               className={`flex items-center w-full px-4 py-3 rounded-lg font-medium transition-colors ${
                 activeSection === "information"
                   ? "bg-indigo-600 text-white shadow-md"
-                  : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
             >
               <Info className="w-5 h-5 mr-3" />
@@ -284,7 +276,7 @@ export const Profile = ({ user }) => {
               className={`flex items-center w-full px-4 py-3 rounded-lg font-medium transition-colors ${
                 activeSection === "visa"
                   ? "bg-indigo-600 text-white shadow-md"
-                  : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
             >
               <CheckCircle className="w-5 h-5 mr-3" />
@@ -295,7 +287,7 @@ export const Profile = ({ user }) => {
               className={`flex items-center w-full px-4 py-3 rounded-lg font-medium transition-colors ${
                 activeSection === "history"
                   ? "bg-indigo-600 text-white shadow-md"
-                  : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
             >
               <FileText className="w-5 h-5 mr-3" />
@@ -306,7 +298,7 @@ export const Profile = ({ user }) => {
               className={`flex items-center w-full px-4 py-3 rounded-lg font-medium transition-colors ${
                 activeSection === "changePassword"
                   ? "bg-indigo-600 text-white shadow-md"
-                  : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300 "
               }`}
             >
               <Lock className="w-5 h-5 mr-3" />
@@ -319,7 +311,7 @@ export const Profile = ({ user }) => {
             <div className="flex justify-end ">
               <button
                 onClick={() => navigate("/")}
-                className="flex items-center sm:relative sm:top-0 absolute top-24 mt-1 mb-3 text-gray-700 justify-start dark:text-gray-300 text-sm md:text-base font-medium px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                className="flex items-center sm:relative sm:top-0 absolute top-24 mt-1 mb-3 text-gray-700 justify-start text-sm md:text-base font-medium px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors"
               >
                 <Home className="w-4 h-4 mr-2" />
                 Back to Home
