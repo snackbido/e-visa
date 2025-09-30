@@ -125,19 +125,20 @@ const ApplicantDetailModal = ({ isOpen, onClose, applicants }) => {
                           </span>
                         </TableCell>
                         <TableCell className="px-5 py-4 text-start">
-                          {applicant.photo_3x4 ? (
-                            <div className="w-16 h-20 overflow-hidden rounded border border-gray-200 dark:border-gray-600">
-                              <image
-                                src={applicant.photo_3x4}
-                                alt="3x4 photo"
+                          {console.log(applicant)}
+                          {applicant.avatar ? (
+                            <div className="w-16 h-20 overflow-hidden rounded border border-gray-200">
+                              <img
+                                src={applicant.avatar}
+                                alt="Applicant portrait"
                                 className="w-full h-full object-cover cursor-pointer hover:opacity-75 transition-opacity"
                                 onClick={() =>
-                                  window.open(applicant.photo_3x4, "_blank")
+                                  window.open(applicant.avatar, "_blank")
                                 }
                               />
                             </div>
                           ) : (
-                            <div className="w-16 h-20 bg-gray-100 dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600 flex items-center justify-center">
+                            <div className="w-16 h-20 bg-gray-100 dark:bg-gray-700 rounded border border-gray-200 flex items-center justify-center">
                               <span className="text-xs text-gray-500 dark:text-gray-400">
                                 No image
                               </span>
@@ -145,22 +146,22 @@ const ApplicantDetailModal = ({ isOpen, onClose, applicants }) => {
                           )}
                         </TableCell>
                         <TableCell className="px-5 py-4 text-start">
-                          {applicant.passport_photo ? (
-                            <div className="w-20 h-16 overflow-hidden rounded border border-gray-200 dark:border-gray-600">
-                              <image
-                                src={applicant.passport_photo}
-                                alt="Passport photo"
+                          {applicant.passport_image ? (
+                            <div className="w-20 h-16 overflow-hidden rounded border border-gray-200">
+                              <img
+                                src={applicant.passport_image}
+                                alt="Passport"
                                 className="w-full h-full object-cover cursor-pointer hover:opacity-75 transition-opacity"
                                 onClick={() =>
                                   window.open(
-                                    applicant.passport_photo,
+                                    applicant.passport_image,
                                     "_blank"
                                   )
                                 }
                               />
                             </div>
                           ) : (
-                            <div className="w-20 h-16 bg-gray-100 dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600 flex items-center justify-center">
+                            <div className="w-20 h-16 bg-gray-100 dark:bg-gray-700 rounded border border-gray-200 flex items-center justify-center">
                               <span className="text-xs text-gray-500 dark:text-gray-400">
                                 No image
                               </span>

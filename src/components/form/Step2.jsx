@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 export function Step2({
   formData,
@@ -674,7 +674,6 @@ export function Step2({
           </button>
         </div>
       </div>
-      <ToastContainer />
     </div>
   );
 }

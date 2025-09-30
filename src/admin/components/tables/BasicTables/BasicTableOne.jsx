@@ -238,10 +238,10 @@ export default function BasicTableOne({ type, data, setInfo }) {
                   <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm">
                     <div className="flex items-center justify-around">
                       <span>{data.nationality}</span>
-                      <div className="w-6 h-6 overflow-hidden border-2 border-white rounded-full">
+                      <div className="w-6 h-6 overflow-hidden border border-gray-300">
                         <img
-                          width={24}
-                          height={24}
+                          width={25}
+                          height={25}
                           alt=""
                           src={flag[data.nationality]}
                           className="w-full size-6"

@@ -31,6 +31,7 @@ const PaymentStatus = () => {
           user_id: user,
           card_number: query.get("vpc_CardNum"),
           status: "paid",
+          transaction_no: query.get("vpc_TransactionNo"),
         });
         await axios.patch(`/visa/${transactionId}`, {
           status: "Waiting Approve",

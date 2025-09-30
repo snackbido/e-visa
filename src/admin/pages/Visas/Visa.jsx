@@ -39,7 +39,7 @@ export function Visa() {
 
   const handleDownload = () => {
     const csvHeader =
-      "First Name,Last Name,Phone Number,Email,Nationality,Time Of Visa,TypeOfVisa,Processing Time,Purpose Of Visit,Arrival Of Date,Arrival Border,Applicant,Status\n";
+      "First Name,Last Name,Phone Number,Email,Nationality,Time Of Visa,Type Of Visa,Processing Time,Purpose Of Visit,Arrival Of Date,Arrival Border,Applicant,Status\n";
     const csvBody = visas
       .map(
         (v) =>

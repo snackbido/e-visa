@@ -1,50 +1,52 @@
 import { useState } from "react";
 import axios from "../../axios/axios";
-// import CurrencyAPI from "@everapi/currencyapi-js";
 
 export function Step3({ handlePrevStep, formData, totalFee, user }) {
-  // const currencyApi = new CurrencyAPI(
-  //   "cur_live_Lr7REa95LGvDBK9oc4ivpSBCPzyB4QXqTFuFfMMv"
-  // );
-  // const [vnd, setVND] = useState("0");
-  // currencyApi
-  //   .latest({
-  //     base_currency: "USD",
-  //     currencies: "VND",
-  //   })
-  //   .then((response) => {
-  //     setVND(
-  //       new Intl.NumberFormat("vi-VN").format(
-  //         response.data.VND.value * totalFee
-  //       )
-  //     );
-  //   });
   const [isLoading, setIsLoading] = useState(false);
-
-  // This is the data body that will be sent to your backend
 
   const handlePaymentSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
-    const body = {
-      nationality: formData.step1.nationality,
-      time_of_visa: formData.step1.visaTime,
-      type_of_visa: formData.step1.visaType,
-      number_of_visa: formData.applicants.length,
-      applicant: formData.applicants,
-      processing_time: formData.step1.processingTime,
-      purpose_of_visit: formData.step1.purpose,
-      user_id: user.id,
-      date_of_arrival: formData.info.arrival_date,
-      arrival_border: formData.info.arrival_border,
-      email: formData.info.email,
-      phone_number: formData.info.phone_number,
-      first_name: formData.info.first_name,
-      last_name: formData.info.last_name,
-      amount: totalFee,
-      status: "Unpaid",
-    };
+    const body = new FormData();
+
+    body.append("nationality", formData.step1.nationality);
+    body.append("time_of_visa", formData.step1.visaTime);
+    body.append("type_of_visa", formData.step1.visaType);
+    body.append("number_of_visa", formData.applicants.length * 1);
+    body.append("processing_time", formData.step1.processingTime);
+    body.append("purpose_of_visit", formData.step1.purpose);
+    body.append("user_id", user.id);
+    body.append("date_of_arrival", formData.info.arrival_date);
+    body.append("arrival_border", formData.info.arrival_border);
+    body.append("email", formData.info.email);
+    body.append("phone_number", formData.info.phone_number);
+    body.append("first_name", formData.info.first_name);
+    body.append("last_name", formData.info.last_name);
+    body.append("amount", totalFee);
+    body.append("status", "Unpaid");
+
+    formData.applicants.forEach((applicant, index) => {
+      body.append(`applicant[${index}][id]`, applicant.id);
+      body.append(
+        `applicant[${index}][passport_name]`,
+        applicant.passport_name
+      );
+      body.append(
+        `applicant[${index}][passport_number]`,
+        applicant.passport_number
+      );
+      body.append(`applicant[${index}][gender]`, applicant.gender);
+      if (applicant.avatar) {
+        body.append(`applicant[${index}][avatar]`, applicant.avatar);
+      }
+      if (applicant.passport_image) {
+        body.append(
+          `applicant[${index}][passport_image]`,
+          applicant.passport_image
+        );
+      }
+    });
 
     try {
       const visa = await axios.post("/visa", body);
@@ -56,14 +58,16 @@ export function Step3({ handlePrevStep, formData, totalFee, user }) {
         );
         const { status, data } = paymentUrl.data;
         if (status === "success") {
-          window.location.href = data.url;
-          setIsLoading(false);
+          setTimeout(() => {
+            setIsLoading(false);
+            window.location.href = data.url;
+          }, 1000);
         }
       }
     } catch (error) {
       console.error("Payment submission failed:", error);
       setIsLoading(false);
-      alert("There was an error processing your request. Please try again.");
+      // alert("There was an error processing your request. Please try again.");
     }
   };
 

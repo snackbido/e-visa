@@ -33,8 +33,7 @@ export default function RecentOrders({ data, countries }) {
     };
     getPayments();
   }, [countries]);
-  console.log(data);
-  console.log(payments.find((e) => e.visa_id));
+
   return (
     <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white px-4 pb-3 pt-4 sm:px-6">
       {isLoading ? (
@@ -112,8 +111,13 @@ export default function RecentOrders({ data, countries }) {
                       </div>
                     </TableCell>
                     <TableCell className="py-3 text-gray-500 text-theme-sm">
-                      {payments.find((p) => p.visa_id === e.id)?.amount}$
-                      {/* {console.log(payments.find((p) => p.visa_id === e.id))} */}
+                      {new Intl.NumberFormat("vi-VN", {
+                        style: "currency",
+                        currency: "VND",
+                        maximumFractionDigits: 9,
+                      }).format(
+                        payments.find((p) => p.visa_id === e.id)?.amount
+                      )}
                     </TableCell>
                     <TableCell className="py-3 flex items-center text-gray-500 text-theme-sm">
                       <div className="h-[45px] w-[45px] overflow-hidden rounded-lg">

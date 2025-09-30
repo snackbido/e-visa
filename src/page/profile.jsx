@@ -1,5 +1,13 @@
 import { useState, useEffect } from "react";
-import { CheckCircle, XCircle, Info, FileText, Lock, Home } from "lucide-react";
+import {
+  CheckCircle,
+  XCircle,
+  Info,
+  FileText,
+  Lock,
+  Home,
+  BanknoteX,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import axios from "../axios/axios";
 import { UpdateInformation } from "../components/form/UpdateInformation";
@@ -48,11 +56,36 @@ export const Profile = ({ user }) => {
         return <CheckCircle className="text-green-500 w-5 h-5" />;
       case "Waiting Approve":
         return <Info className="text-yellow-500 w-5 h-5" />;
-      case "Expired":
+      case "Rejected":
         return <XCircle className="text-red-500 w-5 h-5" />;
+      case "Unpaid":
+        return <BanknoteX className="text-gray-500 w-5 h-5" />;
       default:
         return null;
     }
+  };
+
+  const calculateDateOfExpiryVisa = (timeOfVisa, approvedDate) => {
+    const startDate = new Date(approvedDate);
+
+    // Kiểm tra tính hợp lệ
+    if (isNaN(startDate.getTime())) {
+      return "Ngày đầu vào không hợp lệ.";
+    }
+
+    if (timeOfVisa.includes("1 month")) {
+      startDate.setDate(startDate.getDate() + 29);
+
+      // 3. Định dạng lại ngày để hiển thị (YYYY-MM-DD)
+    }
+    const year = startDate.getFullYear();
+    // getMonth() trả về giá trị từ 0-11, nên cần +1.
+    const month = String(startDate.getMonth() + 1).padStart(2, "0");
+    const day = String(startDate.getDate()).padStart(2, "0");
+
+    return startDate.getTime() > Date.now()
+      ? `${year}-${month}-${day}`
+      : "Expires";
   };
 
   const renderContent = () => {
@@ -209,8 +242,8 @@ export const Profile = ({ user }) => {
                     <th className="px-4 py-2 text-left text-gray-600 font-medium">
                       Country
                     </th>
-                    <th className="px-4 py-2 text-left text-gray-600 font-medium">
-                      Issue Date
+                    <th className="px-8 py-2 text-left text-gray-600 font-medium">
+                      Expiry Date
                     </th>
                     <th className="px-4 py-2 text-left text-gray-600 font-medium">
                       Status
@@ -233,9 +266,14 @@ export const Profile = ({ user }) => {
                         {item.nationality}
                       </td>
                       <td className="px-4 py-2 text-gray-700">
-                        {item.issueDate}
+                        {item.status === "Approved"
+                          ? calculateDateOfExpiryVisa(
+                              item.time_of_visa,
+                              item.updated_at
+                            )
+                          : ""}
                       </td>
-                      <td className="px-4 py-2 flex items-center text-gray-700">
+                      <td className="px-4 py-2 flex items-center text-gray-700 my-5">
                         {getStatusIcon(item.status)}
                         <span className="ml-2">{item.status}</span>
                       </td>
