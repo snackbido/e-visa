@@ -58,10 +58,8 @@ export function Step3({ handlePrevStep, formData, totalFee, user }) {
         );
         const { status, data } = paymentUrl.data;
         if (status === "success") {
-          setTimeout(() => {
-            setIsLoading(false);
-            window.location.href = data.url;
-          }, 1000);
+          setIsLoading(false);
+          window.location.href = data.url;
         }
       }
     } catch (error) {
