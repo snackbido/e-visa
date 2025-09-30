@@ -96,7 +96,6 @@ export class PaymentService {
   handleIpn(params: Record<string, any>) {
     const verify = this.verifyParams(params);
     if (!verify.ok) throw new BadRequestException('Invalid signature');
-    console.log(params);
 
     if (params['vpc_TxnResponseCode'] !== '0') {
       throw new BadRequestException('Payment failed');
@@ -106,7 +105,7 @@ export class PaymentService {
   }
 
   async createPayment(paymentDto: PaymentDto): Promise<string> {
-    const { amount, user_id, visa_id, status } = paymentDto;
+    const { amount, user_id, visa_id, status, transaction_no } = paymentDto;
 
     const payment = this.paymentRepository.create({
       amount,
@@ -120,7 +119,7 @@ export class PaymentService {
 
     const html = `<div style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); overflow: hidden; border: 1px solid #e5e7eb;">
     <div style="background-color: #2563eb; color: #ffffff; padding: 32px 24px; text-align: center; border-top-left-radius: 12px; border-top-right-radius: 12px;">
-        <h1 style="font-size: 28px; font-weight: 700; margin: 0;">Thanh Toán Thành Công!</h1>
+        <h1 style="font-size: 28px; font-weight: 700; margin: 0;">Payment Successful!</h1>
     </div>
     <div style="padding: 32px 24px; color: #4b5563;">
         <p style="font-size: 16px; line-height: 1.6; margin: 0 0 16px;">Hello, **${user.first_name}**,</p>
@@ -135,7 +134,7 @@ export class PaymentService {
                 </tr>
                 <tr>
                     <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; color: #6b7280;">Transaction ID</td>
-                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; font-weight: 500; color: #111827; text-align: right;">**${newPayment.id}**</td>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; font-weight: 500; color: #111827; text-align: right;">**${transaction_no}**</td>
                 </tr>
                 <tr>
                     <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; color: #6b7280;">Full Name</td>
@@ -156,15 +155,19 @@ export class PaymentService {
             </table>
         </div>
         
-        <p style="font-size: 16px; line-height: 1.6; margin: 0 0 16px;">Your e-visa information will be sent to this email as soon as your application is processed. If you have any questions about this transaction, please contact our support team via ${'+84 93248750'}.</p>
-        
+        <p style="font-size: 16px; line-height: 1.6; margin: 0 0 16px;">
+        Your e-visa information will be sent to this email once your application has been processed. After your visa application is accepted, the details of your visa will be sent to you through this email. If you have any questions regarding this process, please contact our support team via <a href="+842888852247">${'(+84)28 88 852 247'}</a>.</p>
     </div>
     <div style="background-color: #e5e7eb; color: #6b7280; text-align: center; padding: 24px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
         <p style="font-size: 12px; margin: 0;">This email was sent automatically, please do not reply.</p>
         <p style="font-size: 12px; margin: 0;">Copyright &copy; **[${new Date().getFullYear()}]** **[Book247]** | **[1st Floor, Vietphone Building, 64 Nguyen Dinh Chieu, Ward Da Kao, District 1, HCMC]**</p>
     </div>
 </div>`;
-    await this.emailService.sendEmail(user.email, 'Payment Successful', html);
+    await this.emailService.sendEmail(
+      user.email,
+      'Your payment was successfully',
+      html,
+    );
     return 'Payment created';
   }
 

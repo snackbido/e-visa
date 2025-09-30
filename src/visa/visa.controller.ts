@@ -6,13 +6,16 @@ import {
   Param,
   Patch,
   Post,
+  UploadedFiles,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
-import { VisaService } from './visa.service';
-import { Visa } from './entity/visa.entity';
-import { CreateVisaDto } from './dto/create-visa.dto';
+import { VisaService } from '@visa/visa/visa.service';
+import { Visa } from '@visa/visa/entity/visa.entity';
+import { CreateVisaDto } from '@visa/visa/dto/create-visa.dto';
 import { JwtAuthGuard } from '@visa/auth/auth.guard';
-import { UpdateVisaDto } from './dto/update-visa.dto';
+import { UpdateVisaDto } from '@visa/visa/dto/update-visa.dto';
+import { AnyFilesInterceptor } from '@nestjs/platform-express';
 
 @Controller('/api/visa')
 @UseGuards(JwtAuthGuard)
@@ -35,8 +38,12 @@ export class VisaController {
   }
 
   @Post()
-  async createVisa(@Body() visaDto: CreateVisaDto): Promise<Visa> {
-    return await this.visaService.create(visaDto);
+  @UseInterceptors(AnyFilesInterceptor({}))
+  async createVisa(
+    @Body() visaDto: CreateVisaDto,
+    @UploadedFiles() files: Array<Express.Multer.File>,
+  ): Promise<Visa> {
+    return await this.visaService.create(visaDto, files);
   }
 
   @Patch('/:id')

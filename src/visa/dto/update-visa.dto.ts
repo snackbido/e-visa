@@ -1,5 +1,5 @@
 import { IsString } from 'class-validator';
-import { VISA_STATUS } from '../entity/visa.entity';
+import { VISA_STATUS } from '@visa/visa/entity/visa.entity';
 
 export class UpdateVisaDto {
   @IsString()

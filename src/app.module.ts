@@ -9,6 +9,7 @@ import { EmailModule } from '@visa/utils/email/email.module';
 import { VisaModule } from '@visa/visa/visa.module';
 import { PaymentModule } from '@visa/payment/payment.module';
 import { RedisCachedModule } from '@visa/utils/cached/redis.module';
+import { CloudinaryModule } from '@visa/utils/cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { RedisCachedModule } from '@visa/utils/cached/redis.module';
     AuthModule,
     VisaModule,
     PaymentModule,
+    CloudinaryModule,
     RedisCachedModule,
   ],
   controllers: [AppController],

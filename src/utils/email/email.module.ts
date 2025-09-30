@@ -1,26 +1,23 @@
 /* eslint-disable @typescript-eslint/require-await */
 import { MailerModule } from '@nestjs-modules/mailer';
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { EmailService } from '@visa/utils/email/email.service';
 
 @Module({
   imports: [
+    ConfigModule,
     MailerModule.forRootAsync({
-      useFactory: async () => ({
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
         transport: {
-          // service: 'gmail',
-          // host: 'smtp.gmail.com',
-          // port: 465,
-          // secure: false, // Adjust based on your email service
-          // auth: {
-          //   user: 'hatran12387@gmail.com',
-          //   pass: 'euxqtfyndxfdtmmx',
-          // },
-          host: 'sandbox.smtp.mailtrap.io',
-          port: 2525,
+          service: 'gmail',
+          host: 'smtp.gmail.com',
+          port: 465,
+          secure: false, // Adjust based on your email service
           auth: {
-            user: 'a3bcdcfec65900',
-            pass: 'eca599876f7825',
+            user: configService.get<string>('EMAIL_USER'),
+            pass: configService.get<string>('EMAIL_PASS'),
           },
         },
       }),

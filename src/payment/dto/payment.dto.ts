@@ -16,4 +16,7 @@ export class PaymentDto {
 
   @IsOptional()
   card_number?: string;
+
+  @IsOptional()
+  transaction_no: string;
 }

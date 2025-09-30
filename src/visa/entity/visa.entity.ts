@@ -14,6 +14,7 @@ export enum VISA_STATUS {
   APPROVE = 'Approved',
   REJECT = 'Rejected',
   UNPAID = 'Unpaid',
+  EXPIRES = 'Expires',
 }
 
 @Entity()

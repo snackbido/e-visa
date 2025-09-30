@@ -1,11 +1,5 @@
-import {
-  IsArray,
-  IsEmail,
-  IsNumber,
-  IsOptional,
-  IsString,
-} from 'class-validator';
-import { VISA_STATUS } from '../entity/visa.entity';
+import { IsArray, IsEmail, IsOptional, IsString } from 'class-validator';
+import { VISA_STATUS } from '@visa/visa/entity/visa.entity';
 
 export class CreateVisaDto {
   @IsString()
@@ -40,7 +34,7 @@ export class CreateVisaDto {
   @IsString()
   nationality: string;
 
-  @IsNumber()
+  @IsString()
   number_of_visa: number;
 
   @IsString()

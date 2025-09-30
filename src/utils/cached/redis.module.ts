@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { RedisService } from './redis.service';
+import { RedisService } from '@visa/utils/cached/redis.service';
 
 @Module({
   imports: [ConfigModule],
