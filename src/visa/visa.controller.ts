@@ -47,8 +47,13 @@ export class VisaController {
   }
 
   @Patch('/:id')
-  async update(@Param('id') id: string, @Body() body: UpdateVisaDto) {
-    return await this.visaService.update(id, body);
+  @UseInterceptors(AnyFilesInterceptor({}))
+  async update(
+    @Param('id') id: string,
+    @Body() body: UpdateVisaDto,
+    @UploadedFiles() files: Array<Express.Multer.File>,
+  ) {
+    return await this.visaService.update(id, body, files);
   }
 
   @Delete('/:id')

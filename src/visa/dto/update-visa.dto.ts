@@ -1,7 +1,9 @@
-import { IsString } from 'class-validator';
-import { VISA_STATUS } from '@visa/visa/entity/visa.entity';
+import { PartialType } from '@nestjs/mapped-types';
+import { CreateVisaDto } from './create-visa.dto';
+import { IsOptional, IsString } from 'class-validator';
 
-export class UpdateVisaDto {
+export class UpdateVisaDto extends PartialType(CreateVisaDto) {
+  @IsOptional()
   @IsString()
-  status: VISA_STATUS;
+  is_active: string;
 }

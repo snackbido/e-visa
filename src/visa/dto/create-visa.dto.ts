@@ -15,6 +15,9 @@ export class CreateVisaDto {
   phone_number: string;
 
   @IsString()
+  country_code: string;
+
+  @IsString()
   date_of_arrival: string;
 
   @IsOptional()
@@ -51,6 +54,18 @@ export class CreateVisaDto {
 
   @IsString()
   user_id: string;
+
+  @IsString()
+  emergency_name: string;
+
+  @IsString()
+  emergency_relationship: string;
+
+  @IsString()
+  emergency_phone_number: string;
+
+  @IsString()
+  emergency_country_code: string;
 
   @IsOptional()
   status: VISA_STATUS;

@@ -87,7 +87,7 @@ export class PaymentService {
     if (!verify.ok) throw new BadRequestException('Invalid signature');
 
     if (params['vpc_TxnResponseCode'] !== '0')
-      throw new BadRequestException('Payment failed');
+      throw new BadRequestException(params['vpc_Message']);
 
     return 'Payment success';
   }
@@ -105,7 +105,15 @@ export class PaymentService {
   }
 
   async createPayment(paymentDto: PaymentDto): Promise<string> {
-    const { amount, user_id, visa_id, status, transaction_no } = paymentDto;
+    const {
+      amount,
+      user_id,
+      visa_id,
+      status,
+      transaction_no,
+      txnResponseCode,
+      message,
+    } = paymentDto;
 
     const payment = this.paymentRepository.create({
       amount,
@@ -116,13 +124,13 @@ export class PaymentService {
     const user = await this.userRepository.findOneBy({ id: user_id });
     if (!user) throw new BadRequestException('User not found');
     const newPayment = await this.paymentRepository.save(payment);
-
-    const html = `<div style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); overflow: hidden; border: 1px solid #e5e7eb;">
+    if (txnResponseCode == '0') {
+      const html = `<div style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); overflow: hidden; border: 1px solid #e5e7eb; font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
     <div style="background-color: #2563eb; color: #ffffff; padding: 32px 24px; text-align: center; border-top-left-radius: 12px; border-top-right-radius: 12px;">
         <h1 style="font-size: 28px; font-weight: 700; margin: 0;">Payment Successful!</h1>
     </div>
     <div style="padding: 32px 24px; color: #4b5563;">
-        <p style="font-size: 16px; line-height: 1.6; margin: 0 0 16px;">Hello, **${user.first_name}**,</p>
+        <p style="font-size: 16px; line-height: 1.6; margin: 0 0 16px;">Hello, ${user.first_name},</p>
         <p style="font-size: 16px; line-height: 1.6; margin: 0 0 16px;">Your e-visa payment transaction has been processed successfully. Thank you for trusting and using our service.</p>
         
         <div style="background-color: #f9fafb; border-radius: 8px; padding: 24px; margin: 24px 0;">
@@ -130,27 +138,27 @@ export class PaymentService {
             <table style="width: 100%; border-collapse: collapse;">
                 <tr>
                     <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; color: #6b7280;">ID Visa</td>
-                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; font-weight: 500; color: #111827; text-align: right;">**${visa_id}**</td>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; font-weight: 500; color: #111827; text-align: right;">${visa_id}</td>
                 </tr>
                 <tr>
                     <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; color: #6b7280;">Transaction ID</td>
-                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; font-weight: 500; color: #111827; text-align: right;">**${transaction_no}**</td>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; font-weight: 500; color: #111827; text-align: right;">${transaction_no}</td>
                 </tr>
                 <tr>
                     <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; color: #6b7280;">Full Name</td>
-                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; font-weight: 500; color: #111827; text-align: right;">**${user.first_name + ' ' + user.last_name}**</td>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; font-weight: 500; color: #111827; text-align: right;">${user.first_name + ' ' + user.last_name}</td>
                 </tr>
                 <tr>
                     <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; color: #6b7280;">Card Number</td>
-                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; font-weight: 500; color: #111827; text-align: right;">**${paymentDto.card_number}**</td>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; font-weight: 500; color: #111827; text-align: right;">${paymentDto.card_number}</td>
                 </tr>
                 <tr>
                     <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; color: #6b7280;">Date of Paid</td>
-                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; font-weight: 500; color: #111827; text-align: right;">**${newPayment.created_at.toISOString()}**</td>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; font-weight: 500; color: #111827; text-align: right;">${newPayment.created_at.toISOString()}</td>
                 </tr>
                 <tr>
                     <td style="font-size: 14px; padding: 8px 0; border-bottom: none; color: #6b7280;">Amount Paid</td>
-                    <td style="font-size: 14px; padding: 8px 0; border-bottom: none; font-weight: 500; color: #111827; text-align: right;">**${amount} VND**</td>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: none; font-weight: 500; color: #111827; text-align: right;">${amount} VND</td>
                 </tr>
             </table>
         </div>
@@ -160,14 +168,72 @@ export class PaymentService {
     </div>
     <div style="background-color: #e5e7eb; color: #6b7280; text-align: center; padding: 24px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
         <p style="font-size: 12px; margin: 0;">This email was sent automatically, please do not reply.</p>
-        <p style="font-size: 12px; margin: 0;">Copyright &copy; **[${new Date().getFullYear()}]** **[Book247]** | **[1st Floor, Vietphone Building, 64 Nguyen Dinh Chieu, Ward Da Kao, District 1, HCMC]**</p>
+        <p style="font-size: 12px; margin: 0;">Copyright &copy; [${new Date().getFullYear()}] [Book247] | [1st Floor, Vietphone Building, 64 Nguyen Dinh Chieu, Ward Da Kao, District 1, HCMC]</p>
     </div>
 </div>`;
-    await this.emailService.sendEmail(
-      user.email,
-      'Your payment was successfully',
-      html,
-    );
+      await this.emailService.sendEmail(
+        user.email,
+        'Your payment was successfully',
+        html,
+      );
+    } else {
+      const html = `<div style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); overflow: hidden; border: 1px solid #e5e7eb; font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <div style="background-color: #dc2626; color: #ffffff; padding: 32px 24px; text-align: center; border-top-left-radius: 12px; border-top-right-radius: 12px;">
+        <h1 style="font-size: 28px; font-weight: 700; margin: 0;">Payment Failed</h1>
+    </div>
+    <div style="padding: 32px 24px; color: #4b5563;">
+        <p style="font-size: 16px; line-height: 1.6; margin: 0 0 16px;">Hello, ${user.first_name},</p>
+        <p style="font-size: 16px; line-height: 1.6; margin: 0 0 16px;">Unfortunately, your e-visa payment transaction was <strong style="color: #dc2626;">unsuccessful</strong>. Please check your information and try again.</p>
+        
+        <div style="background-color: #fef2f2; border-left: 4px solid #dc2626; border-radius: 8px; padding: 24px; margin: 24px 0;">
+            <h2 style="font-size: 20px; font-weight: 600; color: #991b1b; margin: 0 0 16px;">Transaction Details</h2>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; color: #6b7280;">Visa ID</td>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; font-weight: 500; color: #111827; text-align: right;">${visa_id}</td>
+                </tr>
+                <tr>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; color: #6b7280;">Transaction ID</td>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; font-weight: 500; color: #111827; text-align: right;">${transaction_no}</td>
+                </tr>
+                <tr>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; color: #6b7280;">Full Name</td>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; font-weight: 500; color: #111827; text-align: right;">${user.first_name + ' ' + user.last_name}</td>
+                </tr>
+                <tr>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; color: #6b7280;">Card Number</td>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; font-weight: 500; color: #111827; text-align: right;">${paymentDto.card_number}</td>
+                </tr>
+                <tr>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; color: #6b7280;">Date & Time</td>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; font-weight: 500; color: #111827; text-align: right;">${new Date().toISOString()}</td>
+                </tr>
+                <tr>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; color: #6b7280;">Amount</td>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; font-weight: 500; color: #111827; text-align: right;">${amount} VND</td>
+                </tr>
+                <tr>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: none; color: #6b7280;">Reason</td>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: none; font-weight: 500; color: #dc2626; text-align: right;">${message || 'Invalid card information'}</td>
+                </tr>
+            </table>
+        </div>
+        
+        <p style="font-size: 16px; line-height: 1.6; margin: 0 0 16px;">
+        If you need assistance or have any questions, please contact our support team at <a href="tel:+842888852247" style="color: #2563eb; text-decoration: none; font-weight: 500;">(+84)28 88 852 247</a>.</p>
+    </div>
+    <div style="background-color: #e5e7eb; color: #6b7280; text-align: center; padding: 24px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+        <p style="font-size: 12px; margin: 0;">This email was sent automatically, please do not reply.</p>
+        <p style="font-size: 12px; margin: 0;">Copyright &copy; ${new Date().getFullYear()} Book247 | 1st Floor, Vietphone Building, 64 Nguyen Dinh Chieu, Ward Da Kao, District 1, HCMC</p>
+    </div>
+</div>`;
+      await this.emailService.sendEmail(
+        user.email,
+        'Your payment was failed',
+        html,
+      );
+    }
+
     return 'Payment created';
   }
 

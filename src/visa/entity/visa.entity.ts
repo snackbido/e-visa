@@ -1,3 +1,4 @@
+import { Payment } from '@visa/payment/entity/payment.entity';
 import { User } from '@visa/user/entity/user.entity';
 import {
   Column,
@@ -5,6 +6,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -33,6 +35,9 @@ export class Visa {
 
   @Column()
   phone_number: string;
+
+  @Column()
+  country_code: string;
 
   @Column()
   date_of_arrival: string;
@@ -82,6 +87,27 @@ export class Visa {
 
   @Column()
   user_id: string;
+
+  @OneToOne(() => Payment, (payment) => payment.visa)
+  payment: Payment;
+
+  @Column({ default: '0' })
+  is_active: string;
+
+  @Column({
+    length: 10,
+    unique: true,
+    nullable: false,
+  })
+  public_id: string;
+
+  @Column('json')
+  emergency_contact: {
+    full_name: string;
+    relationship: string;
+    phone_number: string;
+    country_code: string;
+  };
 
   @CreateDateColumn()
   created_at: Date;

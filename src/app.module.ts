@@ -10,6 +10,8 @@ import { VisaModule } from '@visa/visa/visa.module';
 import { PaymentModule } from '@visa/payment/payment.module';
 import { RedisCachedModule } from '@visa/utils/cached/redis.module';
 import { CloudinaryModule } from '@visa/utils/cloudinary/cloudinary.module';
+import { BlogModule } from '@visa/blog/blog.module';
+import { ArticleModule } from '@visa/articles/article.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { CloudinaryModule } from '@visa/utils/cloudinary/cloudinary.module';
     AuthModule,
     VisaModule,
     PaymentModule,
+    BlogModule,
+    ArticleModule,
     CloudinaryModule,
     RedisCachedModule,
   ],

@@ -1,7 +1,10 @@
+import { Visa } from '@visa/visa/entity/visa.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -19,6 +22,13 @@ export class Payment {
 
   @Column()
   user_id: string;
+
+  @OneToOne(() => Visa, (visa) => visa.payment, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'visa_id' })
+  visa: Visa;
 
   @Column()
   visa_id: string;

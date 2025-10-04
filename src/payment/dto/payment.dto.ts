@@ -19,4 +19,10 @@ export class PaymentDto {
 
   @IsOptional()
   transaction_no: string;
+
+  @IsOptional()
+  txnResponseCode: string;
+
+  @IsOptional()
+  message: string;
 }
