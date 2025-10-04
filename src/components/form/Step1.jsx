@@ -57,6 +57,7 @@ export function Step1({
       toast.error("Please fill full fields");
       return;
     }
+    console.log(formData);
     handleNextStep();
   };
 

@@ -2,10 +2,14 @@ import { useEffect, useState } from "react";
 import { Step1 } from "../components/form/Step1";
 import { Step2 } from "../components/form/Step2";
 import { Step3 } from "../components/form/Step3";
+import axios from "../axios/axios";
 import countries from "../data.json";
+import { toast } from "react-toastify";
 
 export function ApplyVisa({ user }) {
   const [currentStep, setCurrentStep] = useState(1);
+  const [visaId, setVisaId] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [totalFee, setTotalFee] = useState(0);
   const [formData, setFormData] = useState({
     step1: {
@@ -32,8 +36,13 @@ export function ApplyVisa({ user }) {
       first_name: "",
       last_name: "",
       phone_number: "",
+      country_code: "",
       arrival_date: "",
       arrival_border: "",
+      emergency_name: "",
+      emergency_phone_number: "",
+      emergency_relationship: "",
+      emergency_country_code: "",
     },
   });
 
@@ -66,6 +75,26 @@ export function ApplyVisa({ user }) {
     },
   };
 
+  useEffect(() => {
+    const handleHashChange = () => {
+      const stepFromHash = window.location.hash.replace("#step=", "");
+      const step = parseInt(stepFromHash, 10);
+      if (step >= 1 && step <= 3) {
+        setCurrentStep(step);
+      } else {
+        setCurrentStep(1);
+        window.location.hash = "step=1";
+      }
+    };
+
+    window.addEventListener("hashchange", handleHashChange);
+    handleHashChange();
+
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, []);
+
   // Recalculate fee whenever form data changes
   useEffect(() => {
     const calculateFee = () => {
@@ -87,11 +116,91 @@ export function ApplyVisa({ user }) {
 
   // handle step
   const handleNextStep = () => {
-    setCurrentStep((prev) => prev + 1);
+    const newStep = currentStep + 1;
+    if (newStep <= 3) {
+      window.location.hash = `step=${newStep}`;
+    }
+  };
+
+  const handleNextStep2 = async () => {
+    setIsLoading(true);
+
+    const body = new FormData();
+
+    body.append("nationality", formData.step1.nationality);
+    body.append("time_of_visa", formData.step1.visaTime);
+    body.append("type_of_visa", formData.step1.visaType);
+    body.append("number_of_visa", formData.applicants.length * 1);
+    body.append("processing_time", formData.step1.processingTime);
+    body.append("purpose_of_visit", formData.step1.purpose);
+    body.append("user_id", user.id);
+
+    body.append("date_of_arrival", formData.info.arrival_date);
+    body.append("arrival_border", formData.info.arrival_border);
+    body.append("email", formData.info.email);
+    body.append("phone_number", formData.info.phone_number);
+    body.append("country_code", formData.info.country_code);
+    body.append("first_name", formData.info.first_name);
+    body.append("last_name", formData.info.last_name);
+    // Emergency Contact
+    body.append("emergency_name", formData.info.emergency_name);
+    body.append("emergency_relationship", formData.info.emergency_relationship);
+    body.append("emergency_phone_number", formData.info.emergency_phone_number);
+    body.append("emergency_country_code", formData.info.emergency_country_code);
+    body.append("is_active", "0");
+
+    // Dữ liệu Applicants
+    formData.applicants.forEach((applicant, index) => {
+      body.append(
+        `applicant[${index}][passport_name]`,
+        applicant.passport_name
+      );
+      body.append(
+        `applicant[${index}][passport_number]`,
+        applicant.passport_number
+      );
+      body.append(`applicant[${index}][gender]`, applicant.gender);
+      if (applicant.avatar) {
+        body.append(`applicant[${index}][avatar]`, applicant.avatar);
+      }
+      if (applicant.passport_image) {
+        body.append(
+          `applicant[${index}][passport_image]`,
+          applicant.passport_image
+        );
+      }
+    });
+
+    try {
+      let response;
+
+      if (visaId) {
+        response = await axios.patch(`/visa/${visaId}`, body);
+      } else {
+        response = await axios.post("/visa", body);
+        setVisaId(response.data.data.id);
+      }
+
+      if (response.data.status === "success") {
+        setIsLoading(false);
+        window.location.hash = "step=3";
+      } else {
+        // Xử lý lỗi cập nhật/tạo
+        setIsLoading(false);
+      }
+    } catch (error) {
+      toast.error(error);
+      console.error("API call to /visa failed:", error);
+    } finally {
+      // reset loading state...
+    }
   };
 
   const handlePrevStep = () => {
-    setCurrentStep((prev) => prev - 1);
+    const newStep = currentStep - 1;
+    if (newStep >= 1) {
+      window.location.hash = `step=${newStep}`;
+    }
   };
 
   return (
@@ -202,19 +311,20 @@ export function ApplyVisa({ user }) {
               data={data}
               formData={formData}
               setFormData={setFormData}
-              handleNextStep={handleNextStep}
+              handleNextStep={handleNextStep2}
               handlePrevStep={handlePrevStep}
               totalFee={totalFee}
+              isLoading={isLoading}
             />
           )}
 
           {/* Step 3: Payment */}
           {currentStep === 3 && (
             <Step3
+              visaId={visaId}
               handlePrevStep={handlePrevStep}
               formData={formData}
               totalFee={totalFee}
-              user={user}
             />
           )}
         </div>

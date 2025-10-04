@@ -21,10 +21,14 @@ const PaymentStatus = () => {
       }, 1000);
     };
     const transactionId = query.get("vpc_OrderInfo");
-    console.log(query.toString());
     const checkPaymentStatus = async () => {
-      const { data } = await axios.get(`/payment/return?${query.toString()}`);
-      if (data.status === "success") {
+      const paymentReturn = await axios.get(
+        `/payment/return?${query.toString()}`
+      );
+      if (
+        paymentReturn.data.status === "success" &&
+        query.get("vpc_TxnResponseCode") === "0"
+      ) {
         await axios.post("/payment", {
           visa_id: transactionId,
           amount: Number(query.get("vpc_Amount")),
@@ -32,14 +36,16 @@ const PaymentStatus = () => {
           card_number: query.get("vpc_CardNum"),
           status: "paid",
           transaction_no: query.get("vpc_TransactionNo"),
+          txnResponseCode: query.get("vpc_TxnResponseCode"),
         });
         await axios.patch(`/visa/${transactionId}`, {
           status: "Waiting Approve",
+          is_active: "1",
         });
         handleStatus("success", "Your payment was successful!");
         setTimeout(() => {
           navigate("/profile");
-        }, 3000);
+        }, 5000);
       } else {
         const { data } = await axios.post("/payment", {
           status: "failed",
@@ -47,10 +53,19 @@ const PaymentStatus = () => {
           amount: Number(query.get("vpc_Amount")),
           user_id: user,
           card_number: query.get("vpc_CardNum"),
+          transaction_no: query.get("vpc_TransactionNo"),
+          txnResponseCode: query.get("vpc_TxnResponseCode"),
+          message: query.get("vpc_Message").replaceAll("+", " "),
         });
         if (data.status === "success") {
-          await axios.patch(`/visa/${transactionId}`, { status: "Unpaid" });
-          handleStatus("failed", "Your payment failed. Please try again.");
+          await axios.patch(`/visa/${transactionId}`, {
+            status: "Unpaid",
+            is_active: "0",
+          });
+          handleStatus(
+            "failed",
+            paymentReturn.data.message + ". Please try again"
+          );
         }
       }
     };
@@ -58,9 +73,7 @@ const PaymentStatus = () => {
   }, [navigate, user]);
 
   const handleGoHome = () => {
-    // Logic điều hướng về trang chủ
-    console.log("Điều hướng về trang chủ...");
-    alert("Điều hướng về trang chủ."); // Sử dụng alert tạm thời
+    window.location.href = "/";
   };
 
   let content;

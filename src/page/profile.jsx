@@ -58,7 +58,7 @@ export const Profile = ({ user }) => {
         return <Info className="text-yellow-500 w-5 h-5" />;
       case "Rejected":
         return <XCircle className="text-red-500 w-5 h-5" />;
-      case "Unpaid":
+      case "Expires":
         return <BanknoteX className="text-gray-500 w-5 h-5" />;
       default:
         return null;
@@ -68,24 +68,20 @@ export const Profile = ({ user }) => {
   const calculateDateOfExpiryVisa = (timeOfVisa, approvedDate) => {
     const startDate = new Date(approvedDate);
 
-    // Kiểm tra tính hợp lệ
     if (isNaN(startDate.getTime())) {
-      return "Ngày đầu vào không hợp lệ.";
+      return "Invalid started date";
     }
 
     if (timeOfVisa.includes("1 month")) {
       startDate.setDate(startDate.getDate() + 29);
-
-      // 3. Định dạng lại ngày để hiển thị (YYYY-MM-DD)
+    } else {
+      startDate.setDate(startDate.getDate() + 89);
     }
     const year = startDate.getFullYear();
-    // getMonth() trả về giá trị từ 0-11, nên cần +1.
     const month = String(startDate.getMonth() + 1).padStart(2, "0");
     const day = String(startDate.getDate()).padStart(2, "0");
 
-    return startDate.getTime() > Date.now()
-      ? `${year}-${month}-${day}`
-      : "Expires";
+    return `${year}-${month}-${day}`;
   };
 
   const renderContent = () => {
@@ -258,7 +254,9 @@ export const Profile = ({ user }) => {
                         index % 2 === 0 ? "bg-white" : "bg-gray-50"
                       } border-b `}
                     >
-                      <td className="px-4 py-2 text-gray-700">{item.id}</td>
+                      <td className="px-4 py-2 text-gray-700">
+                        {item.public_id}
+                      </td>
                       <td className="px-4 py-2 text-gray-700">
                         {item.type_of_visa}
                       </td>
@@ -266,12 +264,11 @@ export const Profile = ({ user }) => {
                         {item.nationality}
                       </td>
                       <td className="px-4 py-2 text-gray-700">
-                        {item.status === "Approved"
-                          ? calculateDateOfExpiryVisa(
-                              item.time_of_visa,
-                              item.updated_at
-                            )
-                          : ""}
+                        {(item.status === "Approved" || "Expires") &&
+                          calculateDateOfExpiryVisa(
+                            item.time_of_visa,
+                            item.updated_at
+                          )}
                       </td>
                       <td className="px-4 py-2 flex items-center text-gray-700 my-5">
                         {getStatusIcon(item.status)}
