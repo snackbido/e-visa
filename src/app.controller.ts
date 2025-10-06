@@ -1,12 +1,6 @@
-import {
-  Controller,
-  Post,
-  UploadedFile,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Controller, Post, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AppService } from '@visa/app.service';
-import { ImageValidationPipe } from './config/pipe/image.pipe';
 
 @Controller()
 export class AppController {
@@ -14,10 +8,7 @@ export class AppController {
 
   @Post()
   @UseInterceptors(FileInterceptor('avatar'))
-  getHello(
-    @UploadedFile(ImageValidationPipe) file: Express.Multer.File,
-  ): string {
-    console.log(file);
+  getHello(): string {
     return this.appService.getHello();
   }
 }
