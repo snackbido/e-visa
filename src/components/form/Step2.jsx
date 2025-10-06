@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment";
 
 export function Step2({
   formData,
@@ -171,10 +174,8 @@ export function Step2({
   };
 
   const formatPhoneNumber = (value) => {
-    // 1. Loại bỏ tất cả ký tự không phải số
     const numericValue = value.replace(/[^\d]/g, "");
 
-    // 2. Áp dụng định dạng (ví dụ: 3-3-4)
     let formattedValue = "";
     if (numericValue.length > 0) {
       formattedValue += numericValue.substring(0, 3);
@@ -186,7 +187,6 @@ export function Step2({
       formattedValue += "-" + numericValue.substring(6, 10);
     }
 
-    // Giới hạn độ dài nhập, ví dụ 10 số (không tính mã quốc gia)
     return formattedValue.substring(0, 12).trim();
   };
 
@@ -381,17 +381,37 @@ export function Step2({
               Date of arrival (YYYY-MM-DD)
               <span className="text-red-600 ml-1">*</span>
             </label>
-            <input
+            <DatePicker
               className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
                 hasError("arrival_date")
                   ? "border-red-500 focus:ring-red-500"
                   : "focus:ring-indigo-500"
               }`}
-              type="date"
+              dateFormat="dd/MM/yyyy"
+              minDate={new Date().setHours(0, 0, 0, 0)}
+              selected={
+                formData.info.arrival_date
+                  ? moment(formData.info.arrival_date).toDate()
+                  : null
+              }
               id="arrival_date"
               name="arrival_date"
               value={formData.info.arrival_date || ""}
-              onChange={(e) => handleInfoChange(e)}
+              onChange={(date) => {
+                const formattedDate = date
+                  ? moment(date).format("YYYY-MM-DD")
+                  : "";
+
+                handleInfoChange({
+                  target: {
+                    name: "arrival_date",
+                    value: formattedDate,
+                  },
+                });
+              }}
+              placeholderText="DD/MM/YYYY"
+              showYearDropdown
+              scrollableYearDropdown
               required
             />
             {hasError("arrival_date") && (
@@ -400,7 +420,7 @@ export function Step2({
               </p>
             )}
           </div>
-          <div>
+          <div className="col-span-1">
             <label
               className="block text-gray-700 font-medium mb-2"
               htmlFor="arrival_border"

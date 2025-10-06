@@ -25,6 +25,10 @@ export default function SignInForm({ currentUser }) {
   );
 
   useEffect(() => {
+    if (message && !user) {
+      toast.error(message);
+    }
+
     if (isSuccess || user) {
       setIsLoading(true);
       setTimeout(() => {

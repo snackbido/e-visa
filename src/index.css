@@ -206,24 +206,27 @@ code {
 
 /*** Navbar End ***/
 
-/* Custom utility classes for aspect ratio */
 .aspect-4-3 {
   aspect-ratio: 4 / 3;
-  /* Tỉ lệ cho ảnh chân dung */
 }
 
 .aspect-3-2 {
   aspect-ratio: 3 / 2;
-  /* Tỉ lệ cho ảnh hộ chiếu */
 }
 
-/* Hoặc sử dụng chiều cao cố định để giữ khung cho ảnh chân dung 3x4 (tỉ lệ 3:4) */
 .aspect-3-4 {
   aspect-ratio: 3 / 4;
 }
 
-/* Nếu bạn muốn dùng chiều cao cố định để hình ảnh hộ chiếu không quá cao */
 .h-passport {
   height: 200px;
-  /* Chọn một chiều cao phù hợp */
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+/* Hoặc cho input bên trong */
+.react-datepicker__input-container {
+  width: 100%;
 }

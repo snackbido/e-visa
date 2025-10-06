@@ -36,6 +36,7 @@ export function AppRoutes() {
           const { data } = await axios.get(`/user/${id}`);
           if (data.status === "success") {
             setCurrentUser(data.data);
+            setLoading(false);
           }
         } catch (error) {
           localStorage.removeItem("userId");
@@ -66,6 +67,7 @@ export function AppRoutes() {
             <PublicLayout
               currentUser={currentUser}
               handleLogout={handleLogout}
+              isLoading={loading}
             />
           }
         >

@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../features/slice/auth.slice";
 import { toast } from "react-toastify";
 
-export function Header({ currentUser }) {
+export function Header({ currentUser, isLoading }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { isError, isSuccess, message, user } = useSelector(
     (state) => state.auth

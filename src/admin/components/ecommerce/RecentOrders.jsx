@@ -35,7 +35,7 @@ export default function RecentOrders({ data, countries }) {
   }, [countries]);
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white px-4 pb-3 pt-4 sm:px-6">
+    <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white px-4 pb-3 pt-4 sm:px-6 max-h-[700px] h-[600px] sm:h-full">
       {isLoading ? (
         <div className="flex items-center justify-center h-full">
           <div className="flex flex-col items-center">
@@ -61,81 +61,83 @@ export default function RecentOrders({ data, countries }) {
               </button>
             </div>
           </div>
-          <div className="max-w-full overflow-x-auto">
-            <Table>
-              {/* Table Header */}
-              <TableHeader className="border-gray-100  border-y">
-                <TableRow>
-                  <TableCell
-                    isHeader
-                    className="py-3 font-medium text-gray-500 text-start text-theme-xs"
-                  >
-                    Full Name
-                  </TableCell>
-                  <TableCell
-                    isHeader
-                    className="py-3 font-medium text-gray-500 text-start text-theme-xs"
-                  >
-                    Price
-                  </TableCell>
-                  <TableCell
-                    isHeader
-                    className="py-3 font-medium text-gray-500 text-start text-theme-xs"
-                  >
-                    Nationality
-                  </TableCell>
-                  <TableCell
-                    isHeader
-                    className="py-3 font-medium text-gray-500 text-start text-theme-xs"
-                  >
-                    Status
-                  </TableCell>
-                </TableRow>
-              </TableHeader>
-
-              {/* Table Body */}
-
-              <TableBody className="divide-y divide-gray-100">
-                {data.slice(0, 4).map((e) => (
-                  <TableRow key={e.id} className="">
-                    <TableCell className="py-3">
-                      <div className="flex items-center gap-3">
-                        <div>
-                          <p className="font-medium text-gray-800 text-theme-sm">
-                            {e.last_name + " " + e.first_name}
-                          </p>
-                          <span className="text-gray-500 text-theme-xs">
-                            {e.applicant.length + " Applicants"}
-                          </span>
-                        </div>
-                      </div>
+          <div className="max-h-96 overflow-y-auto">
+            <div className="max-w-full overflow-x-auto">
+              <Table>
+                {/* Table Header */}
+                <TableHeader className="border-gray-100  border-y">
+                  <TableRow>
+                    <TableCell
+                      isHeader
+                      className="py-3 font-medium text-gray-500 text-start text-theme-xs"
+                    >
+                      Full Name
                     </TableCell>
-                    <TableCell className="py-3 text-gray-500 text-theme-sm">
-                      {new Intl.NumberFormat("vi-VN", {
-                        style: "currency",
-                        currency: "VND",
-                        maximumFractionDigits: 9,
-                      }).format(
-                        payments.find((p) => p.visa_id === e.id)?.amount
-                      )}
+                    <TableCell
+                      isHeader
+                      className="py-3 font-medium text-gray-500 text-start text-theme-xs"
+                    >
+                      Price
                     </TableCell>
-                    <TableCell className="py-3 flex items-center text-gray-500 text-theme-sm">
-                      <div className="h-[45px] w-[45px] overflow-hidden rounded-lg">
-                        <img
-                          src={flagLookup[e.nationality]}
-                          className="h-[45px] w-[45px] rounded-3xl"
-                          alt={e.nationality}
-                        />
-                      </div>
-                      <span className="ml-1">{e.nationality}</span>
+                    <TableCell
+                      isHeader
+                      className="py-3 font-medium text-gray-500 text-start text-theme-xs"
+                    >
+                      Nationality
                     </TableCell>
-                    <TableCell className="py-3 text-gray-500 text-theme-sm">
-                      {e.status}
+                    <TableCell
+                      isHeader
+                      className="py-3 font-medium text-gray-500 text-start text-theme-xs"
+                    >
+                      Status
                     </TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+
+                {/* Table Body */}
+
+                <TableBody className="divide-y divide-gray-100">
+                  {data.slice(0, 4).map((e) => (
+                    <TableRow key={e.id} className="">
+                      <TableCell className="py-3">
+                        <div className="flex items-center gap-3">
+                          <div>
+                            <p className="font-medium text-gray-800 text-theme-sm">
+                              {e.last_name + " " + e.first_name}
+                            </p>
+                            <span className="text-gray-500 text-theme-xs">
+                              {e.applicant.length + " Applicants"}
+                            </span>
+                          </div>
+                        </div>
+                      </TableCell>
+                      <TableCell className="py-3 text-gray-500 text-theme-sm">
+                        {new Intl.NumberFormat("vi-VN", {
+                          style: "currency",
+                          currency: "VND",
+                          maximumFractionDigits: 9,
+                        }).format(
+                          payments.find((p) => p.visa_id === e.id)?.amount
+                        )}
+                      </TableCell>
+                      <TableCell className="py-3 flex items-center text-gray-500 text-theme-sm">
+                        <div className="h-[45px] w-[45px] overflow-hidden rounded-lg">
+                          <img
+                            src={flagLookup[e.nationality]}
+                            className="h-[45px] w-[45px] rounded-3xl"
+                            alt={e.nationality}
+                          />
+                        </div>
+                        <span className="ml-1">{e.nationality}</span>
+                      </TableCell>
+                      <TableCell className="py-3 text-gray-500 text-theme-sm">
+                        {e.status}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
           </div>
         </>
       )}

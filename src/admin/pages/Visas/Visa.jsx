@@ -1,6 +1,7 @@
 import BasicTableOne from "../../components/tables/BasicTables/BasicTableOne";
 import ComponentCard from "../../components/common/ComponentCard";
 import { useEffect, useState } from "react";
+import moment from "moment";
 import axios from "../../../axios/axios";
 import { toast } from "react-toastify";
 
@@ -39,18 +40,41 @@ export function Visa() {
 
   const handleDownload = () => {
     const csvHeader =
-      "First Name,Last Name,Phone Number,Email,Nationality,Time Of Visa,Type Of Visa,Processing Time,Purpose Of Visit,Arrival Of Date,Arrival Border,Applicant,Status\n";
+      "First Name,Last Name,Phone Number,Email,Nationality,Time Of Visa,Type Of Visa,Processing Time,Purpose Of Visit,Arrival Of Date,Arrival Border,Passport Name,Passport Number,Gender,Portrait Photo,Passport Number,Emergency Full Name,Emergency Phone Number,Emergency Relationship,Status\n";
     const csvBody = visas
-      .map(
-        (v) =>
-          `${v.first_name},${v.last_name},${v.phone_number},${v.email},${
-            v.nationality
-          },${v.time_of_visa},${v.type_of_visa.replaceAll(",", "-")},${
+      .flatMap((v) => {
+        return v.applicant.map((applicant, index) => {
+          const visaType = v.type_of_visa
+            ? v.type_of_visa.replaceAll(",", "-")
+            : "";
+          const mainPhoneNumber = v.country_code + " " + v.phone_number;
+          const emergencyPhoneNumber = v.emergency_contact
+            ? v.emergency_contact.country_code +
+              " " +
+              v.emergency_contact.phone_number
+            : "";
+          const emergencyFullName = v.emergency_contact
+            ? v.emergency_contact.full_name
+            : "";
+          const emergencyRelationship = v.emergency_contact
+            ? v.emergency_contact.relationship
+            : "";
+
+          return `${v.first_name},${v.last_name},${mainPhoneNumber},${
+            v.email
+          },${v.nationality},${v.time_of_visa},${visaType},${
             v.processing_time
-          },${v.purpose_of_visit},${v.date_of_arrival},${v.arrival_border},${
-            v.applicant.length
-          },${v.status}`
-      )
+          },${v.purpose_of_visit},${moment(v.date_of_arrival).format(
+            "DD/MM/YYYY"
+          )},${v.arrival_border},${applicant.passport_name},${
+            applicant.passport_number
+          },${applicant.gender},${applicant.avatar},${
+            applicant.passport_image
+          },${emergencyFullName},${emergencyPhoneNumber},${emergencyRelationship},${
+            v.status
+          }`;
+        });
+      })
       .join("\n");
     const csvContent = csvHeader + csvBody;
     const blob = new Blob([csvContent], { type: "text/csv" });

@@ -2,9 +2,9 @@ import { Outlet } from "react-router-dom";
 import { Header } from "../components/layout/Header";
 import { Footer } from "../components/layout/Footer";
 
-export const PublicLayout = ({ currentUser, handleLogout }) => (
+export const PublicLayout = ({ isLoading, currentUser }) => (
   <>
-    <Header currentUser={currentUser} handleLogout={handleLogout} />
+    <Header currentUser={currentUser} isLoading={isLoading} />
     <Outlet />
     <Footer />
   </>

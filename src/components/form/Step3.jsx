@@ -26,7 +26,6 @@ export function Step3({ handlePrevStep, formData, totalFee, visaId }) {
     }).format(amount);
   };
 
-  // Hàm định dạng thời gian xử lý
   const getProcessingTimeLabel = (time) => {
     switch (time) {
       case "standard":
@@ -70,7 +69,9 @@ export function Step3({ handlePrevStep, formData, totalFee, visaId }) {
 
     try {
       const paymentUrl = await axios.get(
-        `/payment/checkout/?amount=${totalFee + 200000}&orderInfo=${visaId}`
+        `/payment/checkout/?amount=${totalFee + 200000}&orderInfo=${
+          visa.public_id
+        }`
       );
       const { status, data } = paymentUrl.data;
       if (status === "success") {
@@ -215,7 +216,7 @@ export function Step3({ handlePrevStep, formData, totalFee, visaId }) {
               </div>
               <form
                 onSubmit={handlePaymentSubmit}
-                className="w-full rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6 lg:max-w-xl lg:p-8 lg:sticky lg:top-20 lg:self-start"
+                className="w-full rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6 lg:max-w-xl lg:p-8 lg:sticky lg:top-20 lg:self-start mt-8 sm:mt-0"
               >
                 <h2 className="text-2xl font-semibold mb-6">3. Payment</h2>
                 <div className="mb-6">

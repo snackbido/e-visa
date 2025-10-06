@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Table,
   TableBody,
@@ -6,30 +6,18 @@ import {
   TableHeader,
   TableRow,
 } from "../../ui/table";
-import countries from "../../../../data.json";
 import UpdateUserModal from "../../../components/user/UpdateUser";
 import axios from "../../../../axios/axios";
 import { toast } from "react-toastify";
 import ApplicantDetailModal from "../../applicant/Applicant";
 
 export default function BasicTableOne({ type, data, setInfo }) {
-  const [flag, setFlag] = useState([]);
-  const [isOpen, setIsOpen] = useState(false); // State để kiểm soát modal UpdateUser
-  const [selectedUser, setSelectedUser] = useState(null); // State để lưu thông tin người dùng được chọn
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
-  // States cho ApplicantDetailModal
   const [isApplicantModalOpen, setIsApplicantModalOpen] = useState(false);
   const [selectedApplicants, setSelectedApplicants] = useState([]);
-
-  useEffect(() => {
-    const newFlagLookup = countries.reduce((acc, country) => {
-      if (country.name && country.flags) {
-        acc[country.name] = country.flags.svg; // Using SVG for better quality
-      }
-      return acc;
-    }, {});
-    setFlag(newFlagLookup);
-  }, []);
+  const [view, setView] = useState("");
 
   const handleUpdateClick = (user) => {
     setSelectedUser(user);
@@ -41,9 +29,9 @@ export default function BasicTableOne({ type, data, setInfo }) {
     setSelectedUser(null);
   };
 
-  // Handlers cho ApplicantDetailModal
-  const handleApplicantClick = (applicants) => {
-    setSelectedApplicants(applicants);
+  const handleClick = (type, data) => {
+    setView(type);
+    setSelectedApplicants(data);
     setIsApplicantModalOpen(true);
   };
 
@@ -64,7 +52,6 @@ export default function BasicTableOne({ type, data, setInfo }) {
   };
 
   const handleDelete = async (id) => {
-    console.log(id);
     const { data } = await axios.delete(`/user/${id}`);
     if (data.status === "success") {
       toast.success(data.data);
@@ -144,12 +131,7 @@ export default function BasicTableOne({ type, data, setInfo }) {
                 >
                   Arrival Border
                 </TableCell>
-                <TableCell
-                  isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs"
-                >
-                  Applicants
-                </TableCell>
+
                 <TableCell
                   isHeader
                   className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs"
@@ -160,7 +142,13 @@ export default function BasicTableOne({ type, data, setInfo }) {
                   isHeader
                   className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs"
                 >
-                  Actions
+                  Applicants
+                </TableCell>
+                <TableCell
+                  isHeader
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs"
+                >
+                  Emergency Contact
                 </TableCell>
               </TableRow>
             </TableHeader>
@@ -233,20 +221,13 @@ export default function BasicTableOne({ type, data, setInfo }) {
                     {data.email}
                   </TableCell>
                   <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm">
-                    <div className="flex -space-x-2">{data.phone_number}</div>
+                    <div className="flex -space-x-2">
+                      {data.country_code + " " + data.phone_number}
+                    </div>
                   </TableCell>
                   <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm">
                     <div className="flex items-center justify-around">
                       <span>{data.nationality}</span>
-                      <div className="w-6 h-6 overflow-hidden border border-gray-300">
-                        <img
-                          width={25}
-                          height={25}
-                          alt=""
-                          src={flag[data.nationality]}
-                          className="w-full size-6"
-                        />
-                      </div>
                     </div>
                   </TableCell>
                   <TableCell className="px-4 py-3 text-gray-500 text-theme-sm">
@@ -266,11 +247,6 @@ export default function BasicTableOne({ type, data, setInfo }) {
                   </TableCell>
                   <TableCell className="px-4 py-3 text-gray-500 text-theme-sm">
                     {data.arrival_border}
-                  </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm">
-                    <span className="text-gray-700 font-medium">
-                      {data.applicant.length}
-                    </span>
                   </TableCell>
                   <TableCell className="px-4 py-3 text-gray-500 text-theme-sm">
                     <select
@@ -306,9 +282,20 @@ export default function BasicTableOne({ type, data, setInfo }) {
                   <TableCell className="px-4 py-3 text-gray-500 text-theme-sm">
                     <button
                       className="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white text-xs rounded-lg transition-colors duration-200 font-medium"
-                      onClick={() => handleApplicantClick(data.applicant)}
+                      onClick={() => handleClick("applicant", data.applicant)}
                     >
-                      View More
+                      Detail Applicant
+                    </button>
+                  </TableCell>
+
+                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm">
+                    <button
+                      className="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white text-xs rounded-lg transition-colors duration-200 font-medium"
+                      onClick={() =>
+                        handleClick("emergency", data.emergency_contact)
+                      }
+                    >
+                      Detail Contact
                     </button>
                   </TableCell>
                 </TableRow>
@@ -347,17 +334,6 @@ export default function BasicTableOne({ type, data, setInfo }) {
                   <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm">
                     <div className="flex items-center">
                       <span>{data.nationality || "No information"}</span>
-                      <div className="w-6 h-6 overflow-hidden border-2 border-white rounded-full">
-                        {data.nationality && (
-                          <img
-                            width={24}
-                            height={24}
-                            src={flag[data.nationality]}
-                            alt=""
-                            className="w-full size-6"
-                          />
-                        )}
-                      </div>
                     </div>
                   </TableCell>
                   <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm">
@@ -397,9 +373,10 @@ export default function BasicTableOne({ type, data, setInfo }) {
 
         {/* Modal cho ApplicantDetail */}
         <ApplicantDetailModal
+          type={view}
           isOpen={isApplicantModalOpen}
           onClose={handleCloseApplicantModal}
-          applicants={selectedApplicants}
+          data={selectedApplicants}
         />
       </div>
     </div>
