@@ -121,11 +121,19 @@ export class PaymentService {
       visa_id,
       status,
     });
+
+    //shorthand transaction_no
+    const parts = transaction_no.split('-');
+    const prefix = parts.length > 1 ? parts[0] + '-' : '';
+    const code = parts.length > 1 ? parts.slice(1).join('-') : transaction_no;
+    const start = code.substring(0, 4);
+    const end = code.substring(code.length - 4);
+
     const user = await this.userRepository.findOneBy({ id: user_id });
     if (!user) throw new BadRequestException('User not found');
     const newPayment = await this.paymentRepository.save(payment);
     if (txnResponseCode == '0') {
-      const html = `<div style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); overflow: hidden; border: 1px solid #e5e7eb; font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+      const html = `<div style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); overflow: hidden; border: 1px solid #e5e7eb;">
     <div style="background-color: #2563eb; color: #ffffff; padding: 32px 24px; text-align: center; border-top-left-radius: 12px; border-top-right-radius: 12px;">
         <h1 style="font-size: 28px; font-weight: 700; margin: 0;">Payment Successful!</h1>
     </div>
@@ -142,7 +150,7 @@ export class PaymentService {
                 </tr>
                 <tr>
                     <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; color: #6b7280;">Transaction ID</td>
-                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; font-weight: 500; color: #111827; text-align: right;">${transaction_no}</td>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; font-weight: 500; color: #111827; text-align: right;">${prefix}${start}...${end}</td>
                 </tr>
                 <tr>
                     <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; color: #6b7280;">Full Name</td>
@@ -168,7 +176,7 @@ export class PaymentService {
     </div>
     <div style="background-color: #e5e7eb; color: #6b7280; text-align: center; padding: 24px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
         <p style="font-size: 12px; margin: 0;">This email was sent automatically, please do not reply.</p>
-        <p style="font-size: 12px; margin: 0;">Copyright &copy; [${new Date().getFullYear()}] [Book247] | [1st Floor, Vietphone Building, 64 Nguyen Dinh Chieu, Ward Da Kao, District 1, HCMC]</p>
+        <p style="font-size: 12px; margin: 0;">Copyright &copy; ${new Date().getFullYear()} Book247 | 1st Floor, Vietphone Building, 64 Nguyen Dinh Chieu, Ward Da Kao, District 1, HCMC</p>
     </div>
 </div>`;
       await this.emailService.sendEmail(
@@ -194,7 +202,7 @@ export class PaymentService {
                 </tr>
                 <tr>
                     <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; color: #6b7280;">Transaction ID</td>
-                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; font-weight: 500; color: #111827; text-align: right;">${transaction_no}</td>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; font-weight: 500; color: #111827; text-align: right;">${prefix}${start}...${end}</td>
                 </tr>
                 <tr>
                     <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; color: #6b7280;">Full Name</td>

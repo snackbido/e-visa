@@ -1,13 +1,11 @@
-import { Controller, Post, UseInterceptors } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { Controller, Get } from '@nestjs/common';
 import { AppService } from '@visa/app.service';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Post()
-  @UseInterceptors(FileInterceptor('avatar'))
+  @Get()
   getHello(): string {
     return this.appService.getHello();
   }
