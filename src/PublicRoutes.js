@@ -37,6 +37,9 @@ export function AppRoutes() {
           if (data.status === "success") {
             setCurrentUser(data.data);
             setLoading(false);
+          } else {
+            localStorage.removeItem("userId");
+            localStorage.removeItem("authToken");
           }
         } catch (error) {
           localStorage.removeItem("userId");
@@ -52,9 +55,6 @@ export function AppRoutes() {
     }
   }, [user]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
   const handleLogout = () => {};
 
   return (
