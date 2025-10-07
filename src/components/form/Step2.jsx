@@ -409,7 +409,7 @@ export function Step2({
                   },
                 });
               }}
-              placeholderText="DD/MM/YYYY"
+              placeholderText="YYYY/MM/DD"
               showYearDropdown
               scrollableYearDropdown
               required

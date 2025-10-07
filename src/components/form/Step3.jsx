@@ -70,7 +70,7 @@ export function Step3({ handlePrevStep, formData, totalFee, visaId }) {
     try {
       const paymentUrl = await axios.get(
         `/payment/checkout/?amount=${totalFee + 200000}&orderInfo=${
-          visa.public_id
+          visa.public_id + "@" + visa.id
         }`
       );
       const { status, data } = paymentUrl.data;

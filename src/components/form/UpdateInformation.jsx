@@ -65,19 +65,34 @@ export function UpdateInformation({ currentUser }) {
       }
     };
     fetchUserData();
-    // if (isLoading) {
-    //   setTimeout(() => {
-    //     setIsLoading(false);
-    //     // setUpdateMessage("Information updated successfully!");
-    //     setTimeout(() => {
-    //       // setUpdateMessage("");
-    //     }, 3000);
-    //   }, 2000);
-    // }
   }, [user]);
 
+  const formatPhoneNumber = (value) => {
+    const numericValue = value.replace(/[^\d]/g, "");
+
+    let formattedValue = "";
+    if (numericValue.length > 0) {
+      formattedValue += numericValue.substring(0, 3);
+    }
+    if (numericValue.length > 3) {
+      formattedValue += "-" + numericValue.substring(3, 6);
+    }
+    if (numericValue.length > 6) {
+      formattedValue += "-" + numericValue.substring(6, 10);
+    }
+
+    return formattedValue.substring(0, 12).trim();
+  };
+
   const handleChangeFormData = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    let newValue = value;
+    if (name === "phone_number") {
+      newValue = formatPhoneNumber(value);
+    }
+    let newData = { ...formData };
+    newData[name] = newValue;
+    setFormData({ ...newData });
   };
 
   const handleUpdateInformation = async (e) => {
@@ -205,6 +220,7 @@ export function UpdateInformation({ currentUser }) {
                 <input
                   type="text"
                   id="phone_number"
+                  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                   name="phone_number"
                   value={formData.phone_number}
                   onChange={(e) => handleChangeFormData(e)}
