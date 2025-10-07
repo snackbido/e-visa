@@ -18,6 +18,8 @@ const PaymentStatus = () => {
         setMessage(message);
       }, 1000);
     };
+    const visa_id = query.get("vpc_OrderInfo").split("@")[1];
+    const public_id = query.get("vpc_OrderInfo").split("@")[0];
     const checkPaymentStatus = async () => {
       const paymentReturn = await axios.get(
         `/payment/return?${query.toString()}`
@@ -26,15 +28,48 @@ const PaymentStatus = () => {
         paymentReturn.data.status === "success" &&
         query.get("vpc_TxnResponseCode") === "0"
       ) {
+        await Promise.all([
+          axios.post("/payment", {
+            visa_id,
+            public_id,
+            amount: Number(query.get("vpc_Amount")),
+            user_id: query.get("vpc_Customer_Id"),
+            card_number: query.get("vpc_CardNum"),
+            status: "paid",
+            transaction_no: query.get("vpc_TransactionNo"),
+            txnResponseCode: query.get("vpc_TxnResponseCode"),
+          }),
+          axios.patch(`/visa/${visa_id}`, {
+            status: "Waiting Approve",
+            is_active: "1",
+          }),
+        ]);
         handleStatus("success", "Your payment was successful!");
         setTimeout(() => {
           navigate("/profile");
         }, 5000);
       } else {
-        handleStatus(
-          "failed",
-          paymentReturn.data.message + ". Please try again"
-        );
+        const { data } = await axios.post("/payment", {
+          status: "failed",
+          visa_id,
+          public_id,
+          amount: Number(query.get("vpc_Amount")),
+          user_id: query.get("vpc_Customer_Id"),
+          card_number: query.get("vpc_CardNum"),
+          transaction_no: query.get("vpc_TransactionNo"),
+          txnResponseCode: query.get("vpc_TxnResponseCode"),
+          message: query.get("vpc_Message").replaceAll("+", " "),
+        });
+        if (data.status === "success") {
+          await axios.patch(`/visa/${visa_id}`, {
+            status: "Unpaid",
+            is_active: "0",
+          });
+          handleStatus(
+            "failed",
+            paymentReturn.data.message + ". Please try again"
+          );
+        }
       }
     };
     checkPaymentStatus();

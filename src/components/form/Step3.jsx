@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "../../axios/axios";
 import { ReviewRow } from "../ReviewRow";
+import { useSelector } from "react-redux";
 
 export function Step3({ handlePrevStep, formData, totalFee, visaId }) {
   const [isLoading, setIsLoading] = useState(false);
   const [visa, setVisa] = useState({});
+  const { user } = useSelector((state) => state.auth || "");
 
   useEffect(() => {
     const getVisa = async () => {
@@ -71,7 +73,7 @@ export function Step3({ handlePrevStep, formData, totalFee, visaId }) {
       const paymentUrl = await axios.get(
         `/payment/checkout/?amount=${totalFee + 200000}&orderInfo=${
           visa.public_id + "@" + visa.id
-        }`
+        }&user=${user}`
       );
       const { status, data } = paymentUrl.data;
       if (status === "success") {
