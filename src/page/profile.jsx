@@ -173,7 +173,7 @@ export const Profile = ({ user }) => {
                 </div>
                 <div>
                   <span className="font-medium">Expiration:</span>{" "}
-                  {(visa.status === "Approved" || "Expires") &&
+                  {(visa.status === "Approved" || visa.status === "Expires") &&
                     calculateDateOfExpiryVisa(
                       visa.time_of_visa,
                       visa.updated_at
@@ -268,7 +268,8 @@ export const Profile = ({ user }) => {
                         {item.nationality}
                       </td>
                       <td className="px-4 py-2 text-gray-700">
-                        {(item.status === "Approved" || "Expires") &&
+                        {(item.status === "Approved" ||
+                          visa.status === "Expires") &&
                           calculateDateOfExpiryVisa(
                             item.time_of_visa,
                             item.updated_at
