@@ -95,7 +95,6 @@ export class Visa {
   is_active: string;
 
   @Column({
-    length: 10,
     unique: true,
     nullable: false,
   })
