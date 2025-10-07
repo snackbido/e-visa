@@ -13,7 +13,6 @@ import { EmailService } from '@visa/utils/email/email.service';
 import { UserRepository } from '@visa/repository/user.repository';
 import { VisaRepository } from '@visa/repository/visa.repository';
 import { VISA_STATUS } from '@visa/visa/entity/visa.entity';
-import { User } from '@visa/user/entity/user.entity';
 @Injectable()
 export class PaymentService {
   private accessCode: string | undefined;
@@ -40,10 +39,12 @@ export class PaymentService {
     amount,
     orderInfo,
     clientIp,
+    user,
   }: {
     amount: number;
     orderInfo: string;
     clientIp: string;
+    user: string;
   }) {
     // amount: in VND (e.g. 25000), must multiply by 100 per OnePAY
     const amountForOnepay = String(Math.round(amount) * 100); // e.g. 25000 -> 2500000
@@ -59,6 +60,7 @@ export class PaymentService {
       vpc_Amount: amountForOnepay,
       vpc_TicketNo: clientIp || '127.0.0.1',
       vpc_Currency: 'VND',
+      vpc_Customer_Id: user,
       // you can add vpc_CardList or user_xxx here if needed
     };
 
@@ -85,10 +87,21 @@ export class PaymentService {
     return { ok: expected === got, expected, got };
   }
 
-  async handleReturn(params: Record<string, any>, user: User) {
+  handleReturn(params: Record<string, any>) {
     const verify = this.verifyParams(params);
     if (!verify.ok) throw new BadRequestException('Invalid signature');
 
+    if (params['vpc_TxnResponseCode'] !== '0') {
+      throw new BadRequestException(params['vpc_Message']);
+    }
+
+    return 'Payment success';
+  }
+
+  /** Xử lý IPN (update DB) */
+  async handleIpn(params: Record<string, any>) {
+    const verify = this.verifyParams(params);
+    if (!verify.ok) throw new BadRequestException('Invalid signature');
     const body: PaymentDto = {
       amount: params['vpc_Amount'],
       message: params['vpc_Message'],
@@ -99,9 +112,8 @@ export class PaymentService {
       transaction_no: params['vpc_TransactionNo'],
       txnResponseCode: params['vpc_TxnResponseCode'],
       card_number: params['vpc_CardNum'],
-      user_id: user.id,
+      user_id: params['vpc_Customer_Id'],
     };
-
     if (params['vpc_TxnResponseCode'] !== '0') {
       await Promise.all([
         this.createPayment(body),
@@ -120,18 +132,6 @@ export class PaymentService {
         { status: VISA_STATUS.WAIT, is_active: '1' },
       ),
     ]);
-
-    return 'Payment success';
-  }
-
-  /** Xử lý IPN (update DB) */
-  handleIpn(params: Record<string, any>) {
-    const verify = this.verifyParams(params);
-    console.log(params);
-    if (!verify.ok) throw new BadRequestException('Invalid signature');
-    if (params['vpc_TxnResponseCode'] !== '0') {
-      throw new BadRequestException('Payment failed');
-    }
 
     return 'responsecode=1&desc=confirm-success';
   }

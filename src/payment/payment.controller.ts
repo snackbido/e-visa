@@ -15,8 +15,7 @@ import { Payment } from '@visa/payment/entity/payment.entity';
 import { JwtAuthGuard } from '@visa/auth/auth.guard';
 import { RolesGuard } from '@visa/auth/role.guard';
 import { Roles } from '@visa/auth/roles.decorator';
-import { ROLES, User } from '@visa/user/entity/user.entity';
-import { GetUser } from '@visa/auth/get-user.decorator';
+import { ROLES } from '@visa/user/entity/user.entity';
 
 @Controller('/api/payment')
 @UseGuards(JwtAuthGuard)
@@ -35,12 +34,18 @@ export class PaymentController {
     const amount = Number(query.amount); // default 25k VND
     const orderInfo = query.orderInfo;
     const clientIp = ip || '127.0.0.1';
-    return this.paymentService.buildPaymentUrl({ amount, orderInfo, clientIp });
+    const user = query.user;
+    return this.paymentService.buildPaymentUrl({
+      amount,
+      orderInfo,
+      clientIp,
+      user,
+    });
   }
 
   @Get('return')
-  handleReturn(@Query() query: Record<string, any>, @GetUser() user: User) {
-    return this.paymentService.handleReturn(query, user);
+  handleReturn(@Query() query: Record<string, any>) {
+    return this.paymentService.handleReturn(query);
   }
 
   @Post('ipn')
