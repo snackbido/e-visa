@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../axios/axios";
-import { useSelector } from "react-redux";
 
 const PaymentStatus = () => {
   const [status, setStatus] = useState("loading");
   const [message, setMessage] = useState("Processing your payment...");
-  const { user } = useSelector((state) => state.auth) || "";
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,8 +18,6 @@ const PaymentStatus = () => {
         setMessage(message);
       }, 1000);
     };
-    const visa_id = query.get("vpc_OrderInfo").split("@")[1];
-    const public_id = query.get("vpc_OrderInfo").split("@")[0];
     const checkPaymentStatus = async () => {
       const paymentReturn = await axios.get(
         `/payment/return?${query.toString()}`
@@ -30,50 +26,19 @@ const PaymentStatus = () => {
         paymentReturn.data.status === "success" &&
         query.get("vpc_TxnResponseCode") === "0"
       ) {
-        await axios.post("/payment", {
-          visa_id,
-          public_id,
-          amount: Number(query.get("vpc_Amount")),
-          user_id: user,
-          card_number: query.get("vpc_CardNum"),
-          status: "paid",
-          transaction_no: query.get("vpc_TransactionNo"),
-          txnResponseCode: query.get("vpc_TxnResponseCode"),
-        });
-        await axios.patch(`/visa/${visa_id}`, {
-          status: "Waiting Approve",
-          is_active: "1",
-        });
         handleStatus("success", "Your payment was successful!");
         setTimeout(() => {
           navigate("/profile");
         }, 5000);
       } else {
-        const { data } = await axios.post("/payment", {
-          status: "failed",
-          visa_id,
-          public_id,
-          amount: Number(query.get("vpc_Amount")),
-          user_id: user,
-          card_number: query.get("vpc_CardNum"),
-          transaction_no: query.get("vpc_TransactionNo"),
-          txnResponseCode: query.get("vpc_TxnResponseCode"),
-          message: query.get("vpc_Message").replaceAll("+", " "),
-        });
-        if (data.status === "success") {
-          await axios.patch(`/visa/${visa_id}`, {
-            status: "Unpaid",
-            is_active: "0",
-          });
-          handleStatus(
-            "failed",
-            paymentReturn.data.message + ". Please try again"
-          );
-        }
+        handleStatus(
+          "failed",
+          paymentReturn.data.message + ". Please try again"
+        );
       }
     };
     checkPaymentStatus();
-  }, [navigate, user]);
+  }, [navigate]);
 
   const handleGoHome = () => {
     window.location.href = "/";
