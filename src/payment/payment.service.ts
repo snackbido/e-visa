@@ -113,6 +113,7 @@ export class PaymentService {
       transaction_no,
       txnResponseCode,
       message,
+      public_id,
     } = paymentDto;
 
     const payment = this.paymentRepository.create({
@@ -146,7 +147,7 @@ export class PaymentService {
             <table style="width: 100%; border-collapse: collapse;">
                 <tr>
                     <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; color: #6b7280;">ID Visa</td>
-                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; font-weight: 500; color: #111827; text-align: right;">${visa_id}</td>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; font-weight: 500; color: #111827; text-align: right;">${public_id}</td>
                 </tr>
                 <tr>
                     <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; color: #6b7280;">Transaction ID</td>
@@ -198,7 +199,7 @@ export class PaymentService {
             <table style="width: 100%; border-collapse: collapse;">
                 <tr>
                     <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; color: #6b7280;">Visa ID</td>
-                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; font-weight: 500; color: #111827; text-align: right;">${visa_id}</td>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; font-weight: 500; color: #111827; text-align: right;">${public_id}</td>
                 </tr>
                 <tr>
                     <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; color: #6b7280;">Transaction ID</td>

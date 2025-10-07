@@ -25,4 +25,7 @@ export class PaymentDto {
 
   @IsOptional()
   message: string;
+
+  @IsString()
+  public_id: string;
 }
