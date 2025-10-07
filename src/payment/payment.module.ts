@@ -9,6 +9,7 @@ import { UserRepository } from '@visa/repository/user.repository';
 import { EmailService } from '@visa/utils/email/email.service';
 import { RedisCachedModule } from '@visa/utils/cached/redis.module';
 import { RedisService } from '@visa/utils/cached/redis.service';
+import { VisaRepository } from '@visa/repository/visa.repository';
 
 @Module({
   imports: [DatabaseConfigModule, OnePayModule, RedisCachedModule],
@@ -20,6 +21,7 @@ import { RedisService } from '@visa/utils/cached/redis.service';
     UserRepository,
     EmailService,
     RedisService,
+    VisaRepository,
   ],
 })
 export class PaymentModule {}

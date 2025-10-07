@@ -15,7 +15,8 @@ import { Payment } from '@visa/payment/entity/payment.entity';
 import { JwtAuthGuard } from '@visa/auth/auth.guard';
 import { RolesGuard } from '@visa/auth/role.guard';
 import { Roles } from '@visa/auth/roles.decorator';
-import { ROLES } from '@visa/user/entity/user.entity';
+import { ROLES, User } from '@visa/user/entity/user.entity';
+import { GetUser } from '@visa/auth/get-user.decorator';
 
 @Controller('/api/payment')
 @UseGuards(JwtAuthGuard)
@@ -38,8 +39,8 @@ export class PaymentController {
   }
 
   @Get('return')
-  handleReturn(@Query() query: Record<string, any>) {
-    return this.paymentService.handleReturn(query);
+  handleReturn(@Query() query: Record<string, any>, @GetUser() user: User) {
+    return this.paymentService.handleReturn(query, user);
   }
 
   @Post('ipn')

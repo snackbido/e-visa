@@ -21,10 +21,10 @@ export class PaymentDto {
   transaction_no: string;
 
   @IsOptional()
-  txnResponseCode: string;
+  txnResponseCode?: string;
 
   @IsOptional()
-  message: string;
+  message?: string;
 
   @IsString()
   public_id: string;
