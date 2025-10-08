@@ -55,6 +55,9 @@ export function AppRoutes() {
     }
   }, [user]);
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   const handleLogout = () => {};
 
   return (

@@ -35,7 +35,7 @@ export default function RecentOrders({ data, countries }) {
   }, [countries]);
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white px-4 pb-3 pt-4 sm:px-6 max-h-[700px] h-[600px] sm:h-full">
+    <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white px-4 pb-3 pt-4 sm:px-6 sm:h-full">
       {isLoading ? (
         <div className="flex items-center justify-center h-full">
           <div className="flex flex-col items-center">
