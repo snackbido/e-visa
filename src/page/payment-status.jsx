@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../axios/axios";
+import { useSelector } from "react-redux";
 
 const PaymentStatus = () => {
   const [status, setStatus] = useState("loading");
   const [message, setMessage] = useState("Processing your payment...");
+  const { user } = useSelector((state) => state.auth || "");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,7 +35,7 @@ const PaymentStatus = () => {
             visa_id,
             public_id,
             amount: Number(query.get("vpc_Amount")),
-            user_id: query.get("vpc_Customer_Id"),
+            user_id: user,
             card_number: query.get("vpc_CardNum"),
             status: "paid",
             transaction_no: query.get("vpc_TransactionNo"),
@@ -54,7 +56,7 @@ const PaymentStatus = () => {
           visa_id,
           public_id,
           amount: Number(query.get("vpc_Amount")),
-          user_id: query.get("vpc_Customer_Id"),
+          user_id: user,
           card_number: query.get("vpc_CardNum"),
           transaction_no: query.get("vpc_TransactionNo"),
           txnResponseCode: query.get("vpc_TxnResponseCode"),
@@ -73,7 +75,7 @@ const PaymentStatus = () => {
       }
     };
     checkPaymentStatus();
-  }, [navigate]);
+  }, [navigate, user]);
 
   const handleGoHome = () => {
     window.location.href = "/";
