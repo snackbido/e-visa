@@ -586,8 +586,8 @@ export function Step2({
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 col-span-2">
                   {/* PORTRAIT PHOTO (AVATAR) */}
-                  <div className="flex flex-col items-center col-span-1">
-                    <p className="text-gray-700 font-medium mb-2">
+                  <div className="flex flex-col items-center col-span-2 sm:col-span-1">
+                    <p className="text-gray-700 font-medium mb-2 sm:text-sm xl:text-base">
                       Portrait photo
                       <span className="text-red-600 ml-1">*</span>
                     </p>
@@ -602,35 +602,35 @@ export function Step2({
                       {/* ... (Giữ nguyên phần hiển thị ảnh preview) ... */}
                       {applicant.previewAvatar ? (
                         <>
-                          <div className="w-[200px] h-[265px] mb-2 flex items-center rounded-lg justify-center bg-gray-200">
+                          <div className="xl:w-[200px] xl:h-[265px] sm:w-[105px] sm:h-[160px] h-[200px] w-[180px] mb-2 flex items-center rounded-lg justify-center bg-gray-200">
                             <img
                               src={applicant.previewAvatar}
                               alt="Portrait preview"
                               className="w-full h-full object-cover rounded-lg"
                             />
                           </div>
-                          <div className="text-indigo-600 font-semibold hover:underline">
+                          <div className="text-indigo-600 font-semibold hover:underline sm:text-[10px]">
                             Select File to Upload
                           </div>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs text-gray-500 text-ellipsis whitespace-nowrap overflow-hidden">
                             (.jpg, .jpeg, .png)
                           </p>
                         </>
                       ) : (
                         <>
-                          <div className="w-[200px] h-[265px] mb-2 rounded-lg flex items-center justify-center bg-gray-200">
+                          <div className="xl:w-[200px] xl:h-[265px] sm:w-[105px] sm:h-[160px] h-[200px] w-[180px] mb-2 rounded-lg flex items-center justify-center bg-gray-200">
                             <img
                               src="https://thithucdientu.gov.vn/assets/e-visa/PortraitExample.png"
                               alt=""
                               width="100%"
                               height="100%"
-                              className="rounded-lg h-[265px]"
+                              className="rounded-lg sm:h-[160px] h-[200px] xl:h-[265px]"
                             />
                           </div>
-                          <div className="text-indigo-600 font-semibold hover:underline">
+                          <div className="text-indigo-600 font-semibold sm:text-[10px] hover:underline whitespace-nowrap">
                             Select File to Upload
                           </div>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs text-gray-500 text-ellipsis overflow-hidden whitespace-nowrap">
                             (.jpg, .jpeg, .png)
                           </p>
                         </>
@@ -653,7 +653,7 @@ export function Step2({
 
                   {/* PASSPORT IMAGE */}
                   <div className="flex flex-col items-center col-span-2 ">
-                    <p className="text-gray-700 font-medium mb-2">
+                    <p className="text-gray-700 font-medium mb-2 sm:text-sm lg:text-base">
                       Passport Image
                       <span className="text-red-600 ml-1">*</span>
                     </p>
@@ -668,14 +668,14 @@ export function Step2({
                       {/* ... (Giữ nguyên phần hiển thị ảnh preview) ... */}
                       {applicant.previewPassport ? (
                         <>
-                          <div className="sm:w-[400px] sm:h-[265px] w-full h-full mb-2 rounded-lg flex items-center justify-center">
+                          <div className="xl:w-[400px] xl:h-[265px] sm:w-[235px] sm:h-[160px] h-[105px] w-[180px] mb-2 rounded-lg flex items-center justify-center">
                             <img
                               src={applicant.previewPassport}
                               alt="Passport preview"
-                              className="w-full h-full object-cover rounded-lg"
+                              className="object-cover rounded-lg w-full h-full"
                             />
                           </div>
-                          <div className="text-indigo-600 font-semibold hover:underline">
+                          <div className="text-indigo-600 font-semibold sm:text-[10px] hover:underline">
                             Select File to Upload
                           </div>
                           <p className="text-xs text-gray-500">
@@ -684,7 +684,7 @@ export function Step2({
                         </>
                       ) : (
                         <>
-                          <div className="sm:w-[400px] sm:h-[265px] w-full h-full rounded-lg mb-2 flex items-center justify-center">
+                          <div className="xl:w-[400px] xl:h-[265px] sm:h-[160px] sm:w-[235px] h-[105px] w-[180px] rounded-lg mb-2 flex items-center justify-center">
                             <img
                               src="https://thithucdientu.gov.vn/assets/e-visa/PassportExample.png"
                               alt=""
@@ -693,7 +693,7 @@ export function Step2({
                               className="rounded-lg"
                             />
                           </div>
-                          <div className="text-indigo-600 font-semibold hover:underline">
+                          <div className="text-indigo-600 font-semibold sm:text-[10px] hover:underline">
                             Select File to Upload
                           </div>
                           <p className="text-xs text-gray-500">
