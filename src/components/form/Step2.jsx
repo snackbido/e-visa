@@ -609,7 +609,7 @@ export function Step2({
                               className="w-full h-full object-cover rounded-lg"
                             />
                           </div>
-                          <div className="text-indigo-600 font-semibold hover:underline sm:text-[10px]">
+                          <div className="text-indigo-600 font-semibold hover:underline text-base sm:text-[10px]">
                             Select File to Upload
                           </div>
                           <p className="text-xs text-gray-500 text-ellipsis whitespace-nowrap overflow-hidden">
@@ -627,7 +627,7 @@ export function Step2({
                               className="rounded-lg sm:h-[160px] h-[200px] xl:h-[265px]"
                             />
                           </div>
-                          <div className="text-indigo-600 font-semibold sm:text-[10px] hover:underline whitespace-nowrap">
+                          <div className="text-indigo-600 font-semibold text-base sm:text-[10px] hover:underline whitespace-nowrap">
                             Select File to Upload
                           </div>
                           <p className="text-xs text-gray-500 text-ellipsis overflow-hidden whitespace-nowrap">
@@ -675,7 +675,7 @@ export function Step2({
                               className="object-cover rounded-lg w-full h-full"
                             />
                           </div>
-                          <div className="text-indigo-600 font-semibold sm:text-[10px] hover:underline">
+                          <div className="text-indigo-600 font-semibold text-base sm:text-[10px] hover:underline">
                             Select File to Upload
                           </div>
                           <p className="text-xs text-gray-500">
@@ -693,7 +693,7 @@ export function Step2({
                               className="rounded-lg"
                             />
                           </div>
-                          <div className="text-indigo-600 font-semibold sm:text-[10px] hover:underline">
+                          <div className="text-indigo-600 font-semibold text-base sm:text-[10px] hover:underline">
                             Select File to Upload
                           </div>
                           <p className="text-xs text-gray-500">
