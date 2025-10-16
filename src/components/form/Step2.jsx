@@ -248,10 +248,48 @@ export function Step2({
     country.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  useEffect(() => {
+    const isNoneSelected = formData.info.emergency_relationship === "None";
+
+    if (isNoneSelected) {
+      setFormData((prev) => ({
+        ...prev,
+        info: {
+          ...prev.info,
+          emergency_name: "",
+          emergency_phone_number: "",
+        },
+      }));
+
+      setSelectedCountryEmergency({
+        code: "NONE",
+        dialCode: "0",
+        name: "None",
+        flag: "https://flagcdn.com/us.svg",
+      });
+    } else if (
+      formData.info.emergency_relationship !== undefined &&
+      selectedCountryEmergency.dialCode === "0"
+    ) {
+      setSelectedCountryEmergency({
+        code: "US",
+        dialCode: "+1",
+        name: "United States",
+        flag: "https://flagcdn.com/us.svg",
+      });
+    }
+  }, [
+    formData.info.emergency_relationship,
+    setFormData,
+    selectedCountryEmergency.dialCode,
+  ]);
+
   // Hàm validate form
   const validateForm = () => {
     let errors = {};
     let firstErrorId = "";
+
+    const isEmergencyNone = formData.info.emergency_relationship === "None";
 
     const infoFields = [
       { name: "arrival_date", label: "Date of arrival", id: "arrival_date" },
@@ -263,6 +301,7 @@ export function Step2({
         name: "emergency_name",
         label: "Emergency Full name",
         id: "emergency_name",
+        optionalIfNone: true,
       },
       {
         name: "emergency_relationship",
@@ -273,10 +312,15 @@ export function Step2({
         name: "emergency_phone_number",
         label: "Emergency Phone number",
         id: "emergency_phone_number",
+        optionalIfNone: true,
       },
     ];
 
     infoFields.forEach((field) => {
+      if (field.optionalIfNone && isEmergencyNone) {
+        return;
+      }
+
       if (!formData.info[field.name]) {
         errors[field.name] = `${field.label} is required.`;
         if (!firstErrorId) firstErrorId = field.id;
@@ -953,6 +997,7 @@ export function Step2({
               value={formData.info.emergency_name || ""}
               onChange={(e) => handleInfoChange(e)}
               required
+              disabled={formData.info.emergency_relationship === "None"}
             />
             {hasError("emergency_name") && (
               <p className="text-red-500 text-sm mt-1">
@@ -987,6 +1032,7 @@ export function Step2({
               <option value="Parent">Parent</option>
               <option value="Sibling">Sibling</option>
               <option value="Grandparent">Grandparent</option>
+              <option value="None">None</option>
             </select>
             {hasError("emergency_relationship") && (
               <p className="text-red-500 text-sm mt-1">
@@ -1019,6 +1065,7 @@ export function Step2({
                       !isCountryEmergencyDropdownOpen
                     )
                   }
+                  disabled={formData.info.emergency_relationship === "None"}
                 >
                   <img
                     src={selectedCountryEmergency.flag}
@@ -1053,6 +1100,7 @@ export function Step2({
                   value={formData.info.emergency_phone_number || ""}
                   onChange={(e) => handleInfoChange(e)}
                   required
+                  disabled={formData.info.emergency_relationship === "None"}
                 />
               </div>
               {isCountryEmergencyDropdownOpen && (

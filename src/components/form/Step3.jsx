@@ -126,19 +126,6 @@ export function Step3({ handlePrevStep, formData, totalFee, visaId }) {
                       value={formData.step1.purpose}
                     />
                     <ReviewRow
-                      label="Number of Applicants"
-                      value={`${formData.applicants.length}`}
-                    />
-                  </div>
-                </div>
-
-                {/* 2. REVIEW CONTACT DETAIL */}
-                <div className="rounded-lg border border-gray-100 bg-gray-50 p-6">
-                  <h2 className="text-xl font-bold mb-4">
-                    Contact & Arrival Detail
-                  </h2>
-                  <div className="space-y-2">
-                    <ReviewRow
                       label="Date of Arrival"
                       value={formData.info.arrival_date}
                     />
@@ -147,38 +134,12 @@ export function Step3({ handlePrevStep, formData, totalFee, visaId }) {
                       value={formData.info.arrival_border}
                     />
                     <ReviewRow
-                      label="Full Name (Contact)"
-                      value={`${formData.info.first_name} ${formData.info.last_name}`}
-                    />
-                    <ReviewRow
-                      label="Email Address"
-                      value={formData.info.email}
-                    />
-                    <ReviewRow
-                      label="Phone Number"
-                      value={`(${formData.info.country_code}) ${formData.info.phone_number}`}
-                    />
-
-                    {/* EMERGENCY CONTACT */}
-                    <h3 className="pt-4 font-semibold text-gray-700">
-                      Emergency Contact
-                    </h3>
-                    <ReviewRow
-                      label="Emergency Name"
-                      value={formData.info.emergency_name}
-                    />
-                    <ReviewRow
-                      label="Relationship"
-                      value={formData.info.emergency_relationship}
-                    />
-                    <ReviewRow
-                      label="Emergency Phone"
-                      value={`(${formData.info.emergency_country_code}) ${formData.info.emergency_phone_number}`}
+                      label="Number of Applicants"
+                      value={`${formData.applicants.length}`}
                     />
                   </div>
                 </div>
 
-                {/* 3. REVIEW APPLICANT DETAILS (Dạng danh sách) */}
                 <div className="rounded-lg border border-gray-100 bg-gray-50 p-6">
                   <h2 className="text-xl font-bold mb-4">Applicant Details</h2>
                   <div className="space-y-4">
@@ -201,6 +162,46 @@ export function Step3({ handlePrevStep, formData, totalFee, visaId }) {
                         <ReviewRow label="Gender" value={applicant.gender} />
                       </div>
                     ))}
+                  </div>
+                </div>
+
+                {/* 2. REVIEW CONTACT DETAIL */}
+                <div className="rounded-lg border border-gray-100 bg-gray-50 p-6">
+                  <h2 className="text-xl font-bold mb-4">Contact</h2>
+                  <div className="space-y-2">
+                    <ReviewRow
+                      label="Full Name (Contact)"
+                      value={`${formData.info.first_name} ${formData.info.last_name}`}
+                    />
+                    <ReviewRow
+                      label="Email Address"
+                      value={formData.info.email}
+                    />
+                    <ReviewRow
+                      label="Phone Number"
+                      value={`(${formData.info.country_code}) ${formData.info.phone_number}`}
+                    />
+
+                    {/* EMERGENCY CONTACT */}
+                    <h3 className="pt-4 font-semibold text-gray-700">
+                      Emergency Contact
+                    </h3>
+                    <ReviewRow
+                      label="Emergency Name"
+                      value={
+                        formData.info.emergency_name === ""
+                          ? "None"
+                          : formData.info.emergency_name
+                      }
+                    />
+                    <ReviewRow
+                      label="Relationship"
+                      value={formData.info.emergency_relationship}
+                    />
+                    <ReviewRow
+                      label="Emergency Phone"
+                      value={`(${formData.info.emergency_country_code}) ${formData.info.emergency_phone_number}`}
+                    />
                   </div>
                 </div>
 
