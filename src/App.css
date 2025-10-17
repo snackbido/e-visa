@@ -32,7 +32,23 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+#howitwork {
+  background: linear-gradient(175deg, rgba(255, 255, 255, 1) 0%, rgba(11, 49, 238, 0.57) 200%);
+  ;
+}
+
+#blog {
+  background: linear-gradient(5deg, rgba(255, 255, 255, 1) 0%, rgba(11, 49, 238, 0.57) 200%);
+  ;
+}
+
+#cta {
+  background: linear-gradient(-5deg, rgba(255, 255, 255, 1) -100%, rgba(11, 49, 238, 0.57) 200%);
+  ;
 }

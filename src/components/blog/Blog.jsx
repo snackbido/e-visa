@@ -24,7 +24,7 @@ export function BlogCard() {
   };
 
   return (
-    <section className="py-12 sm:py-16 lg:py-24 bg-gray-100">
+    <section id="blog" className="py-12 sm:py-16 lg:py-24 bg-gray-100">
       <div className="container mx-auto px-4 sm:px-8 lg:px-8">
         <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">

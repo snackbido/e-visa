@@ -81,7 +81,7 @@ const AppHeader = () => {
             {/* Cross Icon */}
           </button>
 
-          <Link to="/" className="lg:hidden">
+          <Link to="/admin" className="lg:hidden">
             <img
               className="dark:hidden"
               src="./images/logo/logo.svg"
