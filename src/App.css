@@ -39,16 +39,16 @@
 }
 
 #howitwork {
-  background: linear-gradient(175deg, rgba(255, 255, 255, 1) 0%, rgba(11, 49, 238, 0.57) 200%);
+  background: linear-gradient(250deg, rgba(255, 255, 255, 1) 0%, rgba(74, 169, 255, 0.4) 50%, rgba(43, 76, 238, 0.5) 100%);
   ;
 }
 
 #blog {
-  background: linear-gradient(5deg, rgba(255, 255, 255, 1) 0%, rgba(11, 49, 238, 0.57) 200%);
+  background: linear-gradient(5deg, rgba(255, 255, 255, 1) 0%, rgba(74, 169, 255, 0.4) 50%, rgba(43, 76, 238, 0.5) 100%);
   ;
 }
 
 #cta {
-  background: linear-gradient(-5deg, rgba(255, 255, 255, 1) -100%, rgba(11, 49, 238, 0.57) 200%);
+  background: linear-gradient(-5deg, rgba(255, 255, 255, 1) 0%, rgba(74, 169, 255, 0.4) 50%, rgba(43, 76, 238, 0.5) 100%);
   ;
 }

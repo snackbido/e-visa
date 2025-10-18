@@ -83,7 +83,7 @@ export function ChangePassword() {
   return (
     <section className="bg-gray-50 p-6 rounded-lg shadow-inner">
       <h2 className="flex items-center text-xl font-semibold text-gray-900 mb-4">
-        <Lock className="text-indigo-500 mr-2" />
+        <Lock className="text-custom mr-2" />
         Change Password
       </h2>
       <form onSubmit={handlePasswordChange} className="space-y-4 text-gray-700">
@@ -100,7 +100,7 @@ export function ChangePassword() {
             name="currentPassword"
             value={formData.currentPassword || ""}
             onChange={(e) => handleFormData(e)}
-            className="w-full px-3 py-2 rounded-md border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring focus:ring-indigo-500"
+            className="w-full px-3 py-2 rounded-md border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring focus:ring-custom"
             required
           />
         </div>
@@ -117,7 +117,7 @@ export function ChangePassword() {
             name="newPassword"
             value={formData.newPassword}
             onChange={(e) => handleFormData(e)}
-            className="w-full px-3 py-2 rounded-md border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring focus:ring-indigo-500"
+            className="w-full px-3 py-2 rounded-md border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring focus:ring-custom"
             required
           />
           <ul className="space-y-2 font-medium mt-2 text-xs italic">
@@ -152,7 +152,7 @@ export function ChangePassword() {
             id="confirmNewPassword"
             value={formData.confirmNewPassword}
             onChange={(e) => handleFormData(e)}
-            className="w-full px-3 py-2 rounded-md border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring focus:ring-indigo-500"
+            className="w-full px-3 py-2 rounded-md border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring focus:ring-custom"
             required
           />
         </div>
@@ -169,7 +169,7 @@ export function ChangePassword() {
         )}
         <button
           type="submit"
-          className="w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-700 transition-colors focus:outline-none focus:ring focus:ring-indigo-500"
+          className="w-full bg-custom text-white font-semibold py-2 px-4 rounded-md hover:bg-hover-custom transition-colors focus:outline-none focus:ring focus:ring-custom"
         >
           Change Password
         </button>

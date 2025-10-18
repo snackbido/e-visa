@@ -429,7 +429,7 @@ export function Step2({
               className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
                 hasError("arrival_date")
                   ? "border-red-500 focus:ring-red-500"
-                  : "focus:ring-indigo-500"
+                  : "focus:ring-custom"
               }`}
               dateFormat="dd/MM/yyyy"
               minDate={new Date().setHours(0, 0, 0, 0)}
@@ -476,7 +476,7 @@ export function Step2({
               name="arrival_border"
               value={formData.info.arrival_border || ""}
               onChange={(e) => handleInfoChange(e)}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-custom"
               required
             >
               <option value="">Please select</option>
@@ -549,7 +549,7 @@ export function Step2({
                       className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
                         hasError(`applicant_${index}_passport_name`)
                           ? "border-red-500 focus:ring-red-500"
-                          : "focus:ring-indigo-500"
+                          : "focus:ring-custom"
                       }`}
                       type="text"
                       id={`passportName-${index}`}
@@ -578,7 +578,7 @@ export function Step2({
                       className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
                         hasError(`applicant_${index}_passport_number`)
                           ? "border-red-500 focus:ring-red-500"
-                          : "focus:ring-indigo-500"
+                          : "focus:ring-custom"
                       }`}
                       type="text"
                       id={`passportNumber-${index}`}
@@ -607,7 +607,7 @@ export function Step2({
                       className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
                         hasError(`applicant_${index}_gender`)
                           ? "border-red-500 focus:ring-red-500"
-                          : "focus:ring-indigo-500"
+                          : "focus:ring-custom"
                       }`}
                       id={`gender-${index}`}
                       name="gender"
@@ -640,7 +640,7 @@ export function Step2({
                       className={`w-full aspect-portrait border-2 border-dashed rounded-lg p-4 flex flex-col items-center justify-center text-center space-y-2 cursor-pointer ${
                         hasError(`applicant_${index}_avatar`)
                           ? "border-red-500 bg-red-50"
-                          : "border-gray-300 hover:border-indigo-500"
+                          : "border-gray-300 hover:border-hover-custom"
                       }`}
                     >
                       {/* ... (Giữ nguyên phần hiển thị ảnh preview) ... */}
@@ -653,7 +653,7 @@ export function Step2({
                               className="w-full h-full object-cover rounded-lg"
                             />
                           </div>
-                          <div className="text-indigo-600 font-semibold hover:underline text-base sm:text-[10px]">
+                          <div className="text-custom font-semibold hover:underline text-base sm:text-[10px]">
                             Select File to Upload
                           </div>
                           <p className="text-xs text-gray-500 text-ellipsis whitespace-nowrap overflow-hidden">
@@ -671,7 +671,7 @@ export function Step2({
                               className="rounded-lg sm:h-[160px] h-[200px] xl:h-[265px]"
                             />
                           </div>
-                          <div className="text-indigo-600 font-semibold text-base sm:text-[10px] hover:underline whitespace-nowrap">
+                          <div className="text-custom font-semibold text-base sm:text-[10px] hover:underline whitespace-nowrap">
                             Select File to Upload
                           </div>
                           <p className="text-xs text-gray-500 text-ellipsis overflow-hidden whitespace-nowrap">
@@ -706,7 +706,7 @@ export function Step2({
                       className={`w-full aspect-passport border-2 border-dashed rounded-lg p-4 flex flex-col items-center justify-center text-center space-y-2 cursor-pointer ${
                         hasError(`applicant_${index}_passport_image`)
                           ? "border-red-500 bg-red-50"
-                          : "border-gray-300 hover:border-indigo-500"
+                          : "border-gray-300 hover:border-hover-custom"
                       }`}
                     >
                       {/* ... (Giữ nguyên phần hiển thị ảnh preview) ... */}
@@ -719,7 +719,7 @@ export function Step2({
                               className="object-cover rounded-lg w-full h-full"
                             />
                           </div>
-                          <div className="text-indigo-600 font-semibold text-base sm:text-[10px] hover:underline">
+                          <div className="text-custom font-semibold text-base sm:text-[10px] hover:underline">
                             Select File to Upload
                           </div>
                           <p className="text-xs text-gray-500">
@@ -737,7 +737,7 @@ export function Step2({
                               className="rounded-lg"
                             />
                           </div>
-                          <div className="text-indigo-600 font-semibold text-base sm:text-[10px] hover:underline">
+                          <div className="text-custom font-semibold text-base sm:text-[10px] hover:underline">
                             Select File to Upload
                           </div>
                           <p className="text-xs text-gray-500">
@@ -768,7 +768,7 @@ export function Step2({
             <button
               type="button"
               onClick={addApplicant}
-              className="px-6 py-3 text-indigo-600 font-semibold rounded-full border border-indigo-600 hover:bg-indigo-50 transition-colors duration-200"
+              className="px-6 py-3 text-custom font-semibold rounded-full border border-custom hover:bg-white transition-colors duration-200"
             >
               + Add Another Applicant
             </button>
@@ -792,7 +792,7 @@ export function Step2({
               className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
                 hasError("email")
                   ? "border-red-500 focus:ring-red-500"
-                  : "focus:ring-indigo-500"
+                  : "focus:ring-custom"
               }`}
               type="email"
               id="email"
@@ -822,7 +822,7 @@ export function Step2({
                 className={`flex rounded-lg border ${
                   hasError("phone_number")
                     ? "border-red-500 focus-within:ring-2 focus-within:ring-red-500"
-                    : "focus-within:ring-2 focus-within:ring-indigo-500"
+                    : "focus-within:ring-2 focus-within:ring-custom"
                 } relative`}
               >
                 {/* ... (Giữ nguyên phần chọn mã quốc gia) ... */}
@@ -877,7 +877,7 @@ export function Step2({
                     <input
                       type="text"
                       placeholder="Search country..."
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-custom"
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -926,7 +926,7 @@ export function Step2({
               className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
                 hasError("first_name")
                   ? "border-red-500 focus:ring-red-500"
-                  : "focus:ring-indigo-500"
+                  : "focus:ring-custom"
               }`}
               type="text"
               id="first_name"
@@ -955,7 +955,7 @@ export function Step2({
               className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
                 hasError("last_name")
                   ? "border-red-500 focus:ring-red-500"
-                  : "focus:ring-indigo-500"
+                  : "focus:ring-custom"
               }`}
               type="text"
               id="last_name"
@@ -988,7 +988,7 @@ export function Step2({
               className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
                 hasError("emergency_name")
                   ? "border-red-500 focus:ring-red-500"
-                  : "focus:ring-indigo-500"
+                  : "focus:ring-custom"
               }`}
               type="text"
               id="emergency_name"
@@ -1018,7 +1018,7 @@ export function Step2({
               className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
                 hasError("emergency_relationship")
                   ? "border-red-500 focus:ring-red-500"
-                  : "focus:ring-indigo-500"
+                  : "focus:ring-custom"
               }`}
               id="emergency_relationship"
               name="emergency_relationship"
@@ -1054,7 +1054,7 @@ export function Step2({
                 className={`flex rounded-lg border ${
                   hasError("emergency_phone_number")
                     ? "border-red-500 focus-within:ring-2 focus-within:ring-red-500"
-                    : "focus-within:ring-2 focus-within:ring-indigo-500"
+                    : "focus-within:ring-2 focus-within:ring-custom"
                 } relative`}
               >
                 <button
@@ -1109,7 +1109,7 @@ export function Step2({
                     <input
                       type="text"
                       placeholder="Search country..."
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-custom"
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -1151,7 +1151,7 @@ export function Step2({
       <div className="flex flex-col sm:flex-row justify-between items-center bg-gray-50 p-6 sm:p-8 rounded-xl border border-gray-200 mt-4">
         <div className="text-center sm:text-left mb-4 sm:mb-0">
           <p className="text-2xl font-bold text-gray-900 mb-1">
-            Total fee: <span className="text-indigo-600">${totalFee}</span>
+            Total fee: <span className="text-custom">${totalFee}</span>
           </p>
           <p className="text-lg font-bold text-gray-600">
             Equal to: {Math.round(totalFee * 25000).toLocaleString("en-US")} VND
@@ -1170,7 +1170,7 @@ export function Step2({
             <button
               disabled
               type="button"
-              className="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 transition-colors duration-200"
+              className="px-6 py-3 bg-custom text-white font-semibold rounded-full hover:bg-hover-custom transition-colors duration-200"
             >
               <svg
                 aria-hidden="true"
@@ -1194,7 +1194,7 @@ export function Step2({
           ) : (
             <button
               type="button"
-              className="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 transition-colors duration-200"
+              className="px-6 py-3 bg-custom text-white font-semibold rounded-full hover:bg-hover-custom transition-colors duration-200"
               onClick={handleNext}
             >
               Next Step

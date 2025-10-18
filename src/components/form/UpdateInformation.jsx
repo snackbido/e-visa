@@ -144,13 +144,13 @@ export function UpdateInformation({ currentUser }) {
       <div className="w-full max-w-6xl p-6 bg-white rounded-lg shadow-xl space-y-8 md:space-y-0 md:space-x-8">
         <section className="bg-gray-50 p-6 rounded-lg shadow-inner">
           <h2 className="flex items-center text-xl font-semibold text-gray-900 mb-4">
-            <Edit className="text-indigo-500 mr-2" />
+            <Edit className="text-custom mr-2" />
             Update Information
           </h2>
           {isLoading ? (
             <div className="flex items-center justify-center h-full">
               <div className="flex flex-col items-center">
-                <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-indigo-500"></div>
+                <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-custom"></div>
                 <p className="mt-4 text-lg text-gray-700">Loading...</p>
               </div>
             </div>
@@ -172,7 +172,7 @@ export function UpdateInformation({ currentUser }) {
                   name="first_name"
                   value={formData.first_name}
                   onChange={(e) => handleChangeFormData(e)}
-                  className="w-full px-2 py-1 sm:px-3 sm:py-2 rounded-md border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring focus:ring-indigo-500"
+                  className="w-full px-2 py-1 sm:px-3 sm:py-2 rounded-md border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring focus:ring-custom"
                   required
                 />
               </div>
@@ -189,7 +189,7 @@ export function UpdateInformation({ currentUser }) {
                   name="last_name"
                   value={formData.last_name}
                   onChange={(e) => handleChangeFormData(e)}
-                  className="w-full px-2 py-1 sm:px-3 sm:py-2 rounded-md border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring focus:ring-indigo-500"
+                  className="w-full px-2 py-1 sm:px-3 sm:py-2 rounded-md border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring focus:ring-custom"
                   required
                 />
               </div>
@@ -206,7 +206,7 @@ export function UpdateInformation({ currentUser }) {
                   name="email"
                   value={formData.email}
                   onChange={(e) => handleChangeFormData(e)}
-                  className="w-full px-2 py-1 sm:px-3 sm:py-2 rounded-md border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring focus:ring-indigo-500"
+                  className="w-full px-2 py-1 sm:px-3 sm:py-2 rounded-md border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring focus:ring-custom"
                   required
                 />
               </div>
@@ -224,7 +224,7 @@ export function UpdateInformation({ currentUser }) {
                   name="phone_number"
                   value={formData.phone_number}
                   onChange={(e) => handleChangeFormData(e)}
-                  className="w-full px-2 py-1 sm:px-3 sm:py-2 rounded-md border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring focus:ring-indigo-500"
+                  className="w-full px-2 py-1 sm:px-3 sm:py-2 rounded-md border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring focus:ring-custom"
                 />
                 <span className="text-red-500 italic text-sm">
                   Notice: Enter only your phone number, no need country code
@@ -243,7 +243,7 @@ export function UpdateInformation({ currentUser }) {
                   name="nationality"
                   value={formData.nationality}
                   onChange={(e) => handleChangeFormData(e)}
-                  className="w-full px-2 py-1 sm:px-3 sm:py-2 rounded-md border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring focus:ring-indigo-500"
+                  className="w-full px-2 py-1 sm:px-3 sm:py-2 rounded-md border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring focus:ring-custom"
                 >
                   <option value="">Select your nationality</option>
                   {data.map((country) => (
@@ -273,7 +273,7 @@ export function UpdateInformation({ currentUser }) {
               )}
               <button
                 type="submit"
-                className="w-full mt-4 bg-indigo-600 col-span-2 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-700 transition-colors focus:outline-none focus:ring focus:ring-indigo-500"
+                className="w-full mt-4 bg-custom col-span-2 text-white font-semibold py-2 px-4 rounded-md hover:bg-hover-custom transition-colors focus:outline-none focus:ring focus:ring-custom"
               >
                 Save Changes
               </button>

@@ -73,7 +73,7 @@ export function Login({ currentUser }) {
     );
     buttonClasses = "bg-green-500 hover:bg-green-600";
   } else if (!formData.password) {
-    buttonClasses = "bg-indigo-700";
+    buttonClasses = "bg-custom";
   }
 
   useEffect(() => {
@@ -126,7 +126,7 @@ export function Login({ currentUser }) {
         <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
           <div className="hidden lg:block rounded-lg lg:w-1/2 bg-cover bg-[url(https://thumbs.dreamstime.com/b/visa-passport-to-approved-stamped-document-top-view-immigration-approve-129787032.jpg)]"></div>
           <div className="w-full p-8 lg:w-1/2">
-            <p className="text-xl sm:text-2xl font-bold text-indigo-600 text-center">
+            <p className="text-xl sm:text-2xl font-bold text-custom text-center">
               E-Visa
             </p>
             <p className="text-xl text-gray-600 text-center">Welcome back!</p>
@@ -209,7 +209,7 @@ export function Login({ currentUser }) {
               <div className="mt-8">
                 <button
                   disabled={isLoading}
-                  className={`${buttonClasses} text-white font-bold py-2 px-4 w-full rounded hover:bg-indigo-600`}
+                  className={`${buttonClasses} text-white font-bold py-2 px-4 w-full rounded hover:bg-hover-custom`}
                 >
                   {buttonContent}
                 </button>
@@ -221,7 +221,7 @@ export function Login({ currentUser }) {
               </div>
               <div className="text-center mt-4 text-gray-500">
                 You haven't an account?{" "}
-                <Link to="/register" className="text-indigo-500 font-bold">
+                <Link to="/register" className="text-custom font-bold">
                   Sign up
                 </Link>
               </div>

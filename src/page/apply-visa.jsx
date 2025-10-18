@@ -218,7 +218,7 @@ export function ApplyVisa({ user }) {
               <div
                 className={`flex items-center justify-center w-8 h-8 rounded-full border ${
                   currentStep === 1
-                    ? "border-indigo-600 bg-indigo-600"
+                    ? "border-custom bg-custom"
                     : "border-gray-400 bg-gray-200 text-gray-700"
                 } text-white font-medium`}
               >
@@ -227,7 +227,7 @@ export function ApplyVisa({ user }) {
               <div className="text-left hidden sm:block">
                 <p
                   className={`text-sm font-semibold ${
-                    currentStep === 1 ? "text-indigo-600" : "text-gray-700"
+                    currentStep === 1 ? "text-custom" : "text-gray-700"
                   }`}
                 >
                   Visa Information
@@ -246,7 +246,7 @@ export function ApplyVisa({ user }) {
               <div
                 className={`flex items-center justify-center w-8 h-8 rounded-full border ${
                   currentStep === 2
-                    ? "border-indigo-600 bg-indigo-600"
+                    ? "border-custom bg-custom"
                     : "border-gray-400 bg-gray-200 text-gray-700"
                 } text-white font-medium`}
               >
@@ -255,7 +255,7 @@ export function ApplyVisa({ user }) {
               <div className="text-left hidden sm:block">
                 <p
                   className={`text-sm font-semibold ${
-                    currentStep === 2 ? "text-indigo-600" : "text-gray-700"
+                    currentStep === 2 ? "text-custom" : "text-gray-700"
                   }`}
                 >
                   Application Detail
@@ -276,7 +276,7 @@ export function ApplyVisa({ user }) {
               <div
                 className={`flex items-center justify-center w-8 h-8 rounded-full border ${
                   currentStep === 3
-                    ? "border-indigo-600 bg-indigo-600"
+                    ? "border-custom bg-custom"
                     : "border-gray-400 bg-gray-200 text-gray-700"
                 } text-white font-medium`}
               >
@@ -285,7 +285,7 @@ export function ApplyVisa({ user }) {
               <div className="text-left hidden sm:block">
                 <p
                   className={`text-sm font-semibold ${
-                    currentStep === 3 ? "text-indigo-600" : "text-gray-700"
+                    currentStep === 3 ? "text-custom" : "text-gray-700"
                   }`}
                 >
                   Payment & Finalize

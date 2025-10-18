@@ -58,13 +58,13 @@ const Home = () => {
               <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 px-4 sm:px-0">
                 <Link
                   to="/apply-visa"
-                  className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-custom text-white font-bold rounded-full hover:bg-custom transition-colors duration-200 shadow-lg transform hover:scale-105 text-center"
+                  className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-custom text-white font-bold rounded-full hover:bg-indigo-500 transition-colors duration-200 shadow-lg transform hover:scale-105 text-center"
                 >
                   Start Application
                 </Link>
                 <Link
                   to="/blog"
-                  className="w-full sm:w-auto px-6 sm:px-8 py-3 text-custom font-bold border-2 border-custom rounded-full hover:bg-custom transition-colors duration-200 transform hover:scale-105 text-center"
+                  className="w-full sm:w-auto px-6 sm:px-8 py-3 text-custom font-bold border-2 border-custom rounded-full hover:bg-indigo-500 transition-colors duration-200 transform hover:scale-105 text-center"
                 >
                   Learn More
                 </Link>
@@ -89,7 +89,7 @@ const Home = () => {
               <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
                 <div className="flex justify-center mb-4">
                   <svg
-                    className="h-12 w-12 sm:h-16 sm:w-16 text-custom-600"
+                    className="h-12 w-12 sm:h-16 sm:w-16 text-custom"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -116,7 +116,7 @@ const Home = () => {
               <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
                 <div className="flex justify-center mb-4">
                   <svg
-                    className="h-12 w-12 sm:h-16 sm:w-16 text-custom-600"
+                    className="h-12 w-12 sm:h-16 sm:w-16 text-custom"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -143,7 +143,7 @@ const Home = () => {
               <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300 md:col-span-2 lg:col-span-1">
                 <div className="flex justify-center mb-4">
                   <svg
-                    className="h-12 w-12 sm:h-16 sm:w-16 text-custom-600"
+                    className="h-12 w-12 sm:h-16 sm:w-16 text-custom"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -262,7 +262,7 @@ const Home = () => {
               </div>
               <div className="order-1 lg:order-2 flex justify-center items-center">
                 {/* Placeholder for illustration */}
-                <div className="bg-[url(https://www.kwalterconsulting.com/img/insurance/travel/19998723-travel-and-vacation-accessories-top-view-xxl.png)] bg-center from-custom-100 to-purple-100 rounded-3xl w-full max-w-md lg:max-w-lg h-64 sm:h-80 lg:h-96 flex items-center justify-center p-6 sm:p-8">
+                <div className="bg-[url(https://www.kwalterconsulting.com/img/insurance/travel/19998723-travel-and-vacation-accessories-top-view-xxl.png)] bg-center from-custom to-purple-100 rounded-3xl w-full max-w-md lg:max-w-lg h-64 sm:h-80 lg:h-96 flex items-center justify-center p-6 sm:p-8">
                   <div className="text-center"></div>
                 </div>
               </div>

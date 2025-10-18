@@ -211,7 +211,7 @@ export function Step3({ handlePrevStep, formData, totalFee, visaId }) {
                     <dt className="text-base font-bold text-gray-900">
                       Total Fee to Pay
                     </dt>
-                    <dd className="text-xl font-extrabold text-indigo-600">
+                    <dd className="text-xl font-extrabold text-custom">
                       {formatCurrency(totalFee)}
                     </dd>
                   </dl>
@@ -230,7 +230,7 @@ export function Step3({ handlePrevStep, formData, totalFee, visaId }) {
                   <button
                     type="submit" // Đổi sang type submit
                     disabled={isLoading}
-                    className="flex w-full items-center justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition-colors duration-200"
+                    className="flex w-full items-center justify-center rounded-lg bg-custom px-5 py-2.5 text-sm font-medium text-white hover:bg-hover-custom focus:outline-none focus:ring-4 focus:ring-indigo-300 transition-colors duration-200"
                   >
                     {isLoading
                       ? "Processing..."

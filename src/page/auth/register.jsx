@@ -111,7 +111,7 @@ export function Register() {
       <div className="py-16">
         <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
           <div className="w-full p-8 lg:w-1/2">
-            <p className="text-xl sm:text-2xl font-bold text-indigo-600 text-center">
+            <p className="text-xl sm:text-2xl font-bold text-custom text-center">
               E-Visa
             </p>
             <p className="text-xl text-gray-600 text-center">Welcome back!</p>
@@ -259,7 +259,7 @@ export function Register() {
                 />
               </div>
               <div className="mt-8">
-                <button className="bg-indigo-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-indigo-600">
+                <button className="bg-custom text-white font-bold py-2 px-4 w-full rounded hover:bg-hover-custom">
                   Register
                 </button>
               </div>
@@ -271,7 +271,7 @@ export function Register() {
             </div>
             <div className="text-center mt-4 text-gray-500">
               You have already an account?{" "}
-              <Link to="/login" className="text-indigo-500 font-bold">
+              <Link to="/login" className="text-custom font-bold">
                 Login
               </Link>
             </div>

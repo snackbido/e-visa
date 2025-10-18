@@ -35,7 +35,7 @@ export function Header({ currentUser, isLoading }) {
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8 lg:pl-28 flex items-center justify-between h-16">
-        <Link to="/" className="text-xl sm:text-2xl font-bold text-indigo-600">
+        <Link to="/" className="text-xl sm:text-2xl font-bold text-custom">
           E-Visa
         </Link>
 
@@ -43,25 +43,25 @@ export function Header({ currentUser, isLoading }) {
         <div className="hidden sm:flex lg:flex space-x-6 lg:space-x-8 items-center sm:text-sm lg:text-base">
           <Link
             to="/"
-            className="text-gray-600 hover:text-indigo-600 transition-colors duration-200 font-medium"
+            className="text-gray-600 hover:text-custom transition-colors duration-200 font-medium"
           >
             Home
           </Link>
           <Link
             to="/apply-visa"
-            className="text-gray-600 hover:text-indigo-600 transition-colors duration-200 font-medium"
+            className="text-gray-600 hover:text-custom transition-colors duration-200 font-medium"
           >
             Apply Visa
           </Link>
           <Link
             to="/blog"
-            className="text-gray-600 hover:text-indigo-600 transition-colors duration-200 font-medium"
+            className="text-gray-600 hover:text-custom transition-colors duration-200 font-medium"
           >
             Blog
           </Link>
           <Link
-            to="#about"
-            className="text-gray-600 hover:text-indigo-600 transition-colors duration-200 font-medium"
+            to="/about"
+            className="text-gray-600 hover:text-custom transition-colors duration-200 font-medium"
           >
             About Us
           </Link>
@@ -72,7 +72,7 @@ export function Header({ currentUser, isLoading }) {
           {!user ? (
             <Link
               to="/login"
-              className="text-gray-600 hover:text-indigo-600 lg:text-base font-medium hidden lg:block"
+              className="text-gray-600 hover:text-custom lg:text-base font-medium hidden lg:block"
             >
               Log In
             </Link>
@@ -104,7 +104,7 @@ export function Header({ currentUser, isLoading }) {
           )}
           <Link
             to="/apply-visa"
-            className="px-4 py-2 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 transition-colors duration-200 shadow-md text-sm sm:text-sm"
+            className="px-4 py-2 bg-custom text-white font-semibold rounded-full transition-colors duration-200 shadow-md text-sm sm:text-sm"
           >
             Apply Now
           </Link>
@@ -139,7 +139,7 @@ export function Header({ currentUser, isLoading }) {
           </div>
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden text-gray-600 hover:text-indigo-600 focus:outline-none"
+            className="lg:hidden text-gray-600 hover:text-custom focus:outline-none"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             <svg
@@ -170,45 +170,45 @@ export function Header({ currentUser, isLoading }) {
           <div className="px-4 py-4 space-y-4">
             <Link
               to="/"
-              className="block text-gray-600 hover:text-indigo-600 font-medium py-2"
+              className="block text-gray-600 hover:text-custom font-medium py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               Home
             </Link>
             <Link
               to="/apply-visa"
-              className="block text-gray-600 hover:text-indigo-600 font-medium py-2"
+              className="block text-gray-600 hover:text-custom font-medium py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               Apply Visa Online
             </Link>
             <Link
               to="/blog"
-              className="block text-gray-600 hover:text-indigo-600 font-medium py-2"
+              className="block text-gray-600 hover:text-custom font-medium py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               Blog
             </Link>
             <Link
-              to="/contact"
-              className="block text-gray-600 hover:text-indigo-600 font-medium py-2"
+              to="/about"
+              className="block text-gray-600 hover:text-custom font-medium py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Contact
+              About
             </Link>
             <div className="pt-4 border-t border-gray-200 space-y-4">
               {!user ? (
                 <>
                   <Link
                     to="/login"
-                    className="block text-gray-600 hover:text-indigo-600 font-medium py-2"
+                    className="block text-gray-600 hover:text-custom font-medium py-2"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Log In
                   </Link>
                   <Link
                     to="/apply-visa"
-                    className="block px-4 py-2 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 transition-colors duration-200 shadow-md text-center"
+                    className="block px-4 py-2 bg-custom text-white font-semibold rounded-full transition-colors duration-200 shadow-md text-center"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Apply Now
@@ -217,7 +217,7 @@ export function Header({ currentUser, isLoading }) {
               ) : (
                 <Link
                   to="/apply-visa"
-                  className="block px-4 py-2 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 transition-colors duration-200 shadow-md text-center"
+                  className="block px-4 py-2 bg-custom text-white font-semibold rounded-full transition-colors duration-200 shadow-md text-center"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Apply Now

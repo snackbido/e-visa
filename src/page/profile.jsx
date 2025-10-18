@@ -197,7 +197,7 @@ export const Profile = ({ user }) => {
         return (
           <section className="bg-gray-50 p-6 rounded-lg shadow-inner">
             <h2 className="flex items-center text-xl font-semibold text-gray-900 mb-4">
-              <Info className="text-indigo-500 mr-2" />
+              <Info className="text-custom mr-2" />
               Customer Information
             </h2>
             <ul className="space-y-2 text-gray-700">
@@ -226,7 +226,7 @@ export const Profile = ({ user }) => {
         return (
           <section className="bg-gray-50 p-6 rounded-lg shadow-inner">
             <h2 className="flex items-center text-xl font-semibold text-gray-900 mb-4">
-              <FileText className="text-indigo-500 mr-2" />
+              <FileText className="text-custom mr-2" />
               E-Visa History
             </h2>
             <div className="overflow-x-auto">
@@ -304,7 +304,7 @@ export const Profile = ({ user }) => {
               onClick={() => setActiveSection("information")}
               className={`flex items-center w-full px-4 py-3 rounded-lg font-medium transition-colors ${
                 activeSection === "information"
-                  ? "bg-indigo-600 text-white shadow-md"
+                  ? "bg-custom text-white shadow-md"
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
             >
@@ -315,7 +315,7 @@ export const Profile = ({ user }) => {
               onClick={() => setActiveSection("visa")}
               className={`flex items-center w-full px-4 py-3 rounded-lg font-medium transition-colors ${
                 activeSection === "visa"
-                  ? "bg-indigo-600 text-white shadow-md"
+                  ? "bg-custom text-white shadow-md"
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
             >
@@ -326,7 +326,7 @@ export const Profile = ({ user }) => {
               onClick={() => setActiveSection("history")}
               className={`flex items-center w-full px-4 py-3 rounded-lg font-medium transition-colors ${
                 activeSection === "history"
-                  ? "bg-indigo-600 text-white shadow-md"
+                  ? "bg-custom text-white shadow-md"
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
             >
@@ -337,7 +337,7 @@ export const Profile = ({ user }) => {
               onClick={() => setActiveSection("changePassword")}
               className={`flex items-center w-full px-4 py-3 rounded-lg font-medium transition-colors ${
                 activeSection === "changePassword"
-                  ? "bg-indigo-600 text-white shadow-md"
+                  ? "bg-custom text-white shadow-md"
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300 "
               }`}
             >

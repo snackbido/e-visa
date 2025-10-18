@@ -103,7 +103,7 @@ export function BlogCard() {
                   </p>
                   <Link
                     to="#"
-                    className="text-indigo-600 font-semibold hover:underline text-sm"
+                    className="text-custom font-semibold hover:underline text-sm"
                   >
                     Read More &rarr;
                   </Link>
@@ -115,10 +115,10 @@ export function BlogCard() {
           {/* Navigation Buttons - Always visible beside the cards */}
           <button
             onClick={() => scrollCarousel("prev")}
-            className="absolute left-0 sm:-left-8 top-1/2 -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:scale-110 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 z-10"
+            className="absolute left-0 sm:-left-8 top-1/2 -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:scale-110 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-custom z-10"
           >
             <svg
-              className="w-5 h-5 text-indigo-600"
+              className="w-5 h-5 text-custom"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -134,10 +134,10 @@ export function BlogCard() {
           </button>
           <button
             onClick={() => scrollCarousel("next")}
-            className="absolute right-0 sm:-right-8 top-1/2 -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:scale-110 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 z-10"
+            className="absolute right-0 sm:-right-8 top-1/2 -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:scale-110 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-custom z-10"
           >
             <svg
-              className="w-5 h-5 text-indigo-600"
+              className="w-5 h-5 text-custom"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -157,7 +157,7 @@ export function BlogCard() {
         <div className="text-center mt-8 sm:mt-12">
           <Link
             to="/blog"
-            className="inline-flex items-center px-6 py-3 text-indigo-600 font-semibold border-2 border-indigo-600 rounded-full hover:bg-indigo-50 transition-colors duration-200 transform hover:scale-105"
+            className="inline-flex items-center px-6 py-3 text-custom font-semibold border-2 border-custom rounded-full hover:bg-custom hover:text-white transition-colors duration-200 transform hover:scale-105"
           >
             View More
             <svg

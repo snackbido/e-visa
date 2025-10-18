@@ -84,7 +84,7 @@ export function Step1({
                 <div className="flex border rounded-lg w-full">
                   <select
                     name="letter"
-                    className="w-24 px-4 py-2 focus:outline-none focus:ring-indigo-500"
+                    className="w-24 px-4 py-2 focus:outline-none focus:ring-custom"
                     id="letter"
                     onChange={(e) => {
                       handleFilteredCountries(e.target.value);
@@ -107,7 +107,7 @@ export function Step1({
                       !selectedLetter
                         ? "text-gray-400 bg-gray-200 cursor-not-allowed"
                         : "text-gray-800"
-                    } focus:ring-indigo-500`}
+                    } focus:ring-custom`}
                     disabled={!selectedLetter}
                   >
                     {selectedLetter && <option value="">Please select</option>}
@@ -127,7 +127,7 @@ export function Step1({
                   Time of Visa
                 </label>
                 <select
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-custom"
                   id="visaTime"
                   name="visaTime"
                   value={formData.step1.visaTime || ""}
@@ -157,7 +157,7 @@ export function Step1({
                   Type of Visa
                 </label>
                 <select
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-custom"
                   id="visaType"
                   name="visaType"
                   value={formData.step1.visaType || ""}
@@ -186,7 +186,7 @@ export function Step1({
                 <div className="relative flex items-center mb-2">
                   <div className="relative flex items-center w-full">
                     <select
-                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-custom"
                       id="visaNumber"
                       name="visaNumber"
                       value={formData.applicants.length}
@@ -210,7 +210,7 @@ export function Step1({
                   Processing Time
                 </label>
                 <select
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-custom"
                   id="processingTime"
                   name="processingTime"
                   value={formData.step1.processingTime || ""}
@@ -235,7 +235,7 @@ export function Step1({
                   Purpose of Visit
                 </label>
                 <select
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-custom"
                   id="purpose"
                   name="purpose"
                   value={formData.step1.purpose || ""}
@@ -252,7 +252,7 @@ export function Step1({
         </div>
         <button
           type="submit"
-          className="w-full mt-4 px-6 py-3 sm:px-4 sm:py-2 sm:w-full lg:px-6 lg:py-3 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 transition-colors duration-200"
+          className="w-full mt-4 px-6 py-3 sm:px-4 sm:py-2 sm:w-full lg:px-6 lg:py-3 bg-custom text-white font-semibold rounded-full transition-colors duration-200"
         >
           APPLY NOW
         </button>
