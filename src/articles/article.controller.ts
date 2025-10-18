@@ -21,6 +21,11 @@ export class ArticleController {
     return await this.articleService.findAll();
   }
 
+  @Get('/blog/:id')
+  async findAllByBlogId(@Param('id') id: string): Promise<Article[]> {
+    return await this.articleService.findAllWithBlogId(id);
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Article> {
     return await this.articleService.findOneById(id);

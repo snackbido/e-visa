@@ -155,12 +155,17 @@ export class PaymentService {
       status,
     });
 
+    let prefix: string = '',
+      start: string = '',
+      end: string = '';
     //shorthand transaction_no
-    const parts = transaction_no.split('-');
-    const prefix = parts.length > 1 ? parts[0] + '-' : '';
-    const code = parts.length > 1 ? parts.slice(1).join('-') : transaction_no;
-    const start = code.substring(0, 4);
-    const end = code.substring(code.length - 4);
+    if (transaction_no) {
+      const parts = transaction_no.split('-');
+      prefix = parts.length > 1 ? parts[0] + '-' : '';
+      const code = parts.length > 1 ? parts.slice(1).join('-') : transaction_no;
+      start = code.substring(0, 4);
+      end = code.substring(code.length - 4);
+    }
 
     const user = await this.userRepository.findOneBy({ id: user_id });
     if (!user) throw new BadRequestException('User not found');
@@ -171,7 +176,7 @@ export class PaymentService {
         <h1 style="font-size: 28px; font-weight: 700; margin: 0;">Payment Successful!</h1>
     </div>
     <div style="padding: 32px 24px; color: #4b5563;">
-        <p style="font-size: 16px; line-height: 1.6; margin: 0 0 16px;">Hello, ${user.first_name},</p>
+        <p style="font-size: 16px; line-height: 1.6; margin: 0 0 16px;">Hello, ${user.first_name}</p>
         <p style="font-size: 16px; line-height: 1.6; margin: 0 0 16px;">Your e-visa payment transaction has been processed successfully. Thank you for trusting and using our service.</p>
         
         <div style="background-color: #f9fafb; border-radius: 8px; padding: 24px; margin: 24px 0;">
@@ -183,7 +188,7 @@ export class PaymentService {
                 </tr>
                 <tr>
                     <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; color: #6b7280;">Transaction ID</td>
-                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; font-weight: 500; color: #111827; text-align: right;">${prefix}${start}...${end}</td>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; font-weight: 500; color: #111827; text-align: right;">${transaction_no ? `${prefix}${start}...${end}` : 'No information'}</td>
                 </tr>
                 <tr>
                     <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; color: #6b7280;">Full Name</td>
@@ -191,7 +196,7 @@ export class PaymentService {
                 </tr>
                 <tr>
                     <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; color: #6b7280;">Card Number</td>
-                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; font-weight: 500; color: #111827; text-align: right;">${paymentDto.card_number}</td>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; font-weight: 500; color: #111827; text-align: right;">${paymentDto.card_number ? paymentDto.card_number : 'No information'}</td>
                 </tr>
                 <tr>
                     <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; color: #6b7280;">Date of Paid</td>
@@ -235,7 +240,7 @@ export class PaymentService {
                 </tr>
                 <tr>
                     <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; color: #6b7280;">Transaction ID</td>
-                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; font-weight: 500; color: #111827; text-align: right;">${prefix}${start}...${end}</td>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; font-weight: 500; color: #111827; text-align: right;">${transaction_no ? `${prefix}${start}...${end}` : 'No information'}</td>
                 </tr>
                 <tr>
                     <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; color: #6b7280;">Full Name</td>
@@ -243,7 +248,7 @@ export class PaymentService {
                 </tr>
                 <tr>
                     <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; color: #6b7280;">Card Number</td>
-                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; font-weight: 500; color: #111827; text-align: right;">${paymentDto.card_number}</td>
+                    <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; font-weight: 500; color: #111827; text-align: right;">${paymentDto.card_number ? paymentDto.card_number : 'No information'}</td>
                 </tr>
                 <tr>
                     <td style="font-size: 14px; padding: 8px 0; border-bottom: 1px solid #fecaca; color: #6b7280;">Date & Time</td>

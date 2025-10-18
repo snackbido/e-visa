@@ -16,6 +16,10 @@ export class ArticleService {
     return await this.articleRepository.find();
   }
 
+  async findAllWithBlogId(id: string): Promise<Article[]> {
+    return await this.articleRepository.find({ where: { blog_id: id } });
+  }
+
   async findOneById(id: string): Promise<Article> {
     const article = await this.articleRepository.findOneBy({ id });
 

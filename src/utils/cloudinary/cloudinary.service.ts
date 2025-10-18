@@ -17,7 +17,7 @@ export class CloudinaryService {
         );
       }
       const upload = v2.uploader.upload_stream(
-        { folder: `ecommerce/${folder}` },
+        { folder: `ecommerce/${folder}`, transformation: [] },
         (error, result) => {
           if (error) return reject(error);
           if (!result)
