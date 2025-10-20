@@ -17,8 +17,16 @@ export class Article {
   @Column()
   title: string;
 
-  @Column({ type: 'longtext' })
-  content: string;
+  @Column({ type: 'json' })
+  content: {
+    [key: string]: {
+      type: string;
+      text: string;
+    };
+  };
+
+  @Column()
+  image_url: string;
 
   @ManyToOne(() => Blog, (blog) => blog.articles, {
     cascade: true,

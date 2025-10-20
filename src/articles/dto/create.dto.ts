@@ -1,11 +1,16 @@
-import { IsString } from 'class-validator';
+import { IsArray, IsString } from 'class-validator';
 
 export class CreateArticleDTO {
   @IsString()
   title: string;
 
-  @IsString()
-  content: string;
+  @IsArray()
+  content: {
+    [key: string]: {
+      type: string;
+      text: string;
+    };
+  };
 
   @IsString()
   blog_id: string;
