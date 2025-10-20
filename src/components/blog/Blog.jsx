@@ -1,8 +1,20 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "../../axios/axios";
 
 export function BlogCard() {
   const carouselRef = useRef(null);
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    const getArticles = async () => {
+      const { data } = await axios.get("/blog");
+      if (data.status === "success") {
+        setArticles(data.data);
+      }
+    };
+    getArticles();
+  }, []);
 
   const scrollCarousel = (direction) => {
     if (carouselRef.current) {

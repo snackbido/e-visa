@@ -8,14 +8,12 @@ export const Footer = ({ setPage }) => {
   // Data for the footer links
   const footerLinks = [
     {
-      title: "Popular Travel Visas",
+      title: "Vietnam visa guides",
       id: "popular",
       links: [
-        { name: "Schengen Visa", page: "schengen" },
-        { name: "US Visa", page: "us" },
-        { name: "Canada Visa", page: "canada" },
-        { name: "Japan Visa", page: "japan" },
-        { name: "Brazil Visa", page: "brazil" },
+        { name: "Vietnam visa information", page: "schengen" },
+        { name: "Vietnam visa fees", page: "us" },
+        { name: "Vietnam visa requirements", page: "canada" },
       ],
     },
     {
@@ -24,7 +22,6 @@ export const Footer = ({ setPage }) => {
       links: [
         { name: "About Us", page: "about-us" },
         { name: "Blog", page: "blog" },
-        { name: "Contact Us", page: "contact" },
       ],
     },
     {
@@ -34,7 +31,6 @@ export const Footer = ({ setPage }) => {
         { name: "Privacy Policy", page: "privacy" },
         { name: "Terms & Conditions", page: "terms" },
         { name: "Refund Policy", page: "refund" },
-        { name: "Disclaimer", page: "disclaimer" },
       ],
     },
   ];
