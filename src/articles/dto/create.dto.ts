@@ -1,3 +1,4 @@
+import { Optional } from '@nestjs/common';
 import { IsArray, IsString } from 'class-validator';
 
 export class CreateArticleDTO {
@@ -6,12 +7,18 @@ export class CreateArticleDTO {
 
   @IsArray()
   content: {
-    [key: string]: {
-      type: string;
-      text: string;
-    };
+    type: string;
+    text?: string;
+    url?: string;
+    caption?: string;
   };
 
   @IsString()
   blog_id: string;
+
+  @IsString()
+  description: string;
+
+  @Optional()
+  image_url: string;
 }

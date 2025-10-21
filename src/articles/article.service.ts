@@ -4,6 +4,7 @@ import { ArticlesRepository } from '@visa/repository/article.repository';
 import { Article } from '@visa/articles/entity/article.entity';
 import { CreateArticleDTO } from '@visa/articles/dto/create.dto';
 import { UpdateArticleDTO } from '@visa/articles/dto/update.dto';
+import slugify from 'slugify';
 
 @Injectable()
 export class ArticleService {
@@ -13,11 +14,23 @@ export class ArticleService {
   ) {}
 
   async findAll(): Promise<Article[]> {
-    return await this.articleRepository.find();
+    return await this.articleRepository.find({ relations: ['blog'] });
   }
 
   async findAllWithBlogId(id: string): Promise<Article[]> {
     return await this.articleRepository.find({ where: { blog_id: id } });
+  }
+
+  async findOneBySlug(slug: string): Promise<Article> {
+    const article = await this.articleRepository.findOne({ where: { slug } });
+
+    if (!article) throw new NotFoundException('Article not found');
+
+    return article;
+  }
+
+  async findPLatestArticles(): Promise<Article[]> {
+    return await this.articleRepository.find({ order: { created_at: 'DESC' } });
   }
 
   async findOneById(id: string): Promise<Article> {
@@ -32,6 +45,7 @@ export class ArticleService {
     const { ...articleData } = createArticleDto;
     const article = this.articleRepository.create({
       ...articleData,
+      slug: slugify(articleData.title, { lower: true }),
     });
 
     await this.articleRepository.save(article);

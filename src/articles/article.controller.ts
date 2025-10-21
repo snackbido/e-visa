@@ -26,6 +26,16 @@ export class ArticleController {
     return await this.articleService.findAllWithBlogId(id);
   }
 
+  @Get('/latest/blog')
+  async findLatestArticles(): Promise<Article[]> {
+    return await this.articleService.findPLatestArticles();
+  }
+
+  @Get('slug/:slug')
+  async findOneBySlug(@Param('slug') slug: string): Promise<Article> {
+    return await this.articleService.findOneBySlug(slug);
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Article> {
     return await this.articleService.findOneById(id);

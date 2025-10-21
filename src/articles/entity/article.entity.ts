@@ -19,14 +19,17 @@ export class Article {
 
   @Column({ type: 'json' })
   content: {
-    [key: string]: {
-      type: string;
-      text: string;
-    };
+    type: string;
+    text?: string;
+    url?: string;
+    caption?: string;
   };
 
   @Column()
   image_url: string;
+
+  @Column()
+  description: string;
 
   @ManyToOne(() => Blog, (blog) => blog.articles, {
     cascade: true,
@@ -37,6 +40,9 @@ export class Article {
 
   @Column()
   blog_id: string;
+
+  @Column()
+  slug: string;
 
   @CreateDateColumn()
   created_at: Date;
