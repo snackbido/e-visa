@@ -11,9 +11,9 @@ export const Footer = ({ setPage }) => {
       title: "Vietnam visa guides",
       id: "popular",
       links: [
-        { name: "Vietnam visa information", page: "schengen" },
-        { name: "Vietnam visa fees", page: "us" },
-        { name: "Vietnam visa requirements", page: "canada" },
+        { name: "Vietnam visa information", page: "visa-info" },
+        { name: "Vietnam visa fees", page: "fees" },
+        { name: "Vietnam visa requirements", page: "visa-requirements" },
       ],
     },
     {

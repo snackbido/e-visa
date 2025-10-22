@@ -24,6 +24,7 @@ import { Register } from "./page/auth/register";
 import { ForgotPassword } from "./page/auth/forgot-password";
 import { ResetPassword } from "./page/auth/reset-password";
 import { About } from "./page/about";
+import { BlogDetail } from "./page/blog-detail";
 
 export function AppRoutes() {
   const { user } = useSelector((state) => state.auth) || "";
@@ -79,6 +80,7 @@ export function AppRoutes() {
           <Route path="blog" element={<Blog />} />
           <Route path="login" element={<Login currentUser={currentUser} />} />
           <Route path="about" element={<About />} />
+          <Route path="blog/article/:slug" element={<BlogDetail />} />
           <Route path="register" element={<Register />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
 

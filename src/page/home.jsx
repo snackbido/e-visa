@@ -58,13 +58,13 @@ const Home = () => {
               <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 px-4 sm:px-0">
                 <Link
                   to="/apply-visa"
-                  className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-custom text-white font-bold rounded-full hover:bg-indigo-500 transition-colors duration-200 shadow-lg transform hover:scale-105 text-center"
+                  className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-custom text-white font-bold rounded-full hover:bg-hover-custom hover:text-white transition-colors duration-200 shadow-lg transform hover:scale-105 text-center"
                 >
                   Start Application
                 </Link>
                 <Link
                   to="/blog"
-                  className="w-full sm:w-auto px-6 sm:px-8 py-3 text-custom font-bold border-2 border-custom rounded-full hover:bg-indigo-500 transition-colors duration-200 transform hover:scale-105 text-center"
+                  className="w-full sm:w-auto px-6 sm:px-8 py-3 text-custom font-bold border-2 border-custom rounded-full hover:bg-hover-custom hover:text-stone-50 transition-colors duration-200 transform hover:scale-105 text-center"
                 >
                   Learn More
                 </Link>
