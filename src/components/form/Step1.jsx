@@ -257,12 +257,40 @@ export function Step1({
           APPLY NOW
         </button>
       </form>
-      <div className="w-full sm:w-1/4 lg:w-1/3 p-6 sm:mt-0 bg-white rounded-3xl flex-shrink-0 flex flex-col items-center justify-center text-center">
-        <h3 className="text-xl font-bold mb-4">Check your fees</h3>
-        <div className="text-5xl font-extrabold text-red-600 mb-4">
-          ${totalFee}
+      <div className="w-full sm:w-1/3 lg:w-1/4 p-6 sm:p-8 bg-blue-50 sm:bg-white sm:rounded-none rounded-xl sm:shadow-none shadow-lg flex-shrink-0">
+        <div className="bg-white border border-blue-200 rounded-lg p-6 shadow-md">
+          {" "}
+          {/* Tạo hộp nổi bật */}
+          <h3 className="text-lg font-semibold text-gray-800 border-b pb-3 mb-4">
+            TOTAL FEES
+          </h3>
+          {/* Mục phí dịch vụ */}
+          <div className="flex justify-between items-center text-gray-600 text-sm mb-2">
+            <span>Service Fee</span>
+            <span className="font-medium">$65.00</span>
+          </div>
+          {/* Mục phí chính phủ (Ví dụ) */}
+          <div className="flex justify-between items-center text-gray-600 text-sm mb-4">
+            <span>Number applicant</span>
+            <span className="font-medium">
+              {formData.applicants.length}
+            </span>
+          </div>
+          <hr className="my-3 border-gray-200" />
+          {/* Tổng phí */}
+          <div className="flex justify-between items-center text-xl font-bold text-gray-900 mt-4">
+            <span>TOTAL</span>
+            {/* Sử dụng một div để hiển thị tổng phí lớn, nổi bật */}
+            <span className="text-3xl text-red-600 font-extrabold">
+              ${totalFee}
+            </span>
+          </div>
         </div>
-        <hr className="w-24 h-1 bg-gray-300 rounded-full mb-6" />
+
+        {/* Thêm một thông báo nhỏ bên dưới (tùy chọn) */}
+        <p className="text-xs text-gray-500 mt-4 text-center">
+          *Fees may vary depending on your selections.
+        </p>
       </div>
       <ToastContainer />
     </div>

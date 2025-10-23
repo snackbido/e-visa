@@ -27,6 +27,7 @@ export const BlogDetail = () => {
       }
     };
     loadArticle();
+    window.scroll(0, 0)
   }, [slug]); // Dependency on articleId
 
   // Component to render individual content blocks
@@ -72,7 +73,7 @@ export const BlogDetail = () => {
           <figure key={index} className="my-8">
             <img
               src={block.url}
-              alt={block.caption || "Hình ảnh minh họa"}
+              alt={block.caption || ""}
               className="w-full h-auto object-cover rounded-xl shadow-md"
               onError={(e) => {
                 e.target.onerror = null;
@@ -150,7 +151,7 @@ export const BlogDetail = () => {
   }
 
   const handleReturn = () => {
-    window.location.href = "/blog";
+    window.location.href = `/blog/${article.blog.slug}`;
   };
 
   // Find category info for badge styl
@@ -186,7 +187,7 @@ export const BlogDetail = () => {
         </h1>
 
         <img
-          src={article.imageUrl}
+          src={article.image_url}
           alt={article.title}
           className="w-full h-auto object-cover rounded-xl shadow-lg mb-8"
           onError={(e) => {
