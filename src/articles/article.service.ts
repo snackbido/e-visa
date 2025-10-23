@@ -22,7 +22,10 @@ export class ArticleService {
   }
 
   async findOneBySlug(slug: string): Promise<Article> {
-    const article = await this.articleRepository.findOne({ where: { slug } });
+    const article = await this.articleRepository.findOne({
+      where: { slug },
+      relations: ['blog'],
+    });
 
     if (!article) throw new NotFoundException('Article not found');
 

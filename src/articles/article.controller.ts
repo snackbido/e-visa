@@ -22,7 +22,7 @@ export class ArticleController {
   }
 
   @Get('/blog/:id')
-  async findAllByBlogId(@Param('id') id: string): Promise<Article[]> {
+  async findAllByBlogSlug(@Param('id') id: string): Promise<Article[]> {
     return await this.articleService.findAllWithBlogId(id);
   }
 

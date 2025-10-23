@@ -25,6 +25,9 @@ export class Blog {
   @Column()
   cover_image: string;
 
+  @Column()
+  slug: string;
+
   @CreateDateColumn()
   created_at: Date;
 

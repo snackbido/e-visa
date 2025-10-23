@@ -26,6 +26,11 @@ export class BlogController {
     return await this.blogService.findOneById(id);
   }
 
+  @Get('slug/:slug')
+  async findOneBySlug(@Param('slug') slug: string): Promise<Blog> {
+    return await this.blogService.findOneBySlug(slug);
+  }
+
   @Post()
   async create(@Body() createBlogDto: CreateBlogDTO): Promise<string> {
     return await this.blogService.create(createBlogDto);
