@@ -33,7 +33,10 @@ export class ArticleService {
   }
 
   async findPLatestArticles(): Promise<Article[]> {
-    return await this.articleRepository.find({ order: { created_at: 'DESC' } });
+    return await this.articleRepository.find({
+      relations: ['blog'],
+      order: { created_at: 'DESC' },
+    });
   }
 
   async findOneById(id: string): Promise<Article> {
