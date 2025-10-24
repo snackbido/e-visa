@@ -26,6 +26,8 @@ import { ResetPassword } from "./page/auth/reset-password";
 import { About } from "./page/about";
 import { BlogDetail } from "./page/blog-detail";
 import { ArticleList } from "./page/article-list";
+import { FeesVisa } from "./page/fees-visa";
+import VisaRequirement from "./page/visa-requirement";
 
 export function AppRoutes() {
   const { user } = useSelector((state) => state.auth) || "";
@@ -85,6 +87,11 @@ export function AppRoutes() {
           <Route path="register" element={<Register />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="blog/:slug" element={<ArticleList />} />
+          <Route path="vietnam-visa-fees" element={<FeesVisa />} />
+          <Route
+            path="vietnam-visa-requirement"
+            element={<VisaRequirement />}
+          />
 
           <Route element={<PrivateRoute currentUser={currentUser} />}>
             <Route

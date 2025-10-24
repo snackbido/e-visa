@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export const Footer = ({ setPage }) => {
-  // State to manage which footer section is open on mobile
+export const Footer = () => {
   const [openSection, setOpenSection] = useState(null);
 
   // Data for the footer links
@@ -12,8 +11,8 @@ export const Footer = ({ setPage }) => {
       id: "popular",
       links: [
         { name: "Vietnam visa information", page: "visa-info" },
-        { name: "Vietnam visa fees", page: "fees" },
-        { name: "Vietnam visa requirements", page: "visa-requirements" },
+        { name: "Vietnam visa fees", page: "vietnam-visa-fees" },
+        { name: "Vietnam visa requirements", page: "vietnam-visa-requirement" },
       ],
     },
     {
@@ -34,18 +33,6 @@ export const Footer = ({ setPage }) => {
       ],
     },
   ];
-
-  const handleLinkClick = (e, page) => {
-    e.preventDefault();
-    // Only navigate if the page exists in our router setup, otherwise log.
-    if (
-      ["home", "about-us", "login", "blog", "apply", "contact"].includes(page)
-    ) {
-      setPage(page);
-    } else {
-      console.log(`Navigating to dummy page: ${page}`);
-    }
-  };
 
   // Helper component for the Accordion on mobile
   const FooterAccordionItem = ({ title, id, links }) => (
@@ -85,8 +72,7 @@ export const Footer = ({ setPage }) => {
           {links.map((link, index) => (
             <li key={index}>
               <Link
-                to="#"
-                onClick={(e) => handleLinkClick(e, link.page)}
+                to={link.page}
                 className="text-gray-400 hover:text-blue-400 transition-colors text-sm block"
               >
                 {link.name}
@@ -108,8 +94,7 @@ export const Footer = ({ setPage }) => {
         {links.map((link, index) => (
           <li key={index}>
             <Link
-              to="#"
-              onClick={(e) => handleLinkClick(e, link.page)}
+              to={link.page}
               className="text-gray-400 hover:text-blue-400 transition-colors text-sm"
             >
               {link.name}
@@ -187,7 +172,6 @@ export const Footer = ({ setPage }) => {
               <li>
                 <Link
                   to="#"
-                  onClick={(e) => handleLinkClick(e, "about-us")}
                   className="text-gray-400 hover:text-blue-400 transition-colors text-sm"
                 >
                   123 Travel Blvd, Suite 400 Global City, GT 54321
@@ -196,7 +180,6 @@ export const Footer = ({ setPage }) => {
               <li>
                 <Link
                   to="#"
-                  onClick={(e) => handleLinkClick(e, "blog")}
                   className="text-gray-400 hover:text-blue-400 transition-colors text-sm"
                 >
                   Email: info@evisa.com
@@ -205,7 +188,6 @@ export const Footer = ({ setPage }) => {
               <li>
                 <Link
                   to="#"
-                  onClick={(e) => handleLinkClick(e, "how-it-works")}
                   className="text-gray-400 hover:text-blue-400 transition-colors text-sm"
                 >
                   Phone: +1 (234) 567-890

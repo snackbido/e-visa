@@ -30,7 +30,7 @@ export function Blog() {
   return (
     <>
       <div className="min-h-screen bg-gray-100">
-        <header className="py-12 bg-[url('https://wallpapercave.com/wp/wp4144066.jpg')] bg-cover bg-center text-white text-center shadow-lg mb-8">
+        <header className="py-24 bg-[url('https://wallpapercave.com/wp/wp4144066.jpg')] bg-cover bg-center text-white text-center shadow-lg mb-8">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Blog</h1>
           <p className="text-lg">
             Find answers and guides on all things visa and travel.

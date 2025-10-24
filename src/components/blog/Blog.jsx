@@ -57,30 +57,37 @@ export function BlogCard() {
             }}
           >
             {/* Blog Posts */}
-            {articles.slice(0,5).map((post, index) => (
-              <div
-                key={index}
-                className="min-w-[calc(100%-2rem)] w-[calc(100%-2rem)] md:min-w-[350px] md:w-[350px] bg-white rounded-2xl shadow-lg snap-center transform hover:scale-105 transition-transform duration-300 flex-shrink-0 mx-4 sm:mx-0"
-              >
-                <div className="bg-gray-200 rounded-t-2xl  h-48 sm:h-40 flex items-center justify-center">
-                  <img src={post.image_url} alt="" className="w-full h-full" />
+            {articles
+              .filter((e) => e.blog.title.toLowerCase() === "about visa")
+              .slice(0, 5)
+              .map((post, index) => (
+                <div
+                  key={index}
+                  className="min-w-[calc(100%-2rem)] w-[calc(100%-2rem)] md:min-w-[350px] md:w-[350px] bg-white rounded-2xl shadow-lg snap-center transform hover:scale-105 transition-transform duration-300 flex-shrink-0 mx-4 sm:mx-0"
+                >
+                  <div className="bg-gray-200 rounded-t-2xl  h-48 sm:h-40 flex items-center justify-center">
+                    <img
+                      src={post.image_url}
+                      alt=""
+                      className="w-full h-full"
+                    />
+                  </div>
+                  <div className="p-4 sm:p-6">
+                    <h3 className="text-xl sm:text-xl font-bold text-gray-900 mb-3 line-clamp-1">
+                      {post.title}
+                    </h3>
+                    <p className="text-gray-600 text-sm sm:text-sm mb-4 sm:mb-4 line-clamp-2">
+                      {post.description}
+                    </p>
+                    <Link
+                      to={`/blog/article/${post.slug}`}
+                      className="text-custom font-semibold hover:underline text-sm"
+                    >
+                      Read More &rarr;
+                    </Link>
+                  </div>
                 </div>
-                <div className="p-4 sm:p-6">
-                  <h3 className="text-xl sm:text-xl font-bold text-gray-900 mb-3 line-clamp-1">
-                    {post.title}
-                  </h3>
-                  <p className="text-gray-600 text-sm sm:text-sm mb-4 sm:mb-4 line-clamp-2">
-                    {post.description}
-                  </p>
-                  <Link
-                    to={`/blog/article/${post.slug}`}
-                    className="text-custom font-semibold hover:underline text-sm"
-                  >
-                    Read More &rarr;
-                  </Link>
-                </div>
-              </div>
-            ))}
+              ))}
           </div>
 
           {/* Navigation Buttons - Always visible beside the cards */}
