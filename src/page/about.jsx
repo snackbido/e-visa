@@ -1,11 +1,14 @@
+import { useEffect } from "react";
 import { CoreValue } from "../components/about/CoreValue";
 import { Service } from "../components/about/Service";
 import { ContactSection } from "../components/Contact";
 import { WhyApplySection } from "../components/WhyApply";
 
-// Placeholder icons (In a real project, you would use actual SVG icons or a library like Heroicons/Font Awesome)
-
 export const About = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="min-h-screen py-16 px-6 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto bg-white rounded-xl overflow-hidden">

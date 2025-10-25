@@ -231,7 +231,7 @@ const TermsOfUse = () => {
           </p>
         </header>
         <div className="flex flex-col lg:flex-row lg:space-x-8 py-8">
-          <div className="lg:flex lg:space-x-8 sm:w-3/4">
+          <div className="lg:flex lg:space-x-8 lg:w-3/4">
             {/* Sidebar Navigation Menu (Visible on large screens) */}
             <aside className="lg:w-1/4 mb-8 lg:mb-0 sticky top-4 self-start hidden lg:block">
               <nav className="p-4 bg-gray-50 rounded-lg shadow-inner border border-gray-200">

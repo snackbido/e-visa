@@ -203,7 +203,7 @@ const PrivacyPolicy = () => {
         </header>
 
         <div className="flex flex-col lg:flex-row lg:space-x-8">
-          <div className="py-8 sm:w-3/4 lg:flex lg:space-x-8 border-t">
+          <div className="py-8 lg:w-3/4 lg:flex lg:space-x-8 border-t">
             {/* Sidebar Navigation Menu (Visible on large screens) */}
             <aside className="lg:w-1/4 mb-8 lg:mb-0 sticky top-4 self-start hidden lg:block">
               <nav className="p-4 bg-gray-50 rounded-lg shadow-inner">

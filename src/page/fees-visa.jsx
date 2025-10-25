@@ -85,7 +85,7 @@ export const FeesVisa = () => {
         </div>
         <div className="flex flex-col lg:flex-row lg:space-x-8">
           {/* Tab Content */}
-          <main className="bg-white sm:w-3/4 p-6 sm:p-8 rounded-b-xl rounded-t-lg">
+          <main className="bg-white lg:w-3/4 p-6 sm:p-8 rounded-b-xl rounded-t-lg">
             {/* E-Visa Content */}
             {activeTab === "e-visa" && (
               <div>

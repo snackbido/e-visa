@@ -57,7 +57,7 @@ export const VisaInformation = () => {
 
   return (
     <div className="min-h-screen p-4 sm:p-8">
-      <div className="sm:w-4/5 mx-auto bg-white shadow-3xl p-6 sm:p-12">
+      <div className="lg:w-4/5 mx-auto bg-white shadow-3xl p-6 sm:p-4 lg:p-12">
         <header className=" mb-12">
           <h1 className="text-4xl font-extrabold text-custom sm:text-6xl mb-4 leading-tight">
             Your Essential Guide to Vietnam Visas
@@ -74,13 +74,13 @@ export const VisaInformation = () => {
         <div className="border-t border-gray-200 mb-12"></div>
 
         <div className="flex flex-col lg:flex-row lg:space-x-8">
-          <div className="sm:w-3/4">
+          <div className="lg:w-3/4">
             {/* Visa Options Section */}
             <section id="visa-options" className="mb-16">
               <h2 className="text-3xl font-bold text-gray-900 bg-gray-100 p-2 mb-8 border-l-4 border-custom pl-4">
                 Choose Your Entry Method
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {visaOptions.map((option, index) => (
                   <VisaCard key={index} option={option} />
                 ))}
