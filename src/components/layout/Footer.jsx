@@ -10,26 +10,18 @@ export const Footer = () => {
       title: "Vietnam visa guides",
       id: "popular",
       links: [
-        { name: "Vietnam visa information", page: "visa-info" },
+        { name: "Vietnam visa information", page: "vietnam-visa-information" },
         { name: "Vietnam visa fees", page: "vietnam-visa-fees" },
         { name: "Vietnam visa requirements", page: "vietnam-visa-requirement" },
-      ],
-    },
-    {
-      title: "Company",
-      id: "company",
-      links: [
-        { name: "About Us", page: "about-us" },
-        { name: "Blog", page: "blog" },
       ],
     },
     {
       title: "Legal",
       id: "legal",
       links: [
-        { name: "Privacy Policy", page: "privacy" },
-        { name: "Terms & Conditions", page: "terms" },
-        { name: "Refund Policy", page: "refund" },
+        { name: "About Us", page: "about-us" },
+        { name: "Privacy Policy", page: "privacy-policy" },
+        { name: "Terms & Conditions", page: "terms-of-use" },
       ],
     },
   ];
@@ -135,7 +127,7 @@ export const Footer = () => {
         </div>
 
         {/* --- DESKTOP GRID SECTION (Visible on desktop/tablet only) --- */}
-        <div className="hidden md:grid md:grid-cols-4 lg:grid-cols-5 gap-8 border-b border-gray-700 pb-8">
+        <div className="hidden md:grid md:grid-cols-4 lg:grid-cols-4 gap-8 border-b border-gray-700 pb-8">
           {/* Column 1 (Logo/Intro is handled above, this is for the first set of links) */}
           <div className="mb-8">
             <div className="md:col-span-2 mb-8 md:mb-0">
@@ -158,10 +150,6 @@ export const Footer = () => {
           <FooterColumn
             title={footerLinks[1].title}
             links={footerLinks[1].links}
-          />
-          <FooterColumn
-            title={footerLinks[2].title}
-            links={footerLinks[2].links}
           />
 
           <div className="lg:col-span-1">

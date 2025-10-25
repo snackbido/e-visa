@@ -28,6 +28,9 @@ import { BlogDetail } from "./page/blog-detail";
 import { ArticleList } from "./page/article-list";
 import { FeesVisa } from "./page/fees-visa";
 import VisaRequirement from "./page/visa-requirement";
+import PrivacyPolicy from "./page/privacy-policy";
+import { VisaInformation } from "./page/visa-information";
+import TermsOfUse from "./page/term";
 
 export function AppRoutes() {
   const { user } = useSelector((state) => state.auth) || "";
@@ -82,7 +85,7 @@ export function AppRoutes() {
           <Route index element={<Home />} />
           <Route path="blog" element={<Blog />} />
           <Route path="login" element={<Login currentUser={currentUser} />} />
-          <Route path="about" element={<About />} />
+          <Route path="about-us" element={<About />} />
           <Route path="blog/article/:slug" element={<BlogDetail />} />
           <Route path="register" element={<Register />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
@@ -92,6 +95,12 @@ export function AppRoutes() {
             path="vietnam-visa-requirement"
             element={<VisaRequirement />}
           />
+          <Route
+            path="vietnam-visa-information"
+            element={<VisaInformation />}
+          />
+          <Route path="privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="terms-of-use" element={<TermsOfUse />} />
 
           <Route element={<PrivateRoute currentUser={currentUser} />}>
             <Route

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CheckCircle2,
   FileText,
@@ -11,7 +11,9 @@ import { ContactSection } from "../components/Contact";
 
 const VisaRequirement = () => {
   const [expandedSection, setExpandedSection] = useState(null);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const visaOptions = [
     {
       id: "exemption",
@@ -147,7 +149,7 @@ const VisaRequirement = () => {
     <div className="min-h-screen p-4 sm:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-white rounded-2xl p-8">
+        <div className="text-white rounded-2xl">
           <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-2">
             Vietnam Visa Requirements
           </h1>
@@ -157,7 +159,7 @@ const VisaRequirement = () => {
         </div>
 
         {/* Introduction */}
-        <div className="bg-white rounded-xl p-8 border-b mb-8">
+        <div className="bg-white rounded-xl py-8 border-b mb-8">
           <p className="text-gray-700 text-lg leading-relaxed mb-4">
             Planning a trip to Vietnam? Visa requirements depend on your
             nationality and length of stay. This guide outlines the three main
