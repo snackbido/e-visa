@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { Step1 } from "../components/form/Step1";
 import { Step2 } from "../components/form/Step2";
 import { Step3 } from "../components/form/Step3";
-import axios from "../axios/axios";
+import api from "../axios/axios";
 import countries from "../data.json";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 export function ApplyVisa({ user }) {
   const [currentStep, setCurrentStep] = useState(1);
@@ -45,6 +46,7 @@ export function ApplyVisa({ user }) {
       emergency_country_code: "",
     },
   });
+  const [exchangeRateUSD, setExchangeRateUSD] = useState(0);
 
   const handleCountries = () => {
     const result = Object.values(countries)
@@ -75,6 +77,14 @@ export function ApplyVisa({ user }) {
     },
   };
 
+  const convertDate = (date) => {
+    const d = new Date(date);
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    const year = d.getFullYear();
+    return [year, month, day].join("-");
+  };
+
   useEffect(() => {
     const handleHashChange = () => {
       const stepFromHash = window.location.hash.replace("#step=", "");
@@ -87,8 +97,18 @@ export function ApplyVisa({ user }) {
       }
     };
 
+    const getExchangeRate = async () => {
+      const date = convertDate(new Date());
+      const response = await axios({
+        method: "GET",
+        url: `https://www.vietcombank.com.vn/api/exchangerates?date=${date}`,
+      });
+      setExchangeRateUSD(response.data.Data[0].transfer);
+    };
+
     window.addEventListener("hashchange", handleHashChange);
     handleHashChange();
+    getExchangeRate();
 
     return () => {
       window.removeEventListener("hashchange", handleHashChange);
@@ -175,9 +195,9 @@ export function ApplyVisa({ user }) {
       let response;
 
       if (visaId) {
-        response = await axios.patch(`/visa/${visaId}`, body);
+        response = await api.patch(`/visa/${visaId}`, body);
       } else {
-        response = await axios.post("/visa", body);
+        response = await api.post("/visa", body);
         setVisaId(response.data.data.id);
       }
 
@@ -302,6 +322,7 @@ export function ApplyVisa({ user }) {
               formData={formData}
               setFormData={setFormData}
               totalFee={totalFee}
+              exchangeRateUSD={exchangeRateUSD}
             />
           )}
 
@@ -315,6 +336,7 @@ export function ApplyVisa({ user }) {
               handlePrevStep={handlePrevStep}
               totalFee={totalFee}
               isLoading={isLoading}
+              exchangeRateUSD={exchangeRateUSD}
             />
           )}
 
@@ -325,6 +347,7 @@ export function ApplyVisa({ user }) {
               handlePrevStep={handlePrevStep}
               formData={formData}
               totalFee={totalFee}
+              exchangeRateUSD={exchangeRateUSD}
             />
           )}
         </div>

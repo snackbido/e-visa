@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { ContactSection } from "../components/Contact";
 import { WhyApplySection } from "../components/WhyApply";
-import { AlertCircle } from "lucide-react";
 
 const TermsOfUse = () => {
   useEffect(() => {
@@ -9,209 +8,182 @@ const TermsOfUse = () => {
   }, []);
   const sections = [
     {
-      id: "agreement",
-      title: "1. Agreement to Terms",
+      id: "introduction",
+      title: "I. Introduction",
       content: (
         <p className="mb-4">
-          These Terms of Use (“Terms”) constitute a legally binding agreement
-          between you (“User,” “you,” or “your”) and ApplyVietVisa (“Company,”
-          “we,” “us,” or “our”), governing your access to and use of the website
-          https://applyvietvisa.com (“Website”) and any related services
-          provided by us (“Services”). By accessing, using, or submitting any
-          information through the Website, you confirm that you have read,
-          understood, and agreed to be bound by these Terms. If you do not agree
-          to these Terms, you must discontinue use of the Website and Services
-          immediately.
+          Welcome to <strong>ApplyVietVisa.com</strong> (“We”, “Our”,
+          “Website”). We are a private visa support agency assisting
+          international travelers in preparing and submitting Vietnam eVisa
+          applications to the official government portal.{" "}
+          <strong>ApplyVietVisa.com</strong> is not affiliated with the
+          Government of Vietnam and does not issue visas.
+          <br />
+          By using our services, you agree to these Terms & Conditions.
         </p>
       ),
     },
     {
-      id: "description",
-      title: "2. Description of Services",
+      id: "scope-of-services",
+      title: "II. Scope of Services",
       content: (
-        <>
-          <p className="mb-4">
-            ApplyVietVisa provides **document preparation and application
-            support services** for individuals applying for the Vietnam
-            Electronic Visa (e-Visa). We assist with collecting information,
-            reviewing submitted documents for accuracy, preparing visa
-            applications, and submitting them to the official Vietnam
-            Immigration system on behalf of applicants.
-          </p>
-          <p className="mb-4 p-3 border-l-4 border-red-500 bg-red-50 font-medium">
-            We are **not a government agency** and we do not issue visas. Visa
-            issuance decisions are made solely by the Vietnam Immigration
-            Department or relevant government authority.
-          </p>
-        </>
+        <ul className="list-disc list-inside ml-4 space-y-2">
+          <li>Assist customers in completing the Vietnam eVisa form.</li>
+          <li>
+            Review and verify data before submission to the official portal (
+            <a
+              href="https://evisa.xuatnhapcanh.gov.vn"
+              className="text-blue-600 underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              https://evisa.xuatnhapcanh.gov.vn
+            </a>
+            ).
+          </li>
+          <li>
+            Track application status and deliver approved eVisa via email.
+          </li>
+          <li>
+            Our services are paid and include processing, customer support, and
+            translation assistance (if applicable).
+          </li>
+        </ul>
       ),
     },
     {
-      id: "no-affiliation",
-      title: "3. No Government or Legal Affiliation",
+      id: "service-fees",
+      title: "III. Service Fees",
       content: (
         <>
-          <p className="mb-4">
-            ApplyVietVisa is a privately operated service provider. We are **not
-            affiliated, endorsed, or associated** with the Government of
-            Vietnam, the Vietnam Immigration Department, any embassy, consulate,
-            border control, or any other government institution.
+          <p className="mb-2">
+            Fees are displayed transparently at checkout. They include:
           </p>
-          <p className="mb-4">
-            We do not provide legal advice or immigration consultation. Any
-            information available through the Website is general information
-            only and should not be interpreted as legal guidance.
-          </p>
-        </>
-      ),
-    },
-    {
-      id: "legal-notice",
-      title: "4. Important Legal Notice – No Legal Advice",
-      content: (
-        <p className="mb-4 font-semibold text-red-700">
-          ApplyVietVisa is not a law firm and does not provide legal
-          representation. Our personnel are not lawyers or legal advisors. Any
-          communication, instructions, or information provided by us must **not
-          be considered legal advice**. You are solely responsible for seeking
-          independent professional or legal advice if required.
-        </p>
-      ),
-    },
-    {
-      id: "eligibility",
-      title: "5. Eligibility",
-      content: (
-        <>
-          <p className="mb-4">
-            By using our Website and Services, you confirm that:
-          </p>
-          <ul className="list-disc list-inside ml-4 space-y-1 text-gray-700">
+          <ol className="list-decimal list-inside ml-4 space-y-2">
+            <li>ApplyVietVisa.com processing & service fee.</li>
             <li>
-              You are at least 18 years old or using the Services under the
-              supervision of a parent or legal guardian.
+              Government fee (if customer authorizes us to submit on their
+              behalf).
             </li>
-            <li>You have full legal authority to enter into this agreement.</li>
-            <li>You will use the Services only for lawful purposes.</li>
-            <li>
-              You are applying for a visa on your own behalf or you are legally
-              authorized to act on behalf of another person.
-            </li>
-          </ul>
+          </ol>
           <p className="mt-4">
-            We reserve the right to refuse service to anyone, at any time,
-            without obligation to disclose a reason.
-          </p>
-        </>
-      ),
-    },
-    {
-      id: "user-responsibilities",
-      title: "6. User Responsibilities",
-      content: (
-        <>
-          <p className="mb-4">
-            By submitting a visa application through our Website, you agree:
-          </p>
-          <ul className="list-disc list-inside ml-4 space-y-1 text-gray-700">
-            <li>To provide accurate, complete, and truthful information.</li>
-            <li>To upload valid supporting documents as required.</li>
-            <li>To verify all personal details before submission.</li>
-            <li>
-              That any mistake in your submission may result in rejection by
-              immigration authorities.
-            </li>
-            <li>
-              That you are solely responsible for compliance with all visa and
-              entry requirements for Vietnam.
-            </li>
-          </ul>
-          <p className="mt-4 font-medium text-red-600">
-            You acknowledge that once your application has been submitted to the
-            Vietnam Immigration system, it **cannot be modified, updated, or
-            canceled.**
-          </p>
-        </>
-      ),
-    },
-    {
-      id: "fees-payments",
-      title: "7. Service Fees and Payments",
-      content: (
-        <>
-          <p className="mb-4">
-            All service fees must be paid in Vietnamese Dong (VND) unless
-            otherwise stated. Service fees include:
-          </p>
-          <ul className="list-disc list-inside ml-4 space-y-1 text-gray-700">
-            <li>
-              A **Service Fee** charged by ApplyVietVisa for processing
-              assistance.
-            </li>
-            <li>
-              The **Government Visa Fee** charged by the Vietnam Immigration
-              Department. This government fee is non-refundable under all
-              circumstances once submitted.
-            </li>
-          </ul>
-          <p className="mt-4">
-            Payments are processed securely through third-party payment
-            providers. By purchasing our Services, you authorize ApplyVietVisa
-            to process your payment via our selected payment processor.
+            Payment is required prior to application submission via
+            international card (Visa/MasterCard/PayPal).
           </p>
         </>
       ),
     },
     {
       id: "refund-policy",
-      title: "8. Refund Policy",
+      title: "IV. Refund Policy",
       content: (
         <>
+          <h4 className="font-semibold mt-4 mb-2">
+            1. 24-Hour Full Refund Guarantee
+          </h4>
           <p className="mb-4">
-            ApplyVietVisa offers refunds only **before submission of your
-            application** to the Vietnam Immigration System. Once the
-            application has been submitted, no refund will be issued under any
-            circumstances, including but not limited to:
+            You may request a 100% refund within 24 hours after payment, if:
           </p>
-          <ul className="list-disc list-inside ml-4 space-y-1 text-gray-700">
-            <li>Visa rejection by authorities</li>
-            <li>Incorrect or incomplete documents provided by you</li>
-            <li>Change of mind or travel plans</li>
-            <li>Duplicate applications submitted by you</li>
-            <li>Ineligibility for visa due to government rules</li>
+          <ul className="list-disc list-inside ml-4 space-y-1">
+            <li>
+              Your application has not yet been submitted to the Vietnam
+              Immigration eVisa system.
+            </li>
+            <li>
+              You send a written refund request to{" "}
+              <a
+                href="mailto:support@applyvietvisa.com"
+                className="text-blue-600 underline"
+              >
+                support@applyvietvisa.com
+              </a>{" "}
+              within 24 hours from payment confirmation.
+            </li>
           </ul>
-          <p className="mt-4 font-semibold">
-            Refunds, if approved, will be issued only for the **ApplyVietVisa
-            Service Fee**. Government fees and payment processing fees are
-            non-refundable.
+
+          <h4 className="font-semibold mt-4 mb-2">2. Non-Refundable Cases:</h4>
+          <ul className="list-disc list-inside ml-4 space-y-1">
+            <li>
+              Once the application has been submitted to the government system.
+            </li>
+            <li>Incorrect information provided by the customer.</li>
+            <li>Change of travel plan after processing.</li>
+            <li>Application refused by the Vietnam Immigration Department.</li>
+          </ul>
+
+          <h4 className="font-semibold mt-4 mb-2">3. Exceptions:</h4>
+          <p>
+            If a processing error occurs due to ApplyVietVisa.com, we will
+            refund 100% of the service fee (excluding any government fee already
+            paid).
+          </p>
+
+          <h4 className="font-semibold mt-4 mb-2">4. Processing Time:</h4>
+          <p>
+            Refunds will be issued within 7–10 business days via the original
+            payment method.
+          </p>
+
+          <h4 className="font-semibold mt-4 mb-2">
+            5. Limitation of Liability
+          </h4>
+          <p className="mb-4">
+            ApplyVietVisa.com shall not be held liable for any direct, indirect,
+            incidental, special, or consequential damages arising from a visa
+            denial or delay, including but not limited to:
+          </p>
+          <ul className="list-disc list-inside ml-4 space-y-1">
+            <li>
+              Flight tickets, hotel bookings, tours, or other travel-related
+              expenses;
+            </li>
+            <li>Financial loss, opportunity cost, or schedule changes;</li>
+            <li>Emotional distress or reputational loss.</li>
+          </ul>
+          <p className="mt-4">
+            The customer acknowledges that visa approval or rejection is solely
+            determined by the Vietnam Immigration Department, beyond
+            ApplyVietVisa.com’s control.
+          </p>
+          <p className="mt-2 font-medium">
+            In any case, the maximum liability of ApplyVietVisa.com shall not
+            exceed the total service fee paid by the customer for that
+            particular transaction.
           </p>
         </>
       ),
     },
     {
-      id: "processing-disclaimer",
-      title: "9. Processing Time Disclaimer",
+      id: "disclaimer",
+      title: "V. Disclaimer",
       content: (
-        <>
-          <p className="mb-4">
-            Processing times provided on our Website are **estimated times
-            only**. Actual approval times depend entirely on the Vietnam
-            Immigration Department and may vary due to:
-          </p>
-          <ul className="list-disc list-inside ml-4 space-y-1 text-gray-700">
-            <li>National holidays</li>
-            <li>System maintenance or technical delays</li>
-            <li>High application volume</li>
-            <li>Security or document verification procedures</li>
-          </ul>
-          <p className=" flex items-start gap-3 p-4 font-semibold mt-4 bg-blue-50 rounded-lg border border-blue-200">
-            <AlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-2" />
-            <span>
-              ApplyVietVisa **does not guarantee processing speed** and shall
-              not be held liable for any delay.
-            </span>
-          </p>
-        </>
+        <p className="mb-4">
+          ApplyVietVisa.com is not responsible for delays, rejections, or
+          changes in government processing. Visa issuance is at the sole
+          discretion of the Vietnamese authorities. Use of our services does not
+          guarantee visa approval.
+        </p>
+      ),
+    },
+    {
+      id: "intellectual-property",
+      title: "VI. Intellectual Property",
+      content: (
+        <p className="mb-4">
+          All content, graphics, and materials on ApplyVietVisa.com are owned by
+          us. Unauthorized use, reproduction, or redistribution is strictly
+          prohibited.
+        </p>
+      ),
+    },
+    {
+      id: "governing-law",
+      title: "VII. Governing Law",
+      content: (
+        <p className="mb-4">
+          These Terms are governed by the laws of Vietnam. Any disputes shall be
+          resolved at the People’s Court of Ho Chi Minh City, Vietnam.
+        </p>
       ),
     },
   ];

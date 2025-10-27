@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -162,7 +163,8 @@ export const Footer = () => {
                   to="#"
                   className="text-gray-400 hover:text-blue-400 transition-colors text-sm"
                 >
-                  123 Travel Blvd, Suite 400 Global City, GT 54321
+                  1st Floor, Vietphone Building, 64 Nguyen Dinh Chieu, Da Kao
+                  Ward, District 1, Ho Chi Minh City, Vietnam
                 </Link>
               </li>
               <li>
@@ -170,16 +172,28 @@ export const Footer = () => {
                   to="#"
                   className="text-gray-400 hover:text-blue-400 transition-colors text-sm"
                 >
-                  Email: info@evisa.com
+                  Email: contact@book247.vn
                 </Link>
               </li>
               <li>
-                <Link
-                  to="#"
+                <a
+                  href="tel:+84902378061"
+                  className="text-gray-400 hover:text-blue-400 transition-colors text-sm block"
+                >
+                  Tel 1: +84 902 378 061
+                </a>
+                <a
+                  href="tel:+84916310247"
+                  className="text-gray-400 hover:text-blue-400 transition-colors text-sm block"
+                >
+                  Tel 2: +84 916 310 247
+                </a>
+                <a
+                  href="tel:+842836227747"
                   className="text-gray-400 hover:text-blue-400 transition-colors text-sm"
                 >
-                  Phone: +1 (234) 567-890
-                </Link>
+                  Tel 3: +84 28 36 227 747
+                </a>
               </li>
             </ul>
           </div>
@@ -192,64 +206,40 @@ export const Footer = () => {
           </p>
           <div className="flex justify-center space-x-4 mb-8">
             {/* Instagram */}
-            <Link
-              to="#"
-              className="text-gray-400 hover:text-pink-600 transition-colors bg-gray-800 p-2 rounded-full"
+            <a
+              href="tel:+842836227747"
+              className="w-[45px] h-[45px] rounded-full bg-[#25D366] flex items-center justify-center text-white no-underline"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.17 14.83a2.6 2.6 0 01-3.17 0c-1.43-1.43-2.6-2.6-2.6-2.6a2.6 2.6 0 010-3.17c1.43-1.43 2.6-2.6 2.6-2.6a2.6 2.6 0 013.17 0c1.43 1.43 2.6 2.6 2.6 2.6a2.6 2.6 0 010 3.17c-1.43 1.43-2.6 2.6-2.6 2.6zm-1.17-6.83a1 1 0 100-2 1 1 0 000 2z" />
-              </svg>
+              <FontAwesomeIcon icon="fa-solid fa-phone" />
+            </a>
+            <Link
+              to="viber://contact?number=+84902378061"
+              className="w-[45px] h-[45px] rounded-full bg-[#7360F2] flex items-center justify-center text-white no-underline"
+              title="Viber"
+            >
+              <FontAwesomeIcon icon="fa-brands fa-viber" />
             </Link>
-            {/* LinkedIn */}
             <Link
-              to="#"
-              className="text-gray-400 hover:text-blue-700 transition-colors bg-gray-800 p-2 rounded-full"
+              to="https://zalo.me/3317052262052888113"
+              className="w-[45px] h-[45px] rounded-full bg-[#0068FF] flex items-center justify-center text-white no-underline"
+              title="Zalo"
+              target="_blank"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.136-4 0v5.604h-3v-11h3v1.765c1.397-2.776 7-2.669 7 3.771v5.464z" />
-              </svg>
+              <img
+                src="https://www.book247.vn/wp-content/uploads/2022/04/Zalo.png"
+                alt=""
+                height="45"
+                className="rounded-2xl"
+                width="45"
+              />
             </Link>
-            {/* YouTube */}
             <Link
-              to="#"
-              className="text-gray-400 hover:text-red-600 transition-colors bg-gray-800 p-2 rounded-full"
+              to="https://wa.me/84902378061"
+              target="_blank"
+              className="w-[45px] h-[45px] rounded-full bg-[#25D366] flex items-center justify-center text-white no-underline"
+              title="WhatsApp"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path d="M19.615 3.184c-3.604-.265-11.233-.265-14.837 0C1.725 3.447 0 5.4 0 7.828v8.344C0 18.6 1.725 20.553 4.778 20.816c3.604.265 11.233.265 14.837 0 3.053-.263 4.778-2.216 4.778-4.644V7.828c0-2.428-1.725-4.381-4.778-4.644zM10.156 16.32V7.712l6.574 4.304-6.574 4.304z" />
-              </svg>
-            </Link>
-            {/* Facebook */}
-            <Link
-              to="#"
-              className="text-gray-400 hover:text-blue-600 transition-colors bg-gray-800 p-2 rounded-full"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path d="M12 2C6.477 2 2 6.477 2 12c0 5.084 3.791 9.351 8.75 9.923v-7.01h-2.5v-2.913h2.5V9.45c0-2.484 1.492-3.854 3.738-3.854 1.056 0 2.15.189 2.15.189v2.36h-1.205c-1.187 0-1.554.737-1.554 1.493v1.85h2.646l-.422 2.913h-2.224v7.01C18.209 21.351 22 17.084 22 12c0-5.523-4.477-10-10-10z" />
-              </svg>
+              <FontAwesomeIcon icon="fa-brands fa-whatsapp" />
             </Link>
           </div>
         </div>

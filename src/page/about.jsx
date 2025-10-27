@@ -70,7 +70,7 @@ export const About = () => {
                     Having seen many travelers face unnecessary delays and visa
                     rejections due to confusing requirements, missing documents,
                     or simple clerical errors, we created a service that offers
-                    <b>clarity, support, and peace of mind</b> during the visa
+                    <b> clarity, support, and peace of mind</b> during the visa
                     process.
                   </p>
                 </div>

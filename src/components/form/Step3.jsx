@@ -2,8 +2,15 @@ import { useEffect, useState } from "react";
 import axios from "../../axios/axios";
 import { ReviewRow } from "../ReviewRow";
 import { useSelector } from "react-redux";
+import { AlertCircle } from "lucide-react";
 
-export function Step3({ handlePrevStep, formData, totalFee, visaId }) {
+export function Step3({
+  handlePrevStep,
+  formData,
+  totalFee,
+  visaId,
+  exchangeRateUSD,
+}) {
   const [isLoading, setIsLoading] = useState(false);
   const [visa, setVisa] = useState({});
   const { user } = useSelector((state) => state.auth || "");
@@ -71,9 +78,9 @@ export function Step3({ handlePrevStep, formData, totalFee, visaId }) {
 
     try {
       const paymentUrl = await axios.get(
-        `/payment/checkout/?amount=${totalFee + 200000}&orderInfo=${
-          visa.public_id + "@" + visa.id
-        }&user=${user}`
+        `/payment/checkout/?amount=${
+          Number(totalFee) * Number(exchangeRateUSD)
+        }&orderInfo=${visa.public_id + "@" + visa.id}&user=${user}`
       );
       const { status, data } = paymentUrl.data;
       if (status === "success") {
@@ -209,10 +216,20 @@ export function Step3({ handlePrevStep, formData, totalFee, visaId }) {
                 <div className="rounded-lg border border-gray-100 bg-gray-50 p-6">
                   <dl className="flex items-center justify-between gap-4">
                     <dt className="text-base font-bold text-gray-900">
-                      Total Fee to Pay
+                      Total Fee to USD
                     </dt>
                     <dd className="text-xl font-extrabold text-custom">
-                      {formatCurrency(totalFee)}
+                      ${totalFee}
+                    </dd>
+                  </dl>
+                  <dl className="flex items-center justify-between gap-4">
+                    <dt className="text-base font-bold text-gray-900">
+                      Total Fee to VND
+                    </dt>
+                    <dd className="text-xl font-extrabold text-custom">
+                      {formatCurrency(
+                        Number(totalFee) * Number(exchangeRateUSD)
+                      )}
                     </dd>
                   </dl>
                 </div>
@@ -222,7 +239,7 @@ export function Step3({ handlePrevStep, formData, totalFee, visaId }) {
                 className="w-full rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6 lg:max-w-xl lg:p-8 lg:sticky lg:top-20 lg:self-start mt-8 sm:mt-0"
               >
                 <h2 className="text-2xl font-semibold mb-6">3. Payment</h2>
-                <div className="mb-6">
+                <div className="">
                   <p className="text-gray-600 mb-4">
                     Please confirm all information is correct before proceeding
                     to payment.
@@ -234,8 +251,18 @@ export function Step3({ handlePrevStep, formData, totalFee, visaId }) {
                   >
                     {isLoading
                       ? "Processing..."
-                      : `Proceed to Pay ${formatCurrency(totalFee)}`}
+                      : `Proceed to Pay ${formatCurrency(
+                          Number(totalFee) * Number(exchangeRateUSD)
+                        )}`}
                   </button>
+                  <p className="text-gray-700 leading-relaxed border-l-4 border-blue-500 bg-blue-50 p-3 rounded-md mt-6 flex">
+                    <AlertCircle className="w-5 h-5 text-custom flex-shrink-0 mt-1 mr-2" />
+                    By proceeding with the payment, you confirm that you have
+                    read and agreed to our Terms & Conditions and Refund Policy,
+                    and understand that ApplyVietVisa.com is not responsible for
+                    any travel-related costs or damages in case of visa
+                    rejection.
+                  </p>
                 </div>
               </form>
             </div>

@@ -8,6 +8,11 @@ import { Provider } from "react-redux";
 import { store } from "./features/store/store";
 import { AppWrapper } from "./admin/components/common/PageMeta";
 
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+
+library.add(fas, fab);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   // <React.StrictMode>

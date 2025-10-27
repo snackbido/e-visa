@@ -12,6 +12,7 @@ export function Step2({
   data,
   totalFee,
   isLoading,
+  exchangeRateUSD,
 }) {
   const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false);
   const [isCountryEmergencyDropdownOpen, setIsCountryEmergencyDropdownOpen] =
@@ -1154,7 +1155,11 @@ export function Step2({
             Total fee: <span className="text-custom">${totalFee}</span>
           </p>
           <p className="text-lg font-bold text-gray-600">
-            Equal to: {Math.round(totalFee * 25000).toLocaleString("en-US")} VND
+            Equal to:{" "}
+            {(Number(exchangeRateUSD) * Number(totalFee)).toLocaleString(
+              "en-US"
+            )}{" "}
+            VND
           </p>
         </div>
         <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">

@@ -57,16 +57,16 @@ export const VisaInformation = () => {
 
   return (
     <div className="min-h-screen p-4 sm:p-8">
-      <div className="lg:w-4/5 mx-auto bg-white shadow-3xl p-6 sm:p-4 lg:p-12">
+      <div className="xl:w-4/5 mx-auto bg-white shadow-3xl p-6 sm:p-4 lg:p-12">
         <header className=" mb-12">
-          <h1 className="text-4xl font-extrabold text-custom sm:text-6xl mb-4 leading-tight">
+          <h1 className="text-4xl font-extrabold sm:text-6xl mb-4 leading-tight">
             Your Essential Guide to Vietnam Visas
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl">
             Navigate the latest requirements for a smooth journey to Vietnam.
           </p>
           <p className="mt-2 text-sm text-red-500 font-medium">
-            **Disclaimer:** Always check with the official government portals
+            <b>Disclaimer:</b> Always check with the official government portals
             for the most current regulations before booking travel.
           </p>
         </header>
@@ -80,7 +80,7 @@ export const VisaInformation = () => {
               <h2 className="text-3xl font-bold text-gray-900 bg-gray-100 p-2 mb-8 border-l-4 border-custom pl-4">
                 Choose Your Entry Method
               </h2>
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
                 {visaOptions.map((option, index) => (
                   <VisaCard key={index} option={option} />
                 ))}
@@ -98,14 +98,14 @@ export const VisaInformation = () => {
                 <RequirementBox
                   icon="🛂"
                   title="Passport Validity"
-                  description="Must be valid for at least **six (6) months** beyond your planned date of entry."
+                  description="Must be valid for at least <b>six (6) months</b> beyond your planned date of entry."
                   bgColor="bg-red-50"
                   iconColor="text-red-500"
                 />
                 <RequirementBox
                   icon="🗈"
                   title="Blank Pages"
-                  description="You need a minimum of **one (1) blank visa page** in your passport for stamping."
+                  description="You need a minimum of <b>one (1) blank visa page</b> in your passport for stamping."
                   bgColor="bg-blue-50"
                   iconColor="text-blue-500"
                 />
@@ -165,9 +165,9 @@ export const VisaInformation = () => {
                 <p className="text-red-700 leading-relaxed">
                   Many travel agencies offer Vietnam visa services, often marked
                   up significantly. For the lowest cost and direct application,
-                  **always use the government's official E-visa portal**.
-                  Third-party agencies are **NOT** the government, even if they
-                  appear professional.
+                  always use the government's official E-visa portal.
+                  Third-party agencies are <b>NOT</b> the government, even if
+                  they appear professional.
                 </p>
                 <a
                   href="https://evisa.gov.vn/"
@@ -188,8 +188,8 @@ export const VisaInformation = () => {
 
         <footer className="text-center pt-8 border-t border-gray-300">
           <p className="text-sm text-gray-500">
-            Safe travels! We recommend starting your application at least **2
-            weeks** before your travel date.
+            Safe travels! We recommend starting your application at least{" "}
+            <b>2 weeks</b> before your travel date.
           </p>
         </footer>
       </div>

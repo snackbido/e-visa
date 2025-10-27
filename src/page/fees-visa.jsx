@@ -114,19 +114,20 @@ export const FeesVisa = () => {
                   </p>
                   <ul className="list-disc pl-5 space-y-1">
                     <li>
-                      **Single Fee:** The listed fee is the *only* payment
+                      <b>Single Fee:</b> The listed fee is the *only* payment
                       required for the official E-Visa.
                     </li>
                     <li>
-                      **Non-Refundable:** The fee is paid upfront and is **not**
+                      <b>Non-Refundable:</b> The fee is paid upfront and is{" "}
+                      <b>not</b>
                       refunded if the application is rejected.
                     </li>
                     <li>
-                      **Eligibility:** Available to citizens of 80 countries,
+                      <b>Eligibility:</b> Available to citizens of 80 countries,
                       typically for maximum 90 days.
                     </li>
                     <li>
-                      **No Stamping Fee:** You do *not* pay anything extra at
+                      <b>No Stamping Fee:</b> You do *not* pay anything extra at
                       the airport.
                     </li>
                   </ul>
@@ -210,9 +211,9 @@ export const FeesVisa = () => {
                     WARNING:
                   </p>
                   <p>
-                    VOA is **only** valid for travelers arriving by air at an
+                    VOA is <b>only</b> valid for travelers arriving by air at an
                     international Vietnamese airport. You must obtain the
-                    Approval Letter **before** you fly.
+                    Approval Letter <b>before</b> you fly.
                   </p>
                 </div>
               </div>
@@ -230,16 +231,16 @@ export const FeesVisa = () => {
               <div className="space-y-6">
                 <div className="p-4 rounded-lg bg-indigo-50 border border-indigo-200 shadow-sm">
                   <div className="flex items-center mb-2">
-                    <HandCoins className="w-6 h-6 text-indigo-600 mr-3" />
-                    <h3 className="font-bold text-lg text-indigo-800">
+                    <HandCoins className="w-6 h-6 text-custom mr-3" />
+                    <h3 className="font-bold text-lg text-custom">
                       The Government Fee (Fixed Cost)
                     </h3>
                   </div>
                   <p className="text-gray-700">
                     This is the amount set by the Ministry of Finance. For
-                    E-Visas, this is the **$25/$50 fee** paid online. For Visa
-                    On Arrival, this is the **Stamping Fee** paid in cash at the
-                    airport (e.g., $25 or $50).
+                    E-Visas, this is the <b>$25/$50 fee</b> paid online. For
+                    Visa On Arrival, this is the <b>Stamping Fee</b> paid in
+                    cash at the airport (e.g., $25 or $50).
                   </p>
                 </div>
 
@@ -251,10 +252,11 @@ export const FeesVisa = () => {
                     </h3>
                   </div>
                   <p className="text-gray-700">
-                    This is an administrative fee charged by **third-party
-                    agencies** for facilitating or expediting your application
-                    (applies to VOA pre-approval letters and agency-assisted
-                    E-Visas). This fee is highly variable and non-official.
+                    This is an administrative fee charged by{" "}
+                    <b>third-party agencies</b> for facilitating or expediting
+                    your application (applies to VOA pre-approval letters and
+                    agency-assisted E-Visas). This fee is highly variable and
+                    non-official.
                   </p>
                 </div>
               </div>

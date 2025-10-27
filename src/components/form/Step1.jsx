@@ -7,6 +7,7 @@ export function Step1({
   formData,
   setFormData,
   totalFee,
+  exchangeRateUSD,
 }) {
   const [selectedLetter, setSelectedLetter] = useState("");
   const [filteredCountries, setFilteredCountries] = useState([]);
@@ -259,31 +260,35 @@ export function Step1({
       </form>
       <div className="w-full sm:w-1/3 lg:w-1/4 p-6 sm:p-8 bg-blue-50 sm:bg-white sm:rounded-none rounded-xl sm:shadow-none shadow-lg flex-shrink-0">
         <div className="bg-white border border-blue-200 rounded-lg p-6 shadow-md">
-          {" "}
-          {/* Tạo hộp nổi bật */}
           <h3 className="text-lg font-semibold text-gray-800 border-b pb-3 mb-4">
             TOTAL FEES
           </h3>
-          {/* Mục phí dịch vụ */}
           <div className="flex justify-between items-center text-gray-600 text-sm mb-2">
             <span>Service Fee</span>
             <span className="font-medium">$65.00</span>
           </div>
-          {/* Mục phí chính phủ (Ví dụ) */}
           <div className="flex justify-between items-center text-gray-600 text-sm mb-4">
             <span>Number applicant</span>
-            <span className="font-medium">
-              {formData.applicants.length}
-            </span>
+            <span className="font-medium">{formData.applicants.length}</span>
           </div>
           <hr className="my-3 border-gray-200" />
           {/* Tổng phí */}
-          <div className="flex justify-between items-center text-xl font-bold text-gray-900 mt-4">
-            <span>TOTAL</span>
-            {/* Sử dụng một div để hiển thị tổng phí lớn, nổi bật */}
-            <span className="text-3xl text-red-600 font-extrabold">
-              ${totalFee}
-            </span>
+          <div className="font-bold text-gray-900 mt-4">
+            <div className="flex justify-between items-center">
+              <span>TOTAL</span>
+              <span className="text-xl text-red-600 font-extrabold">
+                ${totalFee}
+              </span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span>VND</span>
+              <span className="text-xl text-red-600 font-extrabold">
+                {Intl.NumberFormat("vi-VN", {
+                  style: "currency",
+                  currency: "VND",
+                }).format(Number(exchangeRateUSD) * Number(totalFee))}
+              </span>
+            </div>
           </div>
         </div>
 

@@ -146,7 +146,7 @@ const VisaRequirement = () => {
   };
 
   return (
-    <div className="min-h-screen p-4 sm:p-8">
+    <div className=" p-4 sm:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-white rounded-2xl">
@@ -166,7 +166,7 @@ const VisaRequirement = () => {
             pathways for international visitors to enter the country legally.
           </p>
           <div className="flex items-start gap-3 p-4 bg-blue-50 rounded-lg border border-blue-200">
-            <AlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+            <AlertCircle className="w-5 h-5 text-custom flex-shrink-0 mt-0.5" />
             <p className="text-sm text-gray-700">
               <span className="font-semibold">Important:</span> Visa rules
               change frequently. Verify current requirements with your nearest
@@ -178,7 +178,7 @@ const VisaRequirement = () => {
 
         <div className="flex flex-col lg:flex-row lg:space-x-8">
           {/* Visa Options */}
-          <div className="space-y-4 md:w-3/4">
+          <div className="space-y-4 lg:w-3/4">
             {visaOptions.map((option) => {
               const IconComponent = option.icon;
               const isExpanded = expandedSection === option.id;
@@ -224,7 +224,7 @@ const VisaRequirement = () => {
                         <ul className="space-y-2">
                           {option.content.requirements.map((req, idx) => (
                             <li key={idx} className="flex gap-3 text-gray-700">
-                              <span className="text-blue-600 font-bold flex-shrink-0">
+                              <span className="text-custom font-bold flex-shrink-0">
                                 •
                               </span>
                               <span>{req}</span>

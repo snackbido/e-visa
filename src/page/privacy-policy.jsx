@@ -12,8 +12,11 @@ const PrivacyPolicy = () => {
           <p className="mb-4">
             We may request certain personal details to provide visa processing
             or customer support services. This information can include your
-            **name, nationality, passport number, date of birth, travel dates,
-            and contact details** such as email address or phone number.
+            <b>
+              name, nationality, passport number, date of birth, travel dates,
+              and contact details
+            </b>{" "}
+            such as email address or phone number.
           </p>
           <p className="mb-4">
             Additionally, our system may automatically record non-personal
@@ -62,10 +65,12 @@ const PrivacyPolicy = () => {
       content: (
         <>
           <p className="mb-4">
-            All payment transactions on ApplyVietVisa.com are processed via
-            secure, **SSL-encrypted connections**. We **do not store your full
-            credit card information**; only partial details (e.g., last four
-            digits) may be kept for verification or refund purposes.
+            All payment transactions on{" "}
+            <a href="https://ApplyVietVisa.com">ApplyVietVisa.com</a> are
+            processed via secure, <b>SSL-encrypted connections</b>. We{" "}
+            <b>do not store your full credit card information</b>; only partial
+            details (e.g., last four digits) may be kept for verification or
+            refund purposes.
           </p>
           <p className="mb-4">
             We apply commercially reasonable measures to safeguard your
@@ -83,18 +88,19 @@ const PrivacyPolicy = () => {
       content: (
         <>
           <p className="mb-4">
-            Our website may use **cookies** and similar tracking tools to
+            Our website may use <b>cookies</b> and similar tracking tools to
             recognize returning visitors, analyze traffic, and enhance your
             experience. Cookies do not contain personal data; they simply store
             technical information about your visit.
           </p>
           <p className="mb-4">
-            You can choose to **disable cookies** through your browser settings,
-            but doing so may affect certain site features or performance.
+            You can choose to <b>disable cookies</b> through your browser
+            settings, but doing so may affect certain site features or
+            performance.
           </p>
           <p className="mb-4">
-            Third-party tools such as **Google Analytics** may also be used to
-            help us understand how visitors interact with our website. These
+            Third-party tools such as <b>Google Analytics</b> may also be used
+            to help us understand how visitors interact with our website. These
             third parties operate under their own privacy policies, which we
             encourage you to review.
           </p>
@@ -136,8 +142,8 @@ const PrivacyPolicy = () => {
         <p>
           We retain your personal data only for as long as necessary to fulfill
           the purposes described in this policy or as required by law. After
-          that period, your information will be **securely deleted or
-          anonymized**.
+          that period, your information will be{" "}
+          <b>securely deleted or anonymized</b>.
         </p>
       ),
     },
@@ -155,7 +161,7 @@ const PrivacyPolicy = () => {
             <li>Withdraw consent for processing (where applicable)</li>
           </ul>
           <p className="mt-4">
-            You can contact us at **contact@book247.vn** for any requests or
+            You can contact us at <b>contact@book247.vn</b> for any requests or
             inquiries regarding your data.
           </p>
         </>
@@ -167,7 +173,7 @@ const PrivacyPolicy = () => {
       content: (
         <p>
           ApplyVietVisa.com may include links to other websites for your
-          convenience. We are **not responsible** for the content or privacy
+          convenience. We are <b>not responsible</b> for the content or privacy
           practices of external sites. We recommend reviewing their policies
           before providing any personal information.
         </p>
@@ -228,12 +234,13 @@ const PrivacyPolicy = () => {
             {/* Main Content */}
             <main className="lg:w-3/4">
               <p className="text-gray-700 mb-8 leading-relaxed border-l-4 border-blue-500 pl-4 bg-blue-50 p-3 rounded-md">
-                At **ApplyVietVisa.com**, we respect and protect the privacy of
-                every visitor and customer who interacts with our website and
-                online services. This Privacy Policy explains how we may
-                collect, use, disclose, and protect your personal information
-                when you use our website or apply for visa-related services. By
-                using this site, you agree to the terms outlined below.
+                At <a href="https://ApplyVietVisa.com">ApplyVietVisa.com</a>, we
+                respect and protect the privacy of every visitor and customer
+                who interacts with our website and online services. This Privacy
+                Policy explains how we may collect, use, disclose, and protect
+                your personal information when you use our website or apply for
+                visa-related services. By using this site, you agree to the
+                terms outlined below.
               </p>
 
               <div className="space-y-10">
