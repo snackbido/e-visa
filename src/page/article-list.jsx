@@ -13,7 +13,7 @@ export const ArticleList = () => {
       setLoading(true);
       const { data } = await axios.get(`/blog/slug/${slug}`);
       if (data.status === "success") {
-        await new Promise((data) => setTimeout(data, 1500));
+        await new Promise((data) => setTimeout(data, 1000));
         setBlog(data.data);
         setArticles(data.data.articles);
         setLoading(false);

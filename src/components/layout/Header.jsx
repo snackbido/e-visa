@@ -60,7 +60,7 @@ export function Header({ currentUser, isLoading }) {
             Blog
           </Link>
           <Link
-            to="/about"
+            to="/about-us"
             className="text-gray-600 hover:text-custom transition-colors duration-200 font-medium"
           >
             About Us

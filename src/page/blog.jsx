@@ -12,7 +12,7 @@ export function Blog() {
       setLoading(true);
       const { data } = await axios.get("/blog");
       if (data.status === "success") {
-        await new Promise((data) => setTimeout(data, 1500));
+        await new Promise((data) => setTimeout(data, 1000));
         setBlog(data.data);
         setLoading(false);
       }
