@@ -531,7 +531,7 @@ export function Step2({
                 <p className="text-sm mt-1">
                   Photo of the person requesting an electronic visa (newly
                   taken, photo size 4x6 cm, .jpg, .jpeg format, size &lt;2MB,
-                  straight face, no hat, no glasses). Only upload 1 passport
+                  straight face, no hat, no glasses, white background). Only upload 1 passport
                   data page, upload clear photos, no lost corners.
                 </p>
               </div>
