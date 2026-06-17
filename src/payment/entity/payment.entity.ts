@@ -36,6 +36,15 @@ export class Payment {
   @Column()
   amount: number;
 
+  @Column()
+  payment_gate: string;
+
+  @Column()
+  payment_method: string;
+
+  @Column()
+  payment_id: string;
+
   @Column({ type: 'enum', enum: STATUS, default: STATUS.PENDING })
   status: STATUS;
 

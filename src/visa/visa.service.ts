@@ -9,6 +9,7 @@ import { UpdateVisaDto } from '@visa/visa/dto/update-visa.dto';
 import { CloudinaryService } from '@visa/utils/cloudinary/cloudinary.service';
 import crypto from 'crypto';
 import { In } from 'typeorm';
+import { Cron, CronExpression } from '@nestjs/schedule';
 
 @Injectable()
 export class VisaService {
@@ -292,9 +293,9 @@ export class VisaService {
     return 'No visas needed to be expired.';
   }
 
-  // @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT) // Chạy lúc 00:00 mỗi ngày
-  // async handleCron() {
-  //   // console.log('Running expiry check...');
-  //   await this.checkAndExpireVisas();
-  // }
+  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT) // Chạy lúc 00:00 mỗi ngày
+  async handleCron() {
+    // console.log('Running expiry check...');
+    await this.checkAndExpireVisas();
+  }
 }

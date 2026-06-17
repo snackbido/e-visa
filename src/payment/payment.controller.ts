@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { PaymentService } from '@visa/payment/payment.service';
 import { PaymentDto } from '@visa/payment/dto/payment.dto';
-import { Payment } from '@visa/payment/entity/payment.entity';
+import { Payment, STATUS } from '@visa/payment/entity/payment.entity';
 import { JwtAuthGuard } from '@visa/auth/auth.guard';
 import { RolesGuard } from '@visa/auth/role.guard';
 import { Roles } from '@visa/auth/roles.decorator';
@@ -30,33 +30,28 @@ export class PaymentController {
   }
 
   @Get('checkout')
-  createPayment(@Ip() ip: string, @Query() query: any) {
+  initialPayment(@Ip() ip: string, @Query() query: any) {
     const amount = Number(query.amount); // default 25k VND
     const orderInfo = query.orderInfo;
     const clientIp = ip || '127.0.0.1';
     const user = query.user;
-    return this.paymentService.buildPaymentUrl({
+    return this.paymentService.initializePayment({
       amount,
-      orderInfo,
-      clientIp,
-      user,
+      user_id: user,
+      visa_id: orderInfo,
+      payment_gate: 'ONEPAY',
+      payment_method: 'INTERNATIONAL',
+      customer_ip: clientIp,
+      status: STATUS.PENDING,
+      transaction_no: '',
+      public_id: '',
     });
   }
 
-  @Get('return')
-  handleReturn(@Query() query: Record<string, any>) {
-    return this.paymentService.handleReturn(query);
-  }
-
-  @Post('ipn')
-  handleIpn(
-    @Body() body: Record<string, any>,
-    @Query() query: Record<string, any>,
-  ) {
-    const params = { ...query, ...body };
-
-    return this.paymentService.handleIpn(params);
-  }
+  // @Get('return')
+  // handleReturn(@Query() query: Record<string, any>) {
+  //   return this.paymentService.handleReturn(query);
+  // }
 
   @Post()
   async create(@Body() paymentDto: PaymentDto): Promise<string> {

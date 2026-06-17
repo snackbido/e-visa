@@ -14,10 +14,16 @@ export class PaymentDto {
   @IsOptional()
   status: STATUS;
 
+  @IsString()
+  payment_gate?: string;
+
+  @IsString()
+  payment_method?: 'INTERNATIONAL' | 'DOMESTIC' | 'QR' | 'BNPL';
+
   @IsOptional()
   card_number?: string;
 
-  @IsOptional()
+  @IsString()
   transaction_no: string;
 
   @IsOptional()
@@ -28,4 +34,7 @@ export class PaymentDto {
 
   @IsString()
   public_id: string;
+
+  @IsOptional()
+  customer_ip?: string;
 }
