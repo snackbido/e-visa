@@ -7,7 +7,6 @@ import {
   sortObj,
 } from '@visa/helper/onepay.helper';
 import * as querystring from 'querystring';
-import * as crypto from 'crypto';
 
 export type PaymentMethodType = 'INTERNATIONAL' | 'DOMESTIC' | 'QR' | 'BNPL';
 
@@ -51,24 +50,6 @@ export class OnePayService {
     this.hostName =
       configService.get<string>('ONEPAY_HOST_NAME') ?? 'mtf.onepay.vn';
   }
-  buildDataForHash(params: Record<string, any>): string {
-    const keys = Object.keys(params)
-      .filter(
-        (k) =>
-          (k.startsWith('vpc_') || k.startsWith('user_')) &&
-          k !== 'vpc_SecureHash',
-      )
-      .sort();
-
-    return keys.map((k) => `${k}=${params[k]}`).join('&');
-  }
-
-  computeSecureHash(data: string, hexKey: string): string {
-    const hmac = crypto.createHmac('sha256', Buffer.from(hexKey, 'hex'));
-    hmac.update(data);
-
-    return hmac.digest('hex').toUpperCase();
-  }
 
   init({
     paymentId,
@@ -77,11 +58,11 @@ export class OnePayService {
     customerId,
     customerIp,
     paymentMethod,
-    locale = 'vn',
+    locale = 'en',
   }: InitOnepayType): InitPaymentResult {
     const vpc_MerchTxnRef = paymentId; // unique when send request
     const vpc_OrderInfo = orderInfo; // description about order
-    const vpc_Amount = String(amount + '00'); // amount of money (length = 12) add 00 before send request
+    const vpc_Amount = String(amount * 100); // amount of money (length = 12) add 00 before send request
     const vpc_TicketNo = customerIp; // customer's ip
     const vpc_CardList = paymentMethod; // type of payment (international, domestic or qr ...)
     const vpc_Customer_Id = customerId; // customer's id
@@ -103,6 +84,8 @@ export class OnePayService {
       Title: 'Evisa',
       vpc_Customer_Id: vpc_Customer_Id,
     };
+
+    console.log(requestData);
 
     const sortedParam = sortObj(requestData);
     const stringToHash = generateStringToHash(sortedParam);

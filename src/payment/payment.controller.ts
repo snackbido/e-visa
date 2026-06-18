@@ -6,12 +6,11 @@ import {
   Get,
   Ip,
   Post,
-  Query,
+  Put,
   UseGuards,
 } from '@nestjs/common';
 import { PaymentService } from '@visa/payment/payment.service';
-import { PaymentDto } from '@visa/payment/dto/payment.dto';
-import { Payment, STATUS } from '@visa/payment/entity/payment.entity';
+import { Payment } from '@visa/payment/entity/payment.entity';
 import { JwtAuthGuard } from '@visa/auth/auth.guard';
 import { RolesGuard } from '@visa/auth/role.guard';
 import { Roles } from '@visa/auth/roles.decorator';
@@ -29,23 +28,32 @@ export class PaymentController {
     return await this.paymentService.getPayments();
   }
 
-  @Get('checkout')
-  initialPayment(@Ip() ip: string, @Query() query: any) {
-    const amount = Number(query.amount); // default 25k VND
-    const orderInfo = query.orderInfo;
+  @Post('checkout')
+  async initialPayment(@Ip() ip: string, @Body() body: any) {
+    const amount = Number(body.amount); // default 25k VND
+    const orderInfo = body.visa_id;
     const clientIp = ip || '127.0.0.1';
-    const user = query.user;
-    return this.paymentService.initializePayment({
+    const user = body.user_id;
+    return await this.paymentService.initializePayment({
       amount,
       user_id: user,
       visa_id: orderInfo,
-      payment_gate: 'ONEPAY',
-      payment_method: 'INTERNATIONAL',
+      payment_gate: body.payment_gate,
+      payment_method: body.payment_method,
       customer_ip: clientIp,
-      status: STATUS.PENDING,
-      transaction_no: '',
-      public_id: '',
     });
+  }
+
+  @Put('verify')
+  async verifyPayment(@Body() body: any) {
+    const merchTxnRef = body.merchTxnRef as string;
+    const paymentGate = body.paymentGate as string;
+    const orderInfo = body.orderInfo as string;
+    return await this.paymentService.verifyPayment(
+      merchTxnRef,
+      paymentGate,
+      orderInfo,
+    );
   }
 
   // @Get('return')
@@ -53,8 +61,8 @@ export class PaymentController {
   //   return this.paymentService.handleReturn(query);
   // }
 
-  @Post()
-  async create(@Body() paymentDto: PaymentDto): Promise<string> {
-    return await this.paymentService.createPayment(paymentDto);
-  }
+  // @Post()
+  // async create(@Body() paymentDto: PaymentDto): Promise<string> {
+  //   return await this.paymentService.createPayment(paymentDto);
+  // }
 }

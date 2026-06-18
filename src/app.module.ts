@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { Module } from '@nestjs/common';
 import { AppController } from '@visa/app.controller';
 import { AppService } from '@visa/app.service';
@@ -12,6 +14,9 @@ import { RedisCachedModule } from '@visa/utils/cached/redis.module';
 import { CloudinaryModule } from '@visa/utils/cloudinary/cloudinary.module';
 import { BlogModule } from '@visa/blog/blog.module';
 import { ArticleModule } from '@visa/articles/article.module';
+import { QueueModule } from '@visa/utils/queue/queue.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { NotificationModule } from '@visa/notification/notification.module';
 
 @Module({
   imports: [
@@ -26,6 +31,9 @@ import { ArticleModule } from '@visa/articles/article.module';
     ArticleModule,
     CloudinaryModule,
     RedisCachedModule,
+    QueueModule,
+    EventEmitterModule.forRoot({ global: true }),
+    NotificationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

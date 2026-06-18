@@ -1,56 +1,64 @@
+import { User } from '@visa/user/entity/user.entity';
 import { Visa } from '@visa/visa/entity/visa.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 export enum STATUS {
-  PENDING = 'pending',
-  PAID = 'paid',
-  FAILED = 'failed',
+  PENDING = 'PENDING',
+  CANCELED = 'CANCELED',
+  PAID = 'PAID',
+  FAILED = 'FAILED',
+  EXPIRED = 'EXPIRED',
 }
 
 @Entity()
 export class Payment {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Column()
-  user_id: string;
+  user_id!: string;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
+  user!: User;
 
   @OneToOne(() => Visa, (visa) => visa.payment, {
     cascade: true,
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'visa_id' })
-  visa: Visa;
+  visa!: Visa;
 
   @Column()
-  visa_id: string;
+  visa_id!: string;
 
   @Column()
-  amount: number;
+  amount!: number;
 
   @Column()
-  payment_gate: string;
+  payment_gate!: string;
 
   @Column()
-  payment_method: string;
+  payment_method!: string;
 
   @Column()
-  payment_id: string;
+  payment_id!: string;
 
   @Column({ type: 'enum', enum: STATUS, default: STATUS.PENDING })
-  status: STATUS;
+  status!: STATUS;
 
   @CreateDateColumn()
-  created_at: Date;
+  created_at!: Date;
 
   @UpdateDateColumn()
-  updated_at: Date;
+  updated_at!: Date;
 }
