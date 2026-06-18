@@ -3,6 +3,7 @@ import axios from "../../axios/axios";
 import { ReviewRow } from "../ReviewRow";
 import { useSelector } from "react-redux";
 import { AlertCircle } from "lucide-react";
+import { initialPayment } from "../../services/payment";
 
 export function Step3({
   handlePrevStep,
@@ -77,16 +78,17 @@ export function Step3({
     setIsLoading(true);
 
     try {
-      const paymentUrl = await axios.get(
-        `/payment/checkout/?amount=${
-          Number(totalFee) * Number(exchangeRateUSD)
-        }&orderInfo=${visa.public_id + "@" + visa.id}&user=${user}`
+      console.log(user, visa.id);
+      const res = await initialPayment(
+        Number(totalFee) * Number(exchangeRateUSD),
+        user,
+        visa.id,
       );
-      const { status, data } = paymentUrl.data;
+      const { status, data } = res;
       if (status === "success") {
         setTimeout(() => {
           setIsLoading(false);
-          window.location.href = data.url;
+          window.location.href = data.paymentUrl;
         }, 2000);
       }
     } catch (error) {
@@ -125,7 +127,7 @@ export function Step3({
                     <ReviewRow
                       label="Processing Time"
                       value={getProcessingTimeLabel(
-                        formData.step1.processingTime
+                        formData.step1.processingTime,
                       )}
                     />
                     <ReviewRow
@@ -228,7 +230,7 @@ export function Step3({
                     </dt>
                     <dd className="text-xl font-extrabold text-custom">
                       {formatCurrency(
-                        Number(totalFee) * Number(exchangeRateUSD)
+                        Number(totalFee) * Number(exchangeRateUSD),
                       )}
                     </dd>
                   </dl>
@@ -252,7 +254,7 @@ export function Step3({
                     {isLoading
                       ? "Processing..."
                       : `Proceed to Pay ${formatCurrency(
-                          Number(totalFee) * Number(exchangeRateUSD)
+                          Number(totalFee) * Number(exchangeRateUSD),
                         )}`}
                   </button>
                   <p className="text-gray-700 leading-relaxed border-l-4 border-blue-500 bg-blue-50 p-3 rounded-md mt-6 flex">
