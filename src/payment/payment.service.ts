@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-enum-comparison */
 import {
   BadRequestException,
@@ -86,19 +84,26 @@ export class PaymentService {
         throw new BadRequestException('Payment gate not found');
     }
 
-    await this.paymentRepository.update(
-      { payment_id: paymentId },
-      { status: verifyResult.status as STATUS },
-    );
+    // await this.paymentRepository.update(
+    //   { payment_id: paymentId },
+    //   { status: verifyResult.status as STATUS },
+    // );
 
     const payment = await this.paymentRepository.findOne({
       where: { payment_id: paymentId },
       relations: {
         user: true,
+        visa: true,
       },
       select: {
         user: {
           email: true,
+          first_name: true,
+          last_name: true,
+        },
+        visa: {
+          id: true,
+          public_id: true,
         },
       },
     });
@@ -109,6 +114,9 @@ export class PaymentService {
       );
     }
 
+    payment.status = verifyResult.status as STATUS;
+    await this.paymentRepository.save(payment);
+
     const eventPayload = { payment, orderInfo };
 
     switch (verifyResult.status) {
@@ -116,7 +124,7 @@ export class PaymentService {
         this.eventEmitter.emit('payment.success', eventPayload);
         break;
       case STATUS.CANCELED:
-        this.eventEmitter.emit('payment.canceled', eventPayload);
+        this.eventEmitter.emit('payment.cancel', eventPayload);
         break;
       case STATUS.EXPIRED:
         this.eventEmitter.emit('payment.expired', eventPayload);

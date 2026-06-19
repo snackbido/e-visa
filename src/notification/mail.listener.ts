@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { Injectable, Logger } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 import { InjectQueue } from '@nestjs/bull';
@@ -6,7 +5,7 @@ import bull from 'bull';
 import { Payment } from '@visa/payment/entity/payment.entity';
 
 interface PaymentEventPayload {
-  transaction: Payment;
+  payment: Payment;
   orderInfo: string;
 }
 
@@ -20,10 +19,10 @@ export class PaymentListener {
 
   @OnEvent('payment.success')
   async handlePaymentSuccess(payload: PaymentEventPayload): Promise<void> {
-    const { transaction } = payload;
+    const { payment } = payload;
 
     this.logger.log(
-      `Bắt được sự kiện thanh toán thành công cho mã GD: ${transaction.payment_id}`,
+      `Bắt được sự kiện thanh toán thành công cho mã GD: ${payment.payment_id}`,
     );
 
     await this.mailQueue.add('send-success-mail', payload, {
@@ -35,13 +34,42 @@ export class PaymentListener {
 
   @OnEvent('payment.fail')
   async handlePaymentFail(payload: PaymentEventPayload): Promise<void> {
-    const { transaction } = payload;
-
+    const { payment } = payload;
     this.logger.log(
-      `Bắt được sự kiện thanh toán thất bại cho mã GD: ${transaction.payment_id}`,
+      `Bắt được sự kiện thanh toán thất bại cho mã GD: ${payment.payment_id}`,
     );
 
     await this.mailQueue.add('send-fail-mail', payload, {
+      attempts: 3,
+      backoff: 5000,
+      removeOnComplete: true,
+    });
+  }
+
+  @OnEvent('payment.cancel')
+  async handlePaymentCancel(payload: PaymentEventPayload): Promise<void> {
+    const { payment } = payload;
+
+    this.logger.log(
+      `Bắt được sự kiện hủy thanh toán cho mã GD: ${payment.payment_id}`,
+    );
+
+    await this.mailQueue.add('send-cancel-mail', payload, {
+      attempts: 3,
+      backoff: 5000,
+      removeOnComplete: true,
+    });
+  }
+
+  @OnEvent('payment.expired')
+  async handlePaymentExpired(payload: PaymentEventPayload): Promise<void> {
+    const { payment } = payload;
+
+    this.logger.log(
+      `Bắt được sự kiện thanh toán hết hạn cho mã GD: ${payment.payment_id}`,
+    );
+
+    await this.mailQueue.add('send-expired-mail', payload, {
       attempts: 3,
       backoff: 5000,
       removeOnComplete: true,

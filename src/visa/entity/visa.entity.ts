@@ -22,31 +22,31 @@ export enum VISA_STATUS {
 @Entity()
 export class Visa {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Column()
-  first_name: string;
+  first_name!: string;
 
   @Column()
-  last_name: string;
+  last_name!: string;
 
   @Column()
-  email: string;
+  email!: string;
 
   @Column()
-  phone_number: string;
+  phone_number!: string;
 
   @Column()
-  country_code: string;
+  country_code!: string;
 
   @Column()
-  date_of_arrival: string;
+  date_of_arrival!: string;
 
   @Column()
-  arrival_border: string;
+  arrival_border!: string;
 
   @Column('json')
-  applicant: {
+  applicant!: {
     [key: string]: {
       passport_name: string;
       passport_number: string;
@@ -57,25 +57,25 @@ export class Visa {
   };
 
   @Column()
-  nationality: string;
+  nationality!: string;
 
   @Column()
-  number_of_visa: number;
+  number_of_visa!: number;
 
   @Column()
-  time_of_visa: string;
+  time_of_visa!: string;
 
   @Column()
-  type_of_visa: string;
+  type_of_visa!: string;
 
   @Column()
-  processing_time: string;
+  processing_time!: string;
 
   @Column()
-  purpose_of_visit: string;
+  purpose_of_visit!: string;
 
   @Column({ type: 'enum', enum: VISA_STATUS, default: VISA_STATUS.WAIT })
-  status: VISA_STATUS;
+  status!: VISA_STATUS;
 
   @ManyToOne(() => User, (user) => user.visa, {
     cascade: true,
@@ -83,25 +83,25 @@ export class Visa {
     onUpdate: 'CASCADE',
   })
   @JoinColumn({ name: 'user_id' })
-  user: User;
+  user!: User;
 
   @Column()
-  user_id: string;
+  user_id!: string;
 
   @OneToOne(() => Payment, (payment) => payment.visa)
-  payment: Payment;
+  payment!: Payment;
 
   @Column({ default: '0' })
-  is_active: string;
+  is_active!: string;
 
   @Column({
     unique: true,
     nullable: false,
   })
-  public_id: string;
+  public_id!: string;
 
   @Column('json')
-  emergency_contact: {
+  emergency_contact!: {
     full_name: string;
     relationship: string;
     phone_number: string;
@@ -109,8 +109,8 @@ export class Visa {
   };
 
   @CreateDateColumn()
-  created_at: Date;
+  created_at!: Date;
 
   @UpdateDateColumn()
-  updated_at: Date;
+  updated_at!: Date;
 }

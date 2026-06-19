@@ -23,7 +23,7 @@ type InitOnepayType = {
 export interface InitPaymentResult {
   paymentUrl: string;
 }
-export type PaymentStatus = 'SUCCESS' | 'CANCELED' | 'EXPIRED' | 'ERROR';
+export type PaymentStatus = 'PAID' | 'CANCELED' | 'EXPIRED' | 'FAILED';
 
 export interface VerifyPaymentResult {
   status: PaymentStatus;
@@ -43,7 +43,7 @@ export class OnePayService {
   constructor(private configService: ConfigService) {
     this.accessCode = configService.get<string>('ACCESS_CODE') ?? '';
     this.merchant = configService.get<string>('MERCHANT') ?? '';
-    this.returnUrl = configService.get<string>('RETURN_URL_PROD') ?? '';
+    this.returnUrl = configService.get<string>('RETURN_URL') ?? '';
     this.hashKey = configService.get<string>('HASH_KEY') ?? '';
     this.user = configService.get<string>('ONEPAY_USER') ?? '';
     this.password = configService.get<string>('ONEPAY_PASSWORD') ?? '';
@@ -58,7 +58,7 @@ export class OnePayService {
     customerId,
     customerIp,
     paymentMethod,
-    locale = 'en',
+    locale = 'vn',
   }: InitOnepayType): InitPaymentResult {
     const vpc_MerchTxnRef = paymentId; // unique when send request
     const vpc_OrderInfo = orderInfo; // description about order
@@ -84,8 +84,6 @@ export class OnePayService {
       Title: 'Evisa',
       vpc_Customer_Id: vpc_Customer_Id,
     };
-
-    console.log(requestData);
 
     const sortedParam = sortObj(requestData);
     const stringToHash = generateStringToHash(sortedParam);
@@ -140,25 +138,24 @@ export class OnePayService {
       const dataResponse = Object.fromEntries(responseParams.entries());
 
       const txnResponseCode = responseParams.get('vpc_TxnResponseCode');
-
       if (isValidSecureHash) {
         switch (txnResponseCode) {
           case '0':
-            return { status: 'SUCCESS', data: dataResponse };
+            return { status: 'PAID', data: dataResponse };
           case '99':
             return { status: 'CANCELED', data: dataResponse };
           case '253':
             return { status: 'EXPIRED', data: dataResponse };
           default:
-            return { status: 'ERROR', data: dataResponse };
+            return { status: 'FAILED', data: dataResponse };
         }
       }
 
-      return { status: 'ERROR', data: dataResponse };
+      return { status: 'FAILED', data: dataResponse };
     } catch (error) {
       console.error('Verify Payment Error:', error);
       return {
-        status: 'ERROR',
+        status: 'FAILED',
         data: {
           message: error instanceof Error ? error.message : 'Unknown Error',
         },

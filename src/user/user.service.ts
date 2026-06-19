@@ -27,7 +27,7 @@ export class UserService {
   }
 
   async getAllUsers(): Promise<User[]> {
-    const users = await this.userRepository.find();
+    const users = await this.userRepository.find({ relations: ['visa'] });
 
     if (users.length <= 0) throw new NotFoundException('User does not exist');
 

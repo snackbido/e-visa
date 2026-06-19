@@ -17,5 +17,6 @@ import { CloudinaryModule } from '@visa/utils/cloudinary/cloudinary.module';
   ],
   controllers: [VisaController],
   providers: [VisaService, VisaRepository, RedisService],
+  exports: [VisaService],
 })
 export class VisaModule {}

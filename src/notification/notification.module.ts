@@ -1,21 +1,21 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bull';
 import { MailProcessor } from './mail.procesor';
 import { PaymentListener } from './mail.listener';
-import { EmailService } from '@visa/utils/email/email.service';
+import { VisaModule } from '@visa/visa/visa.module';
+import { EmailModule } from '@visa/utils/email/email.module';
 
 @Module({
   imports: [
     BullModule.registerQueue({
       name: 'mail-queue',
     }),
+    VisaModule,
+    EmailModule,
   ],
   providers: [
     PaymentListener,
     MailProcessor,
-    EmailService,
     // MailService
   ],
 })

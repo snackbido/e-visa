@@ -156,33 +156,35 @@ export class VisaService {
   async update(
     id: string,
     visaDto: UpdateVisaDto,
-    files: Array<Express.Multer.File>,
+    files?: Array<Express.Multer.File>,
   ): Promise<string> {
     if (Array.isArray(visaDto.applicant)) {
-      for (let index = 0; index < visaDto.applicant.length; index++) {
-        const applicantDto = visaDto.applicant[index];
+      if (files) {
+        for (let index = 0; index < visaDto.applicant.length; index++) {
+          const applicantDto = visaDto.applicant[index];
 
-        const avatarFieldName = `applicant[${index}][avatar]`;
-        const passportFieldName = `applicant[${index}][passport_image]`;
+          const avatarFieldName = `applicant[${index}][avatar]`;
+          const passportFieldName = `applicant[${index}][passport_image]`;
 
-        const avatarFile = files.find((f) => f.fieldname === avatarFieldName);
-        if (avatarFile) {
-          const result = await this.cloudinaryService.uploadImage(
-            avatarFile,
-            'visa',
+          const avatarFile = files.find((f) => f.fieldname === avatarFieldName);
+          if (avatarFile) {
+            const result = await this.cloudinaryService.uploadImage(
+              avatarFile,
+              'visa',
+            );
+            applicantDto.avatar = result.secure_url;
+          }
+
+          const passportFile = files.find(
+            (f) => f.fieldname === passportFieldName,
           );
-          applicantDto.avatar = result.secure_url;
-        }
-
-        const passportFile = files.find(
-          (f) => f.fieldname === passportFieldName,
-        );
-        if (passportFile) {
-          const result = await this.cloudinaryService.uploadImage(
-            passportFile,
-            'visa',
-          );
-          applicantDto.passport_image = result.secure_url;
+          if (passportFile) {
+            const result = await this.cloudinaryService.uploadImage(
+              passportFile,
+              'visa',
+            );
+            applicantDto.passport_image = result.secure_url;
+          }
         }
       }
     }

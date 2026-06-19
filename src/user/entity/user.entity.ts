@@ -16,35 +16,35 @@ export enum ROLES {
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Column()
-  first_name: string;
+  first_name!: string;
 
   @Column()
-  last_name: string;
+  last_name!: string;
 
   @Column()
-  email: string;
+  email!: string;
 
   @Column({ nullable: true, default: '' })
-  phone_number: string;
+  phone_number!: string;
 
   @Column({ nullable: true })
-  nationality: string;
+  nationality!: string;
 
   @Column()
-  password: string;
+  password!: string;
 
   @OneToMany(() => Visa, (visa) => visa.user)
-  visa: Visa[];
+  visa!: Visa[];
 
   @Column({ type: 'enum', enum: ROLES, default: ROLES.USER })
-  role: ROLES;
+  role!: ROLES;
 
   @CreateDateColumn()
-  created_at: Date;
+  created_at!: Date;
 
   @UpdateDateColumn()
-  updated_at: Date;
+  updated_at!: Date;
 }
