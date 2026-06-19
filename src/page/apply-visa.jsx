@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { Step1 } from "../components/form/Step1";
 import { Step2 } from "../components/form/Step2";
 import { Step3 } from "../components/form/Step3";
-import api from "../axios/axios";
 import countries from "../data.json";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { createVisa, updateVisa } from "../services/visa";
 
 export function ApplyVisa({ user }) {
   const [currentStep, setCurrentStep] = useState(1);
@@ -173,11 +173,11 @@ export function ApplyVisa({ user }) {
     formData.applicants.forEach((applicant, index) => {
       body.append(
         `applicant[${index}][passport_name]`,
-        applicant.passport_name
+        applicant.passport_name,
       );
       body.append(
         `applicant[${index}][passport_number]`,
-        applicant.passport_number
+        applicant.passport_number,
       );
       body.append(`applicant[${index}][gender]`, applicant.gender);
       if (applicant.avatar) {
@@ -186,7 +186,7 @@ export function ApplyVisa({ user }) {
       if (applicant.passport_image) {
         body.append(
           `applicant[${index}][passport_image]`,
-          applicant.passport_image
+          applicant.passport_image,
         );
       }
     });
@@ -195,9 +195,9 @@ export function ApplyVisa({ user }) {
       let response;
 
       if (visaId) {
-        response = await api.patch(`/visa/${visaId}`, body);
+        response = await updateVisa(`/visa/${visaId}`, body);
       } else {
-        response = await api.post("/visa", body);
+        response = await createVisa(body);
         setVisaId(response.data.data.id);
       }
 

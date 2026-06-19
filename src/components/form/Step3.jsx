@@ -78,7 +78,6 @@ export function Step3({
     setIsLoading(true);
 
     try {
-      console.log(user, visa.id);
       const res = await initialPayment(
         Number(totalFee) * Number(exchangeRateUSD),
         user,
