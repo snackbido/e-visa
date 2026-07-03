@@ -198,10 +198,10 @@ export function ApplyVisa({ user }) {
         response = await updateVisa(`/visa/${visaId}`, body);
       } else {
         response = await createVisa(body);
-        setVisaId(response.data.data.id);
+        setVisaId(response.data.id);
       }
 
-      if (response.data.status === "success") {
+      if (response.status === "success") {
         setIsLoading(false);
         window.location.hash = "step=3";
       } else {
@@ -210,7 +210,7 @@ export function ApplyVisa({ user }) {
       }
     } catch (error) {
       toast.error(error);
-      console.error("API call to /visa failed:", error);
+      console.error("API call to /visa failed:", error.message);
     } finally {
       // reset loading state...
     }

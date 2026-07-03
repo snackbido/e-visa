@@ -195,7 +195,7 @@ export function Step2({
     return String(email)
       .toLowerCase()
       .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
       );
   };
 
@@ -246,7 +246,7 @@ export function Step2({
   };
 
   const filteredCountries = data.filter((country) =>
-    country.name.toLowerCase().includes(searchTerm.toLowerCase())
+    country.name.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   useEffect(() => {
@@ -351,7 +351,7 @@ export function Step2({
           } is required.`;
           if (!firstErrorId) {
             const baseId = field.name.replace(/_([a-z])/g, (g) =>
-              g[1].toUpperCase()
+              g[1].toUpperCase(),
             );
             firstErrorId = `${baseId}-${index}`;
           }
@@ -531,8 +531,9 @@ export function Step2({
                 <p className="text-sm mt-1">
                   Photo of the person requesting an electronic visa (newly
                   taken, photo size 4x6 cm, .jpg, .jpeg format, size &lt;2MB,
-                  straight face, no hat, no glasses, white background). Only upload 1 passport
-                  data page, upload clear photos, no lost corners.
+                  straight face, no hat, no glasses, white background). Only
+                  upload 1 passport data page, upload clear photos, no lost
+                  corners.
                 </p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -1063,7 +1064,7 @@ export function Step2({
                   className="flex items-center justify-center px-4 text-sm text-gray-700 border-r border-gray-300 rounded-l-lg focus:outline-none"
                   onClick={() =>
                     setIsCountryEmergencyDropdownOpen(
-                      !isCountryEmergencyDropdownOpen
+                      !isCountryEmergencyDropdownOpen,
                     )
                   }
                   disabled={formData.info.emergency_relationship === "None"}
@@ -1157,7 +1158,7 @@ export function Step2({
           <p className="text-lg font-bold text-gray-600">
             Equal to:{" "}
             {(Number(exchangeRateUSD) * Number(totalFee)).toLocaleString(
-              "en-US"
+              "en-US",
             )}{" "}
             VND
           </p>

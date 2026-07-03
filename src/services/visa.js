@@ -6,7 +6,6 @@ export const createVisa = async (data) => {
     if (res.data.status !== "success") {
       throw new Error("An occurred error when create visa");
     }
-
     return res.data;
   } catch (error) {
     throw error;
