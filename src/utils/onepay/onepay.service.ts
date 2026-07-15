@@ -66,7 +66,6 @@ export class OnePayService {
     const vpc_TicketNo = customerIp; // customer's ip
     const vpc_CardList = paymentMethod; // type of payment (international, domestic or qr ...)
     const vpc_Customer_Id = customerId; // customer's id
-
     const requestData = {
       vpc_Version: '2',
       vpc_Currency: 'VND',
